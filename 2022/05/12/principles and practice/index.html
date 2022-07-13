@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>访问控制 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="访问控制看作计算机安全的核心元素，计算机安全主要目标是防止非授权用户获得对资源的访问，防止合法用户以非授权方式访问资源，使得合法用户以授权方式访问资源
+
+
+
+
+访问控制安全要求
+
+
+
+限制信息系统对授权用户、代表授权用户的进程或设备(包括其他信息系统)的访问
+
+
+限制信息系统对各种类型的事务和授权用">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="访问控制"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 访问控制</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>访问控制看作计算机安全的核心元素，计算机安全主要目标是防止非授权用户获得对资源的访问，防止合法用户以非授权方式访问资源，使得合法用户以授权方式访问资源</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>访问控制安全要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>限制信息系统对授权用户、代表授权用户的进程或设备(包括其他信息系统)的访问</td>
+</tr>
+<tr>
+<td>限制信息系统对各种类型的事务和授权用户允许执行功能的访问</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>派生的安全要求 SP 800-171</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在非联邦信息系统和组织中保护可控的未分类信息，2016年12月 美国国家标准技术研究所（NIST），美国商务部</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="访问控制原理"><a href="#访问控制原理" class="headerlink" title="访问控制原理"></a>访问控制原理</h3><p><code>mermaid flowchart LR   A[] --&gt; d1 </code></p>
+<h3 id="访问控制策略"><a href="#访问控制策略" class="headerlink" title="访问控制策略"></a>访问控制策略</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自主访问控制 (discretionary access control,DAC)</td>
+<td>基于请求者的身份和访问规则（授权）控制访问，规定请求者可以或不可以做什么。</td>
+</tr>
+<tr>
+<td>强制访问控制 (mandatory access control,MAC)</td>
+<td>通过比较具有安全许可（表明系统实体有资源访问某种资源）的安全标记（表明系统资源的敏感或关键程度）来访问</td>
+</tr>
+<tr>
+<td>基于角色的访问控制 (role-based access control,RBAC)</td>
+<td>基于用户在系统中所具有的角色和说明各种角色享有哪些访问权的规则来控制访问</td>
+</tr>
+<tr>
+<td>基于属性的访问控制 (attribute-based access control,ABAC)</td>
+<td>基于用户、被访问资源及当前环境条件来控制访问</td>
+</tr>
+</tbody></table>
+<h3 id="访问控制元素"><a href="#访问控制元素" class="headerlink" title="访问控制元素"></a>访问控制元素</h3><table>
+<thead>
+<tr>
+<th>主体（能够访问客体的实体）</th>
+<th>客体（object，是外界对其访问受到控制的资源）</th>
+<th>访问权（access right,描述主体可以访问客体的方式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>所有者（owener，资源的创建者）</td>
+<td>实例包含记录、块（block）、页、段（segment）、部分文件、目录等</td>
+<td>读（复制或打印能力）&#x2F;写（添加、修改、删除系统资源）</td>
+</tr>
+<tr>
+<td>组（group，除去分配给所有者的特权）</td>
+<td>访问控制包含比特、字节、字、处理器、通信端口、时钟、网络节点</td>
+<td>执行（用户可以执行指定的程序）&#x2F;删除（用户可以删除某个系统资源）</td>
+</tr>
+<tr>
+<td>世界（world，被授予最少访问的用户）</td>
+<td>被访问控制系统保护的客体的数量和类型取决于访问控制运行的环境及在安全性方面与复杂性、处理器负载、易用性方面之间期望达到的平衡</td>
+<td>创建（创建新的文件、记录或字段）&#x2F;搜索（列出目录中的文件或搜索目录）</td>
+</tr>
+</tbody></table>
+<h2 id="discretionary-access-control-DAC"><a href="#discretionary-access-control-DAC" class="headerlink" title="discretionary access control,DAC"></a>discretionary access control,DAC</h2><h2 id="mandatory-access-control-MAC"><a href="#mandatory-access-control-MAC" class="headerlink" title="mandatory access control,MAC"></a>mandatory access control,MAC</h2><h2 id="role-based-access-control-RBAC"><a href="#role-based-access-control-RBAC" class="headerlink" title="role-based access control,RBAC"></a>role-based access control,RBAC</h2><h2 id="attribute-based-access-control-ABAC"><a href="#attribute-based-access-control-ABAC" class="headerlink" title="attribute-based access control,ABAC"></a>attribute-based access control,ABAC</h2>	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/RED_01/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/ip_hiding/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

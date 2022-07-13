@@ -1,0 +1,668 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>身份认证特征底层逻辑 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="user authenticate身份识别就是用户向系统声称其身份的方法；用户认证则是建立该声称的有效做法
+
+用户通过呈现一个凭证（例如用户）来识别自身以登录系统
+系统通过交换认证信息来核实用户身份
+
+data user authenticate pulic
+
+
+
+基本安全需求
+
+
+
+1. 识别信息">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="身份认证特征底层逻辑"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 身份认证特征底层逻辑</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="user-authenticate"><a href="#user-authenticate" class="headerlink" title="user authenticate"></a>user authenticate</h1><p><strong>身份识别就是用户向系统声称其身份的方法；用户认证则是建立该声称的有效做法</strong></p>
+<ul>
+<li>用户通过呈现一个凭证（例如用户）来识别自身以登录系统</li>
+<li>系统通过交换认证信息来核实用户身份</li>
+</ul>
+<h2 id="data-user-authenticate-pulic"><a href="#data-user-authenticate-pulic" class="headerlink" title="data user authenticate pulic"></a>data user authenticate pulic</h2><hr>
+<table>
+<thead>
+<tr>
+<th>基本安全需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 识别信息系统用户，以用户的名义执行的进程，或设备</td>
+</tr>
+<tr>
+<td>2. 认证这些用户、进程或设备的身份，作为允许访问组织信息系统的先决条件</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>派生的安全需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3. 使用多因素身份验证进行本地和网络的特权账户访问，以及非特权账户的网络访问</td>
+</tr>
+<tr>
+<td>4. 对特权和非特权账户的网络当问采用防重放认证机制</td>
+</tr>
+<tr>
+<td>5. 防止在定义的时间段内重用标识符</td>
+</tr>
+<tr>
+<td>6. 在创建新口令时强制最小口令复杂度并更改字符</td>
+</tr>
+<tr>
+<td>7. 禁止在规定的代（generation）数内重用口令</td>
+</tr>
+<tr>
+<td>8. 允许临时口令用于系统登录，但需立即更改为永久口令</td>
+</tr>
+<tr>
+<td>9. 允许临时口令用于系统登录，但需立即更改为永久口令</td>
+</tr>
+<tr>
+<td>10. 仅存储和传输密码保护的口令</td>
+</tr>
+<tr>
+<td>11. 认证信息的模糊化反馈</td>
+</tr>
+</tbody></table>
+<hr>
+<p><em><strong>用户认证的风险评估</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>置信等级</th>
+<th>潜在影响</th>
+<th>风险范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>等级1：几乎或完全不信任待证实身份的合法性</td>
+<td>FIPS 199（联邦信息和信息系统安全分类标准）</td>
+<td>参考各置信等级下的最大的潜在影响</td>
+</tr>
+<tr>
+<td>等级2：部分提供待证实身份的合法性</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>等级3：高度信任待证实身份的合法性</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>等级4：极其高度地信任待证实身份的合法性</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="password-based-authentication"><a href="#password-based-authentication" class="headerlink" title="password based authentication"></a>password based authentication</h2><p>基于口令认证系统中，都会维护着一个以用户ID作为索引的口令文件</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>口令攻击策略</th>
+<th>口令攻击对策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>离线字典攻击（获取系统口令文件将其中的口令散列值与通常所用口令的散列值进行比较）</td>
+<td>防止非授权访问口令文件；使用入侵检测技术对危及安全的行为进行识别；对口令文件中的不安全口令进行重新设置等</td>
+</tr>
+<tr>
+<td>特定账户攻击（不断对特定账户猜测口令，知道发现口令）</td>
+<td>设置不超过5次</td>
+</tr>
+<tr>
+<td>常用口令攻击（用一个常用口令对大量的用户ID进行尝试）</td>
+<td>禁止用户选择常用口令、对认证请求者的IP地址和用户提交模式的cookie进行扫描</td>
+</tr>
+<tr>
+<td>单用户口令猜测（攻击者试图获得账户拥有者信息和系统口令保护策略）</td>
+<td>训练并加强口令比阿虎策略以及使用户口令难于猜测</td>
+</tr>
+<tr>
+<td>工作站劫持</td>
+<td>工作站处于动态时采用自动注销机制&#x2F;也可同时使用入侵检测方案对用户行为变化进行检测</td>
+</tr>
+<tr>
+<td>利用用户疏漏（如果是由系统分配口令，那么用户通常会把分配的口令记录下来）</td>
+<td>包括用户培训、入侵检测、使用口令与其他认证机制的组合认证等</td>
+</tr>
+<tr>
+<td>口令重复利用</td>
+<td>禁止特定的网络设备相同或相近的口令</td>
+</tr>
+<tr>
+<td>电子监视</td>
+<td>简单加密不足以解决电子监视问题，本质上依旧是口令</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="use-hash-function"><a href="#use-hash-function" class="headerlink" title="use hash function"></a>use hash function</h3><p>“hash function” and “sale value”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sale value ：</span><br><span class="line">1、防止复制的口令在口令文件中可见</span><br><span class="line">2、增加离线口令字典攻击的难度</span><br><span class="line">3、攻击者几乎不可能发现一个用户是否在两个或更多的系统中使用了相同的口令</span><br></pre></td></tr></table></figure>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th>UNIX 操作系统</th>
+<th>威胁存在</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>口令破解器</td>
+<td>（在某台机器上用户可以通过guest账户或其他方法获得系统的访问权，然后运行口令猜测程序）</td>
+</tr>
+<tr>
+<td>口令拷贝文件</td>
+<td>如果攻击者能够得到一份口令额外你家爱你的拷贝，这个攻击者也可能会在另一台计算机上运行口令破解程序</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>UNIX( crypt(3) )</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DES</td>
+<td>（64位全0数据块）软件实现慢于硬件实现</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>（类似于SHA-1，但性能慢）</td>
+</tr>
+<tr>
+<td>openBSD</td>
+<td>基于Blowfish对称分组密码的散列函数（Bcrypt）</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>破解口令</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>口令猜测</td>
+<td>开发一个庞大的口令字典并使用其中的每个口令文件进行尝试</td>
+</tr>
+<tr>
+<td>预计潜在的散列值（以预计算潜在的散列值，以空间代价来换取）</td>
+<td>对于口令字典中的每个口令，攻击者都要根据“sale value”进行散列运算，产生巨大的散列表为‘raindow table’</td>
+</tr>
+<tr>
+<td>硬件和算法</td>
+<td>马尔可夫模型显著减少口令空间的大小[TIMM10&#x2F;WETR09–&gt; KELL12&#x2F;ZHAN10]</td>
+</tr>
+</tbody></table>
+<hr>
+<p>口令文件访问策略：一种阻止口令攻击的方法是拒绝对手访问口令文件</p>
+<ul>
+<li>散列后的口令保存在与用户ID分离的单独文件，影子口令文件（shadow password file）</li>
+</ul>
+<hr>
+<p>口令选择策略：</p>
+<ol>
+<li>用户教育</li>
+<li>计算机生成口令</li>
+<li>后验口令检查（FIPS 181）</li>
+<li>先验口令检查（Jack the Ripper）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">先验口令检查的方法：</span><br><span class="line"></span><br><span class="line">1、构造一个实施规则的简单系统（—NISP SP 800—63-3</span><br><span class="line">2、口令检查器（空间和时间复杂度较高）【pam_passwdqcc】</span><br><span class="line">3、bloom 过滤器（不在口令字典中的口令被拒绝的概率是很小的，在采用概率技术进行算法设计时，求解时间较少或求解过程比较简单）</span><br></pre></td></tr></table></figure>
+
+<h3 id="Token-based-authentication"><a href="#Token-based-authentication" class="headerlink" title="Token based authentication"></a>Token based authentication</h3><p><em><strong>NIST SP 800-12（计算机安全入门：NIST手册，1995-10）</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>卡的类型</th>
+<th>定义的特征</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>凹凸卡</td>
+<td>卡的正面凸印的字符</td>
+<td>老式信用卡</td>
+</tr>
+<tr>
+<td>磁条卡</td>
+<td>卡的背面有磁条，正面有字符</td>
+<td>银行卡</td>
+</tr>
+<tr>
+<td>存储卡</td>
+<td>卡的内部有电子存储单元</td>
+<td>预付电话卡</td>
+</tr>
+<tr>
+<td>智能卡</td>
+<td>卡内有电子存储单元和处理器</td>
+<td>生物特征ID卡</td>
+</tr>
+<tr>
+<td>接触式</td>
+<td>表面有电子触点</td>
+<td>生物特征ID卡</td>
+</tr>
+<tr>
+<td>非接触式</td>
+<td>内部嵌有无线电通信装置</td>
+<td>生物特征ID卡</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>存储卡</th>
+<th>智能卡</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需要特殊的读卡器（读卡器需要软件和硬件来支持安全性）</td>
+<td>物理特征（嵌入式微处理器）</td>
+</tr>
+<tr>
+<td>令牌丢失（获取PIN就可以执行非授权的访问）</td>
+<td>用户接口（人机接口包括键盘区和显示设备）</td>
+</tr>
+<tr>
+<td>用户不满意（运用在计算机系统中，肯定不方便）</td>
+<td>电子接口（智能卡或其他令牌通常需要配电子接口，用于读取或写入装置通信[接触式 and 非接触式]）</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>静态协议</th>
+<th>动态口令生成器</th>
+<th>挑战-应答协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首先完成自己对令牌的认证，之后令牌完成计算机对用户的认证</td>
+<td>自动生成口令</td>
+<td>计算机系统产生一个挑战信号，基于挑战信号的应答信号</td>
+</tr>
+</tbody></table>
+<hr>
+<p><em><strong>智能卡：完整的微处理器（处理器、内存、输入&#x2F;输出端口组成）</strong></em><br><em><strong>智能卡包含存储器：只读存储器（ROM）存储的数据在整个智能卡的生命周期都不会变化、电子可擦写可编程存储器（EEPROM）存储应用程序和数据、随机存取存储器（RAM）则保存应用程序执行时的临时数据</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">   ATR --&gt; PTS交涉协议 --&gt; PTS交涉应答 --&gt; 命令APDU --&gt; 响应APDU</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>APDU（应用协议数据单元）、 ATR（对复位信号的应答） 、PTS（协议类型选择）</strong></em></p>
+<h3 id="Electronic-ID-card"><a href="#Electronic-ID-card" class="headerlink" title="Electronic ID card"></a>Electronic ID card</h3><p>电子身份证应用的德国电子身份证（neuer Personalausweis）:</p>
+<ul>
+<li>个人信息</li>
+<li>文档编号</li>
+<li>卡片接入很好</li>
+<li>机器读卡区</li>
+</ul>
+<p>电子身份证的功能：</p>
+<ol>
+<li>ePass是存储标识持有者身份的数字信息（必须在智能卡嗓门实现）</li>
+<li>eID是政府和商业的各种应用中通用</li>
+<li>eSign是存储私钥和用于验证私钥的证书，用于生成持有人的数字签名</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>目的</th>
+<th>PACE（口令认证连接设施）命令</th>
+<th>数据</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ePass（强制）</td>
+<td>授权的离线检测系统读取数据</td>
+<td>CAN（卡片接入号） or MRZ（机器读卡区）</td>
+<td>面部特征;两个指纹图像；MRZ数据</td>
+<td>用于专为政府部门保留的离线生物特征进行身份验证</td>
+</tr>
+<tr>
+<td>eID（可选激活）</td>
+<td>在线应用读取数据或访问授权功能 &#x2F; 离线检测系统读取数据并更新住址和社区ID</td>
+<td>eID PIN &#x2F; eID PIN</td>
+<td>姓名、艺名等</td>
+<td>身份证明、年龄验证、社区ID验证、受限的身份证明等</td>
+</tr>
+<tr>
+<td>eSign（可选证书）</td>
+<td>认证在线安装签名证书 &#x2F; 公民利用eSign的PIN生成数字签名</td>
+<td>eID PIN &#x2F; CAN</td>
+<td>数字签名密钥，X.509证书</td>
+<td>数字签名生成</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>用户认证 eID 在线应用例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line"></span><br><span class="line">user -&gt;&gt; user: 1.用户请求</span><br><span class="line">user -&gt;&gt; system server: 2.服务请求</span><br><span class="line">system server -&gt;&gt; user: 3.重定向到eID消息</span><br><span class="line">user -&gt;&gt; eID server: 4.认证请求</span><br><span class="line">eID server -&gt;&gt; user: 5.PIN请求</span><br><span class="line">user --&gt; user: 6.用户输入PIN</span><br><span class="line">user --&gt; eID server: 7.认证协议交互</span><br><span class="line">eID server -&gt;&gt; user: 8.用于重定向的认证结果</span><br><span class="line">user -&gt;&gt; system server: 9.转发认证结果</span><br><span class="line">system server -&gt;&gt; user: 10.服务授权</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>生物特征认证系统：</strong></p>
+<p><em><strong>1.注册</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em><strong>2.验证</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; D[特征匹配器] --&gt; true/false</span><br><span class="line">     C --&gt; |一个模版| d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em><strong>3.识别</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; D[特征匹配器] --&gt; 用户身份/未识别用户</span><br><span class="line">     C --&gt; |N个模版| d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="remote-user-authentication"><a href="#remote-user-authentication" class="headerlink" title="remote user authentication"></a>remote user authentication</h3><ul>
+<li>口令协议：随机数作为函数可以抵御重放攻击</li>
+<li>令牌协议、静态生物特征认证协议、动态生物特征认证协议</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>攻击</th>
+<th>认证手段</th>
+<th>实例</th>
+<th>典型防范措施</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>客户端攻击</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>口令猜解，穷举搜索&#x2F;穷举搜索&#x2F;虚假匹配</td>
+<td>提高熵、限制尝试次数</td>
+</tr>
+<tr>
+<td>主机攻击</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>窃取明文，字典，穷举搜索&#x2F;窃取验证码&#x2F;窃取模版</td>
+<td>采取散列函数、提高熵、保护口令数据库&#x2F;使用一次性验证码&#x2F;挑战-应答协议</td>
+</tr>
+<tr>
+<td>窃听、盗窃和复制</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>肩窥&#x2F;盗窃，伪造硬件&#x2F;复制生物特征</td>
+<td>多因素认证&#x2F;使用防止篡改的令牌&#x2F;管理员及时更换易破解的口令&#x2F;提高用户保密意识</td>
+</tr>
+<tr>
+<td>重放</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>重访窃取的口令响应信息&#x2F;重访被窃取的认证码响应信息&#x2F;重访被窃取的生物特征模板响应信息</td>
+<td>挑战-应答协议&#x2F;一次性验证码</td>
+</tr>
+<tr>
+<td>特洛伊木马</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>安装窃听软件或信息截获设备</td>
+<td>客户端认证或采取安全可信的采集装备</td>
+</tr>
+<tr>
+<td>拒绝服务</td>
+<td>口令&#x2F;令牌&#x2F;生物特征</td>
+<td>通过多次失败的认证将用户锁定</td>
+<td>带令牌的多因素认证</td>
+</tr>
+</tbody></table>
+<p><strong>生物特征认证案例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A0[虹膜认证工作站0] --&gt; B[局域网交换机]</span><br><span class="line">     A1[虹膜认证工作站1] --&gt; B[局域网交换机]</span><br><span class="line">     A2[虹膜认证工作站2] --&gt; B[局域网交换机]</span><br><span class="line">     E0[虹膜认证引擎0] --&gt; B</span><br><span class="line">     E1[虹膜认证引擎1] --&gt; B</span><br><span class="line">     C[虹膜数据库] --&gt; B</span><br><span class="line">     D[网络交换机] --&gt; C</span><br><span class="line">     F[虹膜合并远程操作] --&gt; D</span><br></pre></td></tr></table></figure>
+
+<p><strong>ATM系统的安全案例：</strong></p>
+<ul>
+<li>持卡人：拥有借记卡的个人</li>
+<li>发卡机构：发行借记卡给持卡人的机构</li>
+<li>处理商：为发卡机构提供核心数据处理、电子转账以及其他服务的组织机构</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[Internet] --&gt; B[发卡机构]</span><br><span class="line">    B --&gt; D[处理商] --&gt; E[EFT交换]</span><br><span class="line">    C[发卡机构拥有ATM] --&gt; D</span><br><span class="line">    E --&gt; D</span><br><span class="line">    D --&gt; F[发卡机构的内部网络]</span><br><span class="line">    F --&gt; A</span><br><span class="line">    F --&gt; C</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/copy/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/c2c/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

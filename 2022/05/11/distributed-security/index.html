@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>分布式系统 V1.0 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="分布式系统安全性可以粗略划分为：1、不同机器上的用户或进程之间的通信，主要是通过安全通道机制，更准确的是身份认知、消息完整性以及机密性的构建策略2、用于确保进程只获得授予它的对分布式系统内资源的访问权限
+其次我在考虑分布式系统安全性范型从自顶向下进行探索性知识实验，了解分布式系统安全性体系结构有助于">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="分布式系统 V1.0"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 分布式系统 V1.0</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>分布式系统安全性可以粗略划分为：<br>1、不同机器上的用户或进程之间的通信，主要是通过安全通道机制，更准确的是身份认知、消息完整性以及机密性的构建策略<br>2、用于确保进程只获得授予它的对分布式系统内资源的访问权限</p>
+<p>其次我在考虑分布式系统安全性范型从自顶向下进行探索性知识实验，了解分布式系统安全性体系结构有助于帮助举一反三的看待诸多开源中间件等具有分布式特性的项目。</p>
+<h1 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h1><h3 id="安全性-1"><a href="#安全性-1" class="headerlink" title="安全性"></a>安全性</h3><p>可靠性包括可用性、可信赖性、安全性、可维护性以及计算机的机密性、完整性</p>
+<ul>
+<li>机密性是可以让系统凭借此属性使得信息只向授权用户公开</li>
+<li>完整性是可以让系统的变更只能以授权的方式进行</li>
+</ul>
+<h3 id="安全威胁"><a href="#安全威胁" class="headerlink" title="安全威胁"></a>安全威胁</h3><p>同时安全性也是我们试图需要保护该系统所提供的服务和数据不受到安全威胁，主要的安全威胁是：<br>1、窃听：未经授权的用户获得一项服务或数据的访问权限<br>2、中断：服务或数据变得难以获取、不能使用、被破坏等情况<br>3、修改：数据未经授权的改变或篡改<br>4、伪造：产生通常不存在附加数据或活动的情况</p>
+<h3 id="安全策略与安全机制"><a href="#安全策略与安全机制" class="headerlink" title="安全策略与安全机制"></a>安全策略与安全机制</h3><ul>
+<li>安全策略：准确地描述系统中的实体（包括用户、机器、服务、数据等）能够采取以及不能采取的行为</li>
+<li>安全机制：加密、身份认证、授权、审计</li>
+</ul>
+<p>1、加密将数据转换为一些攻击不能理解的形式同时加密实现一种实现机密性的方式<br>2、身份认证用于检验用户、客户、服务器等所声明的身份<br>3、用于追踪各个客户的访问内容以及访问方式，虽然审计并不真正提供任何防止安全威胁的保护，但是审计记录对安全破坏的分析以及随后采取措施防止入侵攻击。</p>
+<h1 id="安全体系结构"><a href="#安全体系结构" class="headerlink" title="安全体系结构"></a>安全体系结构</h1><ul>
+<li>用户代理：即为一个进程，系统允许该进程在有限的一段时间内代表用户进行操作</li>
+<li>资源代理：即为在指定域内运行一个进程，用于将一个资源上的全局操作转换为遵循特定网域的安全策略的局部操作</li>
+</ul>
+<p>Globus安全体系结构为例：<br><img src="/josyaaa/.image/1-1.png" alt="1-1"></p>
+<h1 id="分布式安全设计问题"><a href="#分布式安全设计问题" class="headerlink" title="分布式安全设计问题"></a>分布式安全设计问题</h1><h2 id="控制的焦点"><a href="#控制的焦点" class="headerlink" title="控制的焦点"></a>控制的焦点</h2><p><img src="/josyaaa/./image/1-2.png" alt="1-2"></p>
+<ul>
+<li>a方法就是把注意力集中式的对于应用程序相关联的数据保护（数据的完整性）</li>
+<li>b方法就是把注意力集中式的对于访问特定数据或资源时，通过明确指定可以调用的操作以及操作由谁来完成进行保护（控制焦点与访问控制机制相关）</li>
+<li>c方法就是把注意力集中式的对于用户，通过采取一些措施使得只有指定的人可以访问该应用程序，而不考虑其执行的操作来实现（控制焦点在于定义用户的角色）</li>
+</ul>
+<h2 id="安全机制分层"><a href="#安全机制分层" class="headerlink" title="安全机制分层"></a>安全机制分层</h2><p>安全系统设计的一个重要问题就是决定将安全机制放置在哪一层面，如下图所示通用服务与通信服务分离开来，安全机制放置在哪一层面取决于客户对特定层中服务的安全程度所具有的信任度，还是要更具不同软件产品的特定所定制不同的安全机制。</p>
+<p><img src="/josyaaa/./distributed-security/1-3.png" alt="1-3"></p>
+<p>信任服务导致的信任计算库（TCB），TCB是一个分布式系统中所有安全机制的集合，这些机制用于执行一个安全策略，TCB越小越好。</p>
+<h2 id="简洁性"><a href="#简洁性" class="headerlink" title="简洁性"></a>简洁性</h2><p>简单性有助于最终用户对应用程序投入信任，更重要的是使设计者确信系统没有重大的安全漏洞。</p>
+<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><ul>
+<li>分布式系统的基本安全措施是使用加密技术但是以密文传输消息时存在三种需要我们防止的不同攻击：</li>
+</ul>
+<p><img src="/josyaaa/./distributed-security/1-4.png" alt="1-4"></p>
+<p>1、入侵者通过在发送方或接收方都不知道的情况下进行窃听<br>2、修改经过适当加密的密文则困难的多，因为在进行针对性地修改消息前，入侵者首先必须对该消息进行解密<br>3、入侵者向通信系统中插入加密过的消息</p>
+<ul>
+<li>加密系统之间存在基本的区别是加密与解密密钥是否相同，主要的加密算法如下：<br>1、DES算法（使用分析方法难以破解算法当然使用暴力破解是可以被破解的，但是在一个具有不同密钥的特殊加密-解密-加密模式中三次使用DES更为安全）在被128位的Rijindael算法数据库取代的过程中。<br>2、RSA算法，RSA来自即没有任何已知的方法能够有效的找到大数的素因子，破解RSA的过程其实就是在寻找私钥和公钥的最大素数。<br>3、MD5算法</li>
+</ul>
+<h1 id="安全通道"><a href="#安全通道" class="headerlink" title="安全通道"></a>安全通道</h1><h2 id="分布式系统的安全性本质上是要回归三个主题："><a href="#分布式系统的安全性本质上是要回归三个主题：" class="headerlink" title="分布式系统的安全性本质上是要回归三个主题："></a>分布式系统的安全性本质上是要回归三个主题：</h2><p>1、如何使客户与服务器之间的通信保持安全，安全通信需要对通信各方进行身份认证，同时还要确保消息的完整性和机密性，同时也要考虑保护一组服务器内的通信<br>客户-服务器通信可以认为是在通信各方之间建立一个安全通道问题，保护消息免受窃听确保机密性完成、安全通道可确保入侵者不能窃听其消息</p>
+<p>2、服务器一旦接受来自客户的请求，它将如何查明该客户是否得到授权使请求得以执行<br>身份认证和消息完整性相互之间不能脱离开，要确保进行身份认证之后交换的数据消息的完整性，常见的方法是依靠会话密钥使用密钥加密。会话密钥是一个共享密钥，用于完整性和可能的机密性而对消息进行加密。</p>
+<ul>
+<li><p>基于共享密钥的身份认证（质询-询问协议）<br><img src="/josyaaa/./distributed-security/png8.png" alt="png8"></p>
+</li>
+<li><p>基于密钥分发中心的身份认证（可扩展性）</p>
+</li>
+</ul>
+<p>3、安全通道如何提供对消息完整性和机密性的保证，完整性是保护消息免受修改，机密性是确保消息不能被截获和读取消息。</p>
+<ul>
+<li>消息完整性通常超过安全通道中的实际传输的范畴（a[保证消息不会恶意更改]、b[消息的可溯源记录]）&#x3D;&#x3D;&gt;”数字签名”</li>
+<li>&#x3D;&#x3D;&gt;”会话密钥”即是在身份认证阶段完成后，通信各方一般使用唯一的共享会话密钥实现机密性使用与建立安全通道所用密钥相同的密钥。<br>会话密钥的基本思想就是如果入侵者能够窃听许多使用同一密钥加密的数据，就有可能发动攻击以得到密钥的某些特征，并有可能发现明文或该密钥本身。替代解决方法是在每对组成员之间使用各自的共享密钥，但是使用公钥加密系统可以解决这个问题即每个成员有其自己的（公钥、私钥）对，其中所有成员都可用该公钥发送机密消息。</li>
+</ul>
+<p>4、安全的复制服务器（一个客户向一组复制服务器发出请求）</p>
+<ul>
+<li>这种情况下可能服务器可能已经由于容错性或性能的原因进行了复制但是客户总会希望期望响应具有可信机制。</li>
+<li>类似与byzantine故障的方法：<br>1、收集来自所有服务器的响应并对每个服务器进行身份认证（违反了复制的透明度），安全和透明的复制服务器的本质在于称为秘密共享的特性<br><img src="/josyaaa/./distributed-security/png9.png" alt="png9"></li>
+</ul>
+<h2 id="kerberos安全系统"><a href="#kerberos安全系统" class="headerlink" title="kerberos安全系统"></a>kerberos安全系统</h2><p><img src="/josyaaa/./distributed-security/png10.png" alt="png10"></p>
+<ul>
+<li>身份认证服务器（负责处理来自用户的登陆请求，但是建立安全通道是有TGS处理的）和票据授予服务（服务确信客户正是其所声称的客户）</li>
+</ul>
+<h1 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h1><p>一般情况是一个对象服务器控制很多对象，客户发送的请求一般都包含对特定对象方法的调用，所以这样的请求需要调用具有足够的访问权限。</p>
+<ul>
+<li>检验访问权限为访问控制</li>
+<li>授权是关于授予访问权限</li>
+</ul>
+<h2 id="访问控制中常见的问题"><a href="#访问控制中常见的问题" class="headerlink" title="访问控制中常见的问题"></a>访问控制中常见的问题</h2><p>访问控制的一般模型：<br><img src="/josyaaa/./distributed-security/png11.png" alt="png11"></p>
+<ul>
+<li>访问控制矩阵</li>
+</ul>
+<p><img src="/josyaaa/./distributed-security/png12.png" alt="png12"></p>
+<p>矩阵中的许多项将是空的，因为单个主体一般可以访问相对较少的对象。</p>
+<p>1、让每个对象保存一个希望访问该对象的主体访问权限表，即访问控制表（ACL）<br>2、以行方向分布该矩阵，通过为每个主体赋予一个其对每个对象所拥有的权能列表</p>
+<ul>
+<li>保护域</li>
+</ul>
+<p>通过忽略所有空项，ACL和权能可以有效访问控制矩阵，采取进一步措施ACL或权能列表仍可能变得非常大，所以缩小ACL普通方式就是利用保护域<br>1、构造用户组<br>2、引入分层组<br>3、让访问监控程序完成所有工作的方式，是让每个主体携带一个证书，列出所属的群组（数字签名技术）<br>4、基于角色实现保护域<br>5、基于操作将对象分组</p>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p><img src="/josyaaa/./distributed-security/png13.png" alt="png13"></p>
+<ul>
+<li><p>数据包过滤网关：基于数据包报头中包含的源地址和目的地址制定关于是否传送一个网络数据包的决定</p>
+</li>
+<li><p>应用层网关：仅检查网络数据包报头的数据包过滤网关，实质上是检查防火墙实际出入站的消息内容</p>
+</li>
+<li><p>代理网关：属于应用层网关的变形，作为指定类型的应用程序的前端工作，并确保工作只传送某个准则的消息</p>
+</li>
+</ul>
+<h2 id="安全移动代码"><a href="#安全移动代码" class="headerlink" title="安全移动代码"></a>安全移动代码</h2><ul>
+<li>保护代理<br>Ajanta系统：允许代理程序所有者检测该代理是否被篡改、只追加记录、有选择地揭示某些服务器的状态</li>
+<li>保护目标<br>处理恶意入站代理程序时，仅检测系统资源就已经过于延迟，构建沙箱<br><img src="/josyaaa/./distributed-security/13.png" alt="13"><br>灵活的做法是为下载的移动代码啊创建运动场。运动场是一台专门为运行移动代码保留的单独的指定机器<br><img src="/josyaaa/./distributed-security/14.png" alt="14"></li>
+</ul>
+<p>困难部分是实施安全策略，对Java程序提出了三种机制：<br>1、使用基于作为权能的对象引用<br><img src="/josyaaa/./distributed-security/15.png" alt="15"><br>2、扩展的栈自省<br><img src="/josyaaa/./distributed-security/16.png" alt="16"><br>本质上，栈自省允许对类或方法的特权进行链接，并对每个调用者的那些特权的分别检查。<br>3、名称空间管理<br>为了赋予程序对本地资源的访问权限，首先需要通过加入包含实现那些资源的类的适当文件来获得访问，加入过程要求赋予解释器一个名称，然后将名称解析一个类，随后在运行时加载该类。</p>
+<p>上述所描述的是基于下载程序的来源将特权与类或方法关联起来的方案。依靠Java解释器，通过上面所描述的机制执行安全策略是可能实现的。</p>
+<h2 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h2><p>DDos攻击中，大量的进程一起试图摧毁一个网络服务。在这些情况下，我们往往可以看到，攻击者已经成功地劫持了一大组机器，而这些机器毫无意识的以及加入攻击的行列中了。<br>1、带宽耗竭攻击：是往某个机器发送大量的消息，正常消息很难到达接收者<br>2、资源耗竭攻击：使接收者把资源消耗在无用的消息上<br><strong><strong>解决方法</strong></strong></p>
+<ul>
+<li>让机器检查所有安装的文件，不停地监视它们的状态</li>
+<li>不断的监视网络流量（把源地址不属于任何企业网络的数据包删除掉，可以防止很多攻击破坏，通常最好把数据包严格地按源地址过滤）</li>
+</ul>
+<h1 id="安全管理"><a href="#安全管理" class="headerlink" title="安全管理"></a>安全管理</h1><p>1、加密密钥的一般管理，尤其公钥的分配方式<br>2、讨论添加当前成员信任的一个新的群组成员来讨论安全管理一组服务器的问题<br>3、考虑权能和称为属性证书的事物来关注授权管理</p>
+<h2 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h2><ul>
+<li>密钥建立<br><img src="/josyaaa/./distributed-security/17-2.png" alt="17-1"></li>
+</ul>
+<p>Diffie-Hellman 密钥原理：<br><img src="/josyaaa/./distributed-security/17.png" alt="17-2"></p>
+<ul>
+<li>密钥分发<br>密钥管理中最困难的部分是初始密钥的实际分发。在对称密钥系统中，初始共享密钥必须沿着一条提供身份认证和机密性的安全通道交流。但是如果没有这条通道，我们就需要创造通信的手段。<br>在使用公钥加密系统的情况下，需要以接收者能够确信该密钥肯定可以与声明的一个私钥配对，也就是说不管公钥还是私钥均需要提供身份认证和机密性的安全通道发送。<br>密钥分发原理结构：<br><img src="/josyaaa/./distributed-security/18-1.png" alt="18-1"><br>公钥分发原理结构：<br><img src="/josyaaa/./distributed-security/18-2.png" alt="18-2"></li>
+</ul>
+<p>注意通过确认证书是处于可用状态下，客户实际上就会相信该证书不是伪造的。但是每个人都信任最高级的证书颁发机构的情景假设下分层信任模型才可以施行。</p>
+<ul>
+<li>证书生存周期<br>证书最重要的问题是其寿命，假设在被标识的实体私钥收到伤害，那么可信的用户减少就意味着没有使用公钥的用户。这样的假设中需要种机制来保证证书的存在有效性。</li>
+</ul>
+<p>吊销证书的方式:<br>1、使用证书颁发机构定期公布分证书吊销表<br>2、限制证书的生存期<br>3、证书的生存期缩短到几乎为零</p>
+<h2 id="安全组管理"><a href="#安全组管理" class="headerlink" title="安全组管理"></a>安全组管理</h2><p>特殊服务机构：KDC、CA等,说明分布式系统中的一个困难问题。首先要说明服务机构必须是可信机构，如何提供服务机构的安全同时兼顾其高可用性。</p>
+<p>解决高可用的方法就是**<strong>copy</strong>**，但是在复制服务器过程中,需要解决是确保进程要求加入组别时，该组别的完整性有无遭受的破坏，因为没有单个的组成员能够破坏证书，所以需要考虑管理一组复制组的方法。</p>
+<h2 id="授权管理"><a href="#授权管理" class="headerlink" title="授权管理"></a>授权管理</h2><ul>
+<li>权能与属性证书</li>
+</ul>
+<p>1、权能是什么？<br>权能是对于指定资源的一种不可伪造的数据结构，它确切指定它的拥有者关于该资源的访问权限。<br>权能时候一个128位的标识符。内部结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>48位</th>
+<th>24位</th>
+<th>8位</th>
+<th>48位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务器端口</td>
+<td>object</td>
+<td>tRights</td>
+<td>Check</td>
+</tr>
+</tbody></table>
+<hr>
+<p>其后的24位用于给定服务器上的对象，服务端口与对象标识符一起位Amoeda中每个对象构成来一个72位的全系统范围的唯一标识符，8位用于指定权能的访问权限，最后48位check字段用于使权能不可伪造。</p>
+<p>生成有限权能的方法：<br><img src="/josyaaa/./distributed-security/19-1.png" alt="19-1"><br>注：本质上f所做的事情与计算消息摘要所做的事情相同。</p>
+<p>改变原始消息中任何内容都会立即检测出来，在现代分布式系统中使用权能的一种概括是属性证书，属性证书由称为属性证书颁发机构的特殊证书颁发机构分发。证书中列出的访问权限由该属性证书颁发机构签名。</p>
+<ul>
+<li>委派</li>
+</ul>
+<p>1、委派的基本思想是什么？<br>通过将某些访问权限从一个进程传送到另一个进程，使得在多个进程间分布工作变得容易，而又不会对资源保护产生明显的影响。<br>2、委派的方式有那些？<br>**代理:**是一个标记，允许其所有者使用与授予该标记的主体相同的或受限的权限和特权进行操作<br><strong>不要想Alice请求:</strong><br><img src="/josyaaa/./distributed-security/19-2.png" alt="19-2"></p>
+<p><em><strong><em><strong>实现安全委派的基本思想是：证明你知道这个秘密</strong></em></strong></em></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/11/Infrastructure_01/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/11/deveops/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-11 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

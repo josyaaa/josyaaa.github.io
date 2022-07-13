@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>DolphinScheduler | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="DolphinScheduler 是一个分布式易扩展、去中心化的可视化DAG工作流任务调度系统，以DAG流式的方式将Task组装起来，可实时监控任务的运行状态，同时支持执行重试、kill等任务。
+123456&amp;lt;p align=&amp;quot;center&amp;quot;&amp;gt;  &amp;lt;img sr">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="DolphinScheduler"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> DolphinScheduler</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>DolphinScheduler 是一个分布式易扩展、去中心化的可视化DAG工作流任务调度系统，以DAG流式的方式将Task组装起来，可实时监控任务的运行状态，同时支持执行重试、kill等任务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;p align=&quot;center&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;/img/architecture-1.3.0.jpg&quot; alt=&quot;系统架构图&quot;  width=&quot;70%&quot; /&gt;</span><br><span class="line">  &lt;p align=&quot;center&quot;&gt;</span><br><span class="line">        &lt;em&gt;系统架构图&lt;/em&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="MasterServer"><a href="#MasterServer" class="headerlink" title="MasterServer"></a>MasterServer</h4><p>  MasterServer采用分布式无中心设计理念，MasterServer主要负责 DAG 任务切分、任务提交监控，并同时监听其它MasterServer和WorkerServer的健康状态。<br>  MasterServer服务启动时向Zookeeper注册临时节点，通过监听Zookeeper临时节点变化来进行容错处理。<br>  MasterServer基于netty提供监听服务。</p>
+<p>  MasterServer由以下组件组成：</p>
+<ul>
+<li><strong>Distributed Quartz</strong>分布式调度组件，主要负责定时任务的启停操作，当quartz调起任务后，Master内部会有线程池具体负责处理任务的后续操作</li>
+<li><strong>MasterSchedulerService</strong>是一个扫描线程，定时扫描数据库中的 <strong>command</strong> 表，生成工作流实例，根据不同的<strong>命令类型</strong>进行不同的业务操作</li>
+<li><strong>WorkflowExecuteThread</strong>主要是负责DAG任务切分、任务提交、各种不同命令类型的逻辑处理，处理任务状态和工作流状态事件</li>
+<li><strong>EventExecuteService</strong>处理master负责的工作流实例所有的状态变化事件，使用线程池处理工作流的状态事件</li>
+<li><strong>StateWheelExecuteThread</strong>处理依赖任务和超时任务的定时状态更新</li>
+</ul>
+<h4 id="WorkerServer"><a href="#WorkerServer" class="headerlink" title="WorkerServer"></a>WorkerServer</h4><p>  WorkerServer也采用分布式无中心设计理念，支持自定义任务插件，主要负责任务的执行和提供日志服务。<br>  WorkerServer服务启动时向Zookeeper注册临时节点，并维持心跳。</p>
+<p>  WorkerServer由以下组件组成：</p>
+<ul>
+<li><strong>WorkerManagerThread</strong>主要通过netty领取master发送过来的任务，并根据不同任务类型调用<strong>TaskExecuteThread</strong>对应执行器。</li>
+<li><strong>RetryReportTaskStatusThread</strong>主要通过netty向master汇报任务状态，如果汇报失败，会一直重试汇报</li>
+<li><strong>LoggerServer</strong>是一个日志服务，提供日志分片查看、刷新和下载等功能</li>
+</ul>
+<h4 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h4><p>  注册中心，使用插件化实现，默认支持Zookeeper, 系统中的MasterServer和WorkerServer节点通过注册中心来进行集群管理和容错。另外系统还基于注册中心进行事件监听和分布式锁。</p>
+<h4 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h4><p>  提供告警相关功能，仅支持单机服务。支持自定义告警插件。</p>
+<h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><p>  API接口层，主要负责处理前端UI层的请求。该服务统一提供RESTful api向外部提供请求服务。<br>  接口包括工作流的创建、定义、查询、修改、发布、下线、手工启动、停止、暂停、恢复、从该节点开始执行等等。</p>
+<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4><p>  系统的前端页面，提供系统的各种可视化操作界面，详见<a href="../guide/homepage.md">功能介绍</a>部分。</p>
+<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p>DolphinScheduler使用分片算法将command取模，根据master的排序id分配，master将拿到的command转换成工作流实例，使用线程池处理工作流实例。</p>
+<p>DolphinScheduler对工作流的处理流程:</p>
+<ul>
+<li>通过UI或者API调用，启动工作流，持久化一条command到数据库中</li>
+<li>Master通过分片算法，扫描Command表，生成工作流实例ProcessInstance，同时删除Command数据</li>
+<li>Master使用线程池运行WorkflowExecuteThread，执行工作流实例的流程，包括构建DAG，创建任务实例TaskInstance，将TaskInstance通过netty发送给worker</li>
+<li>Worker收到任务以后，修改任务状态，并将执行信息返回Master</li>
+<li>Master收到任务信息，持久化到数据库，并且将状态变化事件存入EventExecuteService事件队列</li>
+<li>EventExecuteService根据事件队列调用WorkflowExecuteThread进行后续任务的提交和工作流状态的修改</li>
+</ul>
+  <p align="center">
+  <img src="/img/master-process-2.0-zh_cn.png" alt="Start process activity diagram"  width="70%" />
+  <p align="center">
+        <em>启动流程活动图</em>
+  </p>
+</p>
+
+
+
+
+<h2 id="容错设计"><a href="#容错设计" class="headerlink" title="容错设计"></a>容错设计</h2><p>容错分为<strong>服务宕机容错</strong>、<strong>任务重试</strong>，服务宕机容错由<strong>Master容错</strong>和<strong>Worker容错</strong>组成</p>
+<h5 id="服务宕机容错"><a href="#服务宕机容错" class="headerlink" title="服务宕机容错"></a>服务宕机容错</h5><ul>
+<li>Master容错：</li>
+</ul>
+<p align="center">
+   <img src="/img/failover-master.jpg" alt="容错流程"  width="50%" />
+ </p>
+
+<p>容错范围：从host的维度来看，Master的容错范围包括：自身host+注册中心上不存在的节点host，容错的整个过程会加锁；</p>
+<p>容错内容：Master容错工作流实例和任务实例，在容错前会比较实例的开始时间和服务节点的启动时间，在服务启动时间之后的则跳过容错；</p>
+<p>容错后处理：ZooKeeper Master容错完成之后则重新由DolphinScheduler中Scheduler线程调度，遍历 DAG 找到”正在运行”和“提交成功”的任务，对”正在运行”的任务监控其任务实例的状态，对”提交成功”的任务需要判断Task Queue中是否已经存在，如果存在则同样监控任务实例的状态，如果不存在则重新提交任务实例。</p>
+<ul>
+<li>Worker容错：</li>
+</ul>
+<p align="center">
+   <img src="/img/failover-worker.jpg" alt="容错流程"  width="50%" />
+ </p>
+
+<p>容错范围：从工作流实例的维度看，每个Master只负责容错自己的工作流实例；只有在<code>handleDeadServer</code>时会加锁；</p>
+<p>容错内容：当发送Worker节点的remove事件时，Master只容错任务实例，在容错前会比较实例的开始时间和服务节点的启动时间，在服务启动时间之后的则跳过容错；</p>
+<p>容错后处理：Master Scheduler线程一旦发现任务实例为” 需要容错”状态，则接管任务并进行重新提交。</p>
+<p>注意：由于” 网络抖动”可能会使得节点短时间内失去和ZooKeeper的心跳，从而发生节点的remove事件。对于这种情况，我们使用最简单的方式，那就是节点一旦和ZooKeeper发生超时连接，则直接将Master或Worker服务停掉。</p>
+<h5 id="任务重试"><a href="#任务重试" class="headerlink" title="任务重试"></a>任务重试</h5><p>DolphinScheduler 将工作流中的任务节点分为以下类型：</p>
+<ul>
+<li><p>业务节点，它对应一个实际的脚本或者处理语句，比如Shell节点，MR节点、Spark节点、依赖节点等。</p>
+</li>
+<li><p>逻辑节点，它不做实际的脚本或语句处理，只是整个流程流转的逻辑处理，比如子流程节等。</p>
+</li>
+</ul>
+<p>所有任务都可以配置失败重试的次数，当该任务节点失败，会自动重试，直到成功或者超过配置的重试次数。如果工作流中有任务失败达到最大重试次数，工作流就会失败停止，失败的工作流可以手动进行重跑操作或者流程恢复操作</p>
+<h2 id="任务优先级"><a href="#任务优先级" class="headerlink" title="任务优先级"></a>任务优先级</h2><p><strong>不同流程实例优先级</strong>&gt;<strong>同一个流程实例优先级</strong>&gt;<strong>同一流程内任务优先级</strong>&gt;<strong>同一流程内任务</strong>进行任务处理。<br>每个任务实例根据<strong>json</strong>解析优先级，将其信息保存在任务队列中。<br>任务队列获取的时候，通过字符串比较可得出需要优先执行的任务。</p>
+<ul>
+<li>流程定义优先级：HIGHEST、HIGH、MEDIUM、LOW、LOWEST。</li>
+<li>任务优先级：HIGHEST、HIGH、MEDIUM、LOW、LOWEST。</li>
+</ul>
+<h2 id="日志访问"><a href="#日志访问" class="headerlink" title="日志访问"></a>日志访问</h2><p>Web(UI) 和 worker 可能不在同一机器，查询日志采取以下方案：</p>
+<ul>
+<li>存放于Elasticsearch</li>
+<li>gRPC远程访问日志</li>
+</ul>
+<p> 我们使用自定义Logback的FileAppender和Filter功能，实现每个任务实例生成一个日志文件，同时以流程定义、流程实例、任务实例的形式生成日志过滤匹配TaskLogInfo开始的线程名称。</p>
+<p>FileAppender：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * task log appender</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskLogAppender</span> <span class="keyword">extends</span> <span class="title class_">FileAppender</span>&lt;ILoggingEvent&gt; &#123;</span><br><span class="line"></span><br><span class="line">     ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">append</span><span class="params">(ILoggingEvent event)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentlyActiveFile == <span class="literal">null</span>)&#123;</span><br><span class="line">            currentlyActiveFile = getFile();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">activeFile</span> <span class="operator">=</span> currentlyActiveFile;</span><br><span class="line">        <span class="comment">// thread name： taskThreadName-processDefineId_processInstanceId_taskInstanceId</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> event.getThreadName();</span><br><span class="line">        String[] threadNameArr = threadName.split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">        <span class="comment">// logId = processDefineId_processInstanceId_taskInstanceId</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">logId</span> <span class="operator">=</span> threadNameArr[<span class="number">1</span>];</span><br><span class="line">        ...</span><br><span class="line">        <span class="built_in">super</span>.subAppend(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>TaskLogFilter：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  task log filter</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskLogFilter</span> <span class="keyword">extends</span> <span class="title class_">Filter</span>&lt;ILoggingEvent&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> FilterReply <span class="title function_">decide</span><span class="params">(ILoggingEvent event)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.getThreadName().startsWith(<span class="string">&quot;TaskLogInfo-&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> FilterReply.ACCEPT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FilterReply.DENY;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/fault-tolerance/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/database-securty/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

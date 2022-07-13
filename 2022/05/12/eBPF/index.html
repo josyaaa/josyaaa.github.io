@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>eBPF and Wasm | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="起源于 Linux 内核，可以在操作系统内核中运行沙盒程序并且它用于安全有效地扩展内核的功能，而无需更改内核源代码或加载内核模块。非常奇妙的事情是 eBPF 催生一种全新的软件开发方式，基于这种方式可以对内核、跨多个子系统的处理逻辑均可以进行编程 。
+eBPF
+
+eBPF 安全
+
+系统调用过滤、网络">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="eBPF and Wasm"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> eBPF and Wasm</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>起源于 Linux 内核，可以在操作系统内核中运行沙盒程序并且它用于安全有效地扩展内核的功能，而无需更改内核源代码或加载内核模块。非常奇妙的事情是 eBPF 催生一种全新的软件开发方式，基于这种方式可以对内核、跨多个子系统的处理逻辑均可以进行编程 。</p>
+<p><a target="_blank" rel="noopener" href="https://ebpf.io/">eBPF</a></p>
+<ul>
+<li>eBPF 安全</li>
+</ul>
+<p>系统调用过滤、网络级过滤和进程上下文跟踪的各个方面通常由完全独立的系统处理，但 eBPF 允许结合所有方面的可见性和控制，以创建在更多上下文上运行并具有更好控制级别的安全系统。</p>
+<p><a href="https://github.com/falcosecurity/falco">falco</a><br><a href="https://github.com/kubearmor/KubeArmorc">KubeArmorc</a><br><a href="https://github.com/aquasecurity/tracee">tracee</a></p>
+<ul>
+<li>eBPF 跟踪、分析</li>
+</ul>
+<p>将 eBPF 程序附加到跟踪点以及内核和用户应用程序探测点的能力允许对应用程序和系统本身的运行时行为进行前所未有的可见性。通过为应用程序和系统端提供自省能力，可以将两种视图结合起来，从而提供强大而独特的洞察力来解决系统性能问题。</p>
+<p><a href="https://github.com/facebookincubator/katran">katran</a></p>
+<ul>
+<li>eBPF 联网</li>
+</ul>
+<p>eBPF 的可编程性允许添加额外的协议解析器并轻松编程任何转发逻辑以满足不断变化的需求，而无需离开 Linux 内核的数据包处理上下文。JIT 编译器提供的效率提供了接近于本地编译的内核代码的执行性能。</p>
+<ul>
+<li>eBPF 可观察性、监控</li>
+</ul>
+<p>eBPF 不依赖于操作系统公开的静态计数器和计量器，而是支持自定义指标的收集和内核聚合，并基于各种可能的来源生成可见性事件。</p>
+<p><a href="https://github.com/cilium/cilium">cilium</a><br><a href="https://github.com/cilium/hubble">hubble</a></p>
+<h2 id="attack-eBPF"><a href="#attack-eBPF" class="headerlink" title="attack eBPF"></a>attack eBPF</h2><p>近期许多检测、监控软件和性能跟踪工具都是用 eBPF 编写的，并且在云原生空间中，eBPF 得到更多采用。其次 eBPF 的安全性是通过如下层次：</p>
+<p>eBPF 编写结构：<br>Required Privileges<br>(钩子被识别后可以调用bpf系统调用到eBPF程序加载到Liunx内核中)<br>Verifier<br>(验证步骤确保eBPF程序安全)<br>JIT Compilation<br>(即时编译步骤将程序的通用字节码转换为机器特定的指令集，以优化程序性能)<br>Maps<br>(共享收集的信息和存储状态的能力)<br>Helper Calls<br>(将函数调用大帮助函数中)<br>Tail &amp; Function Calls<br>(函数调用允许在ebpf程序中定义和调用函数)</p>
+<hr>
+<p>eBPF 安全性结构：<br>Required Privileges<br>Verifier<br>Hardening<br>Abstracted Runtime Context</p>
+<hr>
+<p><code>mermaid graph TD A[Programs] --&gt; B[Maps] --&gt; C[Events] </code></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/15/assign/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/fish-attack/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

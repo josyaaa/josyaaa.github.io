@@ -1,0 +1,429 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>分布式系统 V2.0s | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="一致性和复制对数据进行复制一般是为了增强系统的可靠性或提高性能，实现数据复制的主要难题是保持各个副本的一致性。
+如何真正实现一致性
+关注的是副本的管理，不仅仅考虑副本服务器的放置，同时需要考虑如何在这些服务器之间分发的
+如何保持多个副本的一致性，在大多数情况下，应用程序都要求数据保持很强的一致性
+
+">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="分布式系统 V2.0s"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 分布式系统 V2.0s</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="一致性和复制"><a href="#一致性和复制" class="headerlink" title="一致性和复制"></a>一致性和复制</h1><p>对数据进行复制一般是为了增强系统的可靠性或提高性能，实现数据复制的主要难题是保持各个副本的一致性。</p>
+<h1 id="如何真正实现一致性"><a href="#如何真正实现一致性" class="headerlink" title="如何真正实现一致性"></a>如何真正实现一致性</h1><ul>
+<li>关注的是副本的管理，不仅仅考虑副本服务器的放置，同时需要考虑如何在这些服务器之间分发的</li>
+<li>如何保持多个副本的一致性，在大多数情况下，应用程序都要求数据保持很强的一致性</li>
+</ul>
+<h2 id="复制作为一种实现可扩展性的技术"><a href="#复制作为一种实现可扩展性的技术" class="headerlink" title="复制作为一种实现可扩展性的技术"></a>复制作为一种实现可扩展性的技术</h2><ul>
+<li>可靠性</li>
+<li>性能（地理区域上的扩展也可能需要进行数据复制，如果在使用数据进程附近放置一份该数据的副本，那么进程访问数据所花费的时间将减少）</li>
+</ul>
+<h4 id="复制需要付出代价"><a href="#复制需要付出代价" class="headerlink" title="复制需要付出代价"></a>复制需要付出代价</h4><ul>
+<li>进行数据复制是需要付出代价的，复制所带来的问题是多个副本可能导致一致性方面的问题，一旦某个副本被修改了，那么将不同于其他所有的副本</li>
+</ul>
+<h2 id="扩展性技术的复制"><a href="#扩展性技术的复制" class="headerlink" title="扩展性技术的复制"></a>扩展性技术的复制</h2><ul>
+<li>可能要一个付出的代价是使副本保持为最新的数据要求更多的网络带宽</li>
+<li>保持多个副本间一致性本身就可能存在严重的可扩展性问题（当多个副本总保持相同的时候，这些副本的集合是一致的）</li>
+</ul>
+<p><strong>副本可能需要使用Lamport时间戳来决定执行操作的全局顺序，或由一个协调器来分配这样的顺序，全局同步必然造成性能的下降，唯一的解决方案是“放宽在一致性上面的限制，也就是可以放松更新必须以原子操作的方式执行”，就可避免进行瞬间的全局同步</strong></p>
+<h2 id="以数据中心的一致性模型（数据存储角度）"><a href="#以数据中心的一致性模型（数据存储角度）" class="headerlink" title="以数据中心的一致性模型（数据存储角度）"></a>以数据中心的一致性模型（数据存储角度）</h2><ul>
+<li>一致性模型实质上是进程和数据存储之间的一个约定</li>
+</ul>
+<h4 id="持续一致性"><a href="#持续一致性" class="headerlink" title="持续一致性"></a>持续一致性</h4><ul>
+<li>持续一致性“副本之间的数值偏差、副本之间新旧程度的偏差、更新操作顺序的偏差”</li>
+<li>绝对值偏差或相对数值偏差，表示两个副本之间的差别不能超过多少</li>
+<li>数值偏差是已应用给定副本但还没有应用于其他副本的更新数目</li>
+</ul>
+<h4 id="一致性单元"><a href="#一致性单元" class="headerlink" title="一致性单元"></a>一致性单元</h4><ul>
+<li>需要一些协议</li>
+<li>持续程序开发人员必须为他们应用程序指出一致性需求，可以持续一致性实现为一种工具包（函数库）</li>
+</ul>
+<h4 id="一致性操作顺序"><a href="#一致性操作顺序" class="headerlink" title="一致性操作顺序"></a>一致性操作顺序</h4><p>“顺序一致性、因果一致性”是在读写操作层面上定义的（最初模型是为了共享内存的多处理器系统开发，在硬件层上真正实现的）</p>
+<p><strong>顺序一致性</strong></p>
+<p>任何执行结果都是相同的，就好像所有进程对数据存储的读、写操作是按某种序列顺序执行的，并且每个进程的操作按照程序所制定的顺序出现在这个序列中（也就是说当进程在多台可能不同机器上并发运行时，任何读、写操作的有效交叉是可以接收的行为，但是所有进程都看到相同的操作交叉），如果出现其中任何一种结果，进程都必须正常地运行。</p>
+<p><strong>因果一致性</strong></p>
+<p> 表示一种弱化的顺序一致性模型，因为因果一致性将具有潜在因果关系的事件和没有因果关系的事件区分开来（无因果关系的操作称为并发），“如果数据库属于因果一致，必须符合所有进程必须以相同的顺序看到具有潜在因果关系的写操作，不同机器上可以以不同的顺序看到并发写的操作”</p>
+<p>实现因果一致性要求跟踪那些进程看到那些写操作，这意味着必须构建和维护一张记录那些操作与其他操作有关的关系图 <em><strong>向量时间戳 和 向量时间戳捕获因果关系</strong></em></p>
+<p><strong>分组操作</strong></p>
+<p>共享数据的程序之间的并发性往往是通过互斥和事物的同步化机制来控制（ENTRT_CS的进程确保在它的本地存储中的数据是最新的，LEVEL_CS封装起来）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在进程对被保护的共享数据的所有更新操作执行完之前，不允许另一个进程执行对同步化变量的获取访问</span><br><span class="line">（当一个进程获得拥有权后，这种拥有权直到所有被保护的数据均被更新）</span><br><span class="line">如果一个进程对某个同步化变量正在进行互斥模式访问，那么其他进程就不能拥有该同步化变量</span><br><span class="line">（在更新数据项之前，进程必须以互斥模式进入临界区，以确保不会有其他进程视图同时更新该共享数据）</span><br><span class="line">某个进程对某个同步化变量的互斥模式访问完成后，除非该变量的拥有者执行完操作，否则任何其他进程对该变量的下一个非互斥模式访问也不允许</span><br><span class="line">（如果一个进程要以非互斥模式进入临界区，必须首先与该同步化变量的拥有者进行协商，确保临界区获得被保护共享数据的最新副本）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">入口一致性编程问题：</span><br><span class="line">1. 正确地把数据与同步化变量相关联（显示地告诉中间件将要访问的数据位置/隐式地把唯一同步化变量与每个已声明的对象相关联，有效地串行对该对象的所有调用）</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>一致性与相干性</strong></p>
+<ul>
+<li>一致性模式描述是多个进程并发地作用于数据地数据集，并且数据一致性关注的数据项集</li>
+<li>相干性模型关注的只是单个数据项</li>
+</ul>
+<h2 id="以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）"><a href="#以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）" class="headerlink" title="以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）"></a>以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）</h2><p><strong>最终一致性模型（引入特殊的以客户为中心的一致性模型）</strong></p>
+<ol>
+<li>满足最终一致性的数据存储具有以下属性</li>
+<li>没有更新操作时，所有副本逐渐成为相互完全相同的副本</li>
+</ol>
+<ul>
+<li>Bayou本质上区分4种不同类型的一致性模型</li>
+</ul>
+<p><strong>单调读</strong></p>
+<p>如果一个进程读取数据项x的值，那么该进程x执行的任何后续读操作将总是得到第一次读取的那个值或更新的值</p>
+<p><strong>单调写</strong></p>
+<p>一个进程对数据项x执行的写操作必须在该进程对x执行任何后续写操作之前完成</p>
+<ul>
+<li>单调写一致性与数据中心的FIFO一致性相似，FIFO本质是同一进程执行的写操作必须在任何地方以正确的顺序执行</li>
+</ul>
+<p><strong>读写一致性</strong></p>
+<p>一个进程对数据项x执行一次写操作的结构总是会被该进程对x执行的后续读操作看见，也就是说一个写操作总是在同一进程执行的后续读操作之前完成，而不管这个后续读操作发生在什么位置</p>
+<p><strong>写读一致性</strong></p>
+<p>同一进程对数据项x所执行的任何后续写操作都会在x的副本上执行，而该副本是用该进程最近读取的值更新的</p>
+<h1 id="复制管理"><a href="#复制管理" class="headerlink" title="复制管理"></a>复制管理</h1><p>对任何支持复制的分布式系统来说，关键问题是“决定何处、何时、由谁来防止副本以及用何种机制来保持副本的一致性”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">副本放置：</span><br><span class="line">副本服务器放置问题(找到放置托管部分数据存储的服务器的最佳位置)</span><br><span class="line">内容放置问题(找到放置内容的最佳服务器)</span><br></pre></td></tr></table></figure>
+
+<p><strong>副本服务器放置</strong></p>
+<ul>
+<li>计算副本服务器的最佳位置的方法归根到底属于优化问题，本质是计算复杂性，只能通过探索式求解。</li>
+<li>忽略客户位置，采用自治系统形成的网络拓扑</li>
+<li>瞬时拥塞这种情况下，快速地确定副本服务器的位置很重要，然后就可以为内容放置选择一个特定服务器（Szymamiak:选择最能满足需要的区域，即具有最多结点，然后让该区域中的某个结点作为副本服务器）</li>
+</ul>
+<p><strong>内容复制与放置</strong></p>
+<ul>
+<li>永久副本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Web站点为例：</span><br><span class="line">1. 单个位置的有限数量的服务器上复制构成站点的文件（循环提示器策略来进行转发）</span><br><span class="line">2. Web站点被复制到有限数量的服务器上称为镜像站点（相似方式也出现在分布式数据库中，这些服务器一起形成服务器群称为无共享体系结构）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>服务器启动副本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">服务器启动副本是为提高性能而存在的数据存储副本，决定创建或删除副本的确切位置和时间</span><br><span class="line">1. 复制可能是为了减轻单台服务器的负载而进行的</span><br><span class="line">2. 单台服务器上的指定文件可能被转移或复制到对这些文件提出很多请求的客户附近的服务器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每台服务器跟踪每个文件的访问计数以及提出这些访问请求的位置</span><br><span class="line">1. 复制可能是为来减轻单台服务器的负载而进行的</span><br><span class="line">2. 单台服务器上的指定文件可能被转移或复制到对这些文件提出很多请求的客户附近的服务器（设置阈值“删除阈值”“复制阈值”）</span><br></pre></td></tr></table></figure>
+
+<p>服务器启动的复制正在逐渐地流行起来，特别是在Web托管服务的环境下，只要可以保证每个数据项至少由一台服务器托管，那么只使用服务器启动的复制而不使用任何永久副本就足够了。but 永久副本用作备份工具或用作允许被修改以保证一致性的唯一副本但是服务器启动的副本则被用于客户附近放置只读副本。</p>
+<ul>
+<li>客户端启动副本</li>
+</ul>
+<p>在客户初始化时创建的副本，普遍将客户启动的副本称为客户高速缓存（高速缓存是一种本地存储工具，客户使用它暂时存储刚刚请求的数据副本）</p>
+<ol>
+<li>改善客户高速缓存只用于改善数据的访问时间（读取数据时客户在附近的高速缓存中存储所请求的数据可以提高性能）</li>
+<li>当被请求的数据可以从本地副本获得时，称其为高速缓存命中（提高高速缓存命中数量，可以让客户共享高速缓存）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public one：客户高速缓存放置在客户所在的机器上，或者将其放置在客户所在的局域网上由各个客户共享的机器上。</span><br><span class="line">public two：在广域网的几个特定点放置高速缓存服务器，让客户查找距离最近的服务器</span><br></pre></td></tr></table></figure>
+
+<p><strong>内容分发</strong></p>
+<ul>
+<li>状态与操作</li>
+</ul>
+<ol>
+<li>只传播更新的通知</li>
+<li>把数据从一个副本传送到另一个副本</li>
+<li>把更新操作传播到其他副本</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">无效化协议:</span><br><span class="line"></span><br><span class="line">1、只传播一个通知而不传播别的消息，需要先根据数据存储支持的特定的一致性模型更新那个副本</span><br><span class="line">（几乎不占用网络带宽）</span><br><span class="line"></span><br><span class="line">2、多副本间传送被修改的数据（更新是通过将多个修改压缩到一个消息中的方式被组合传送，从而减少通信开销）</span><br><span class="line"></span><br><span class="line">3、不传送任何数据修改，告诉每个副本应该执行的更新操作，称为主动复制</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拉协议与推协议</li>
+</ul>
+<p>基于推式方法称为基于服务器的协议（永久副本与服务器启动的副本之间使用），并应用于多个副本常常需要维持相对较高程度的一致性的时候<br>基于拉式方法称为基于客户的协议（客户告诉缓存）</p>
+<table>
+<thead>
+<tr>
+<th>服务器的状态</th>
+<th>客户副本和高速缓存列表</th>
+<th>无</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发送的消息(基于推式 )</td>
+<td>更新</td>
+<td>轮询和更新</td>
+</tr>
+<tr>
+<td>客户响应时间(基于拉式)</td>
+<td>立即</td>
+<td>获取更新的时间</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<thead>
+<tr>
+<th>通信方式</th>
+<th>客户响应时间</th>
+<th>无</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务器向每个客户发送更新</td>
+<td>推入客户时，客户响应时间为0，其余与拉式相同</td>
+<td></td>
+</tr>
+<tr>
+<td>客户必须轮询服务器并必要时获取被修改的数据</td>
+<td>由客户从服务器获取被修改的数据的时间决定</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">基于租用的更新传播</span><br><span class="line"></span><br><span class="line">1、租用是服务器所作的承诺，将指定的时间内把更新推给客户，租用到期时根据客户被迫轮询服务器以实现更新</span><br><span class="line">2、在前一个租用到期时，客户请求一个新的租用以实现更新的推入</span><br><span class="line"></span><br><span class="line">a/: 基于数据项“年龄”</span><br><span class="line">b/: 基于特定客户请求更新高速缓存副本的频率相同</span><br><span class="line">c/: 基于服务器的状态空间开销的租用</span><br></pre></td></tr></table></figure>
+<ul>
+<li>单播与多播</li>
+</ul>
+<p>推（多播）与拉（单一客户或服务器请求更新其副本）的更新相关问题，需要决定选型单播还是多播 ？</p>
+<ol>
+<li>单播通信当作为数据存储的一部分的服务器向其他N台服务器发送更新，通过发送N个单独的消息实现</li>
+<li>多播通信，底层网络负责向多个接收者高效地发送一个消息</li>
+</ol>
+<h1 id="一致性协议"><a href="#一致性协议" class="headerlink" title="一致性协议"></a>一致性协议</h1><p>一致性性协议描述特定一致性模型的实现</p>
+<h2 id="持续一致性-1"><a href="#持续一致性-1" class="headerlink" title="持续一致性"></a>持续一致性</h2><p><strong>限定复制的数字偏差</strong></p>
+<p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~vahdat/">Yu and Vahdat</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把数值偏差限定在一定范围内的解决方法</span><br></pre></td></tr></table></figure>
+
+<p><strong>限定复制的新旧程度偏差</strong></p>
+<p><strong>限定顺序偏差</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">副本服务器会暂时性地应用已提交给它地更新</span><br></pre></td></tr></table></figure>
+
+<h2 id="基于主备协议"><a href="#基于主备协议" class="headerlink" title="基于主备协议"></a>基于主备协议</h2><p>处理操作地一直顺序地模型，顺序一致性是其操作可以通过加锁、事务来分组地模型</p>
+<p><strong>远程写协议</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">性能问题：启动更新进程在被允许继续执行前，需等待较长时间</span><br><span class="line"></span><br><span class="line">1. 阻塞操作：更新</span><br><span class="line">2. 非阻塞操作：</span><br></pre></td></tr></table></figure>
+
+<p><strong>本地写协议</strong></p>
+<h2 id="复制的写协议"><a href="#复制的写协议" class="headerlink" title="复制的写协议"></a>复制的写协议</h2><p><strong>主动复制</strong><br><strong>基于多数表决的协议</strong></p>
+<h2 id="高速缓存相关协议"><a href="#高速缓存相关协议" class="headerlink" title="高速缓存相关协议"></a>高速缓存相关协议</h2><h2 id="实现以客户为中心的一致性"><a href="#实现以客户为中心的一致性" class="headerlink" title="实现以客户为中心的一致性"></a>实现以客户为中心的一致性</h2><p>未来待续….. (意思就是说：懒得写了)</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/database-securty/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/authenticate/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>端点被感染后的C&amp;C流量 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="C&amp;amp;C（命令和控制）作为防御者站出来深入了解 C&amp;amp;C（命令和控制）流量的外观，以及如何将其与正常用户行为区分开来
+约束条件假设一个端点被感染，以及随后在 RSA NetWitness 中对来自 PowerShell Empire 的流量进行的分析
+攻击
+attack C&amp;amp;C ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="端点被感染后的C&amp;C流量"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 端点被感染后的C&amp;C流量</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="C-amp-C（命令和控制）"><a href="#C-amp-C（命令和控制）" class="headerlink" title="C&amp;C（命令和控制）"></a>C&amp;C（命令和控制）</h1><p>作为防御者站出来深入了解 C&amp;C（命令和控制）流量的外观，以及如何将其与正常用户行为区分开来</p>
+<h1 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h1><p>假设一个端点被感染，以及随后在 RSA NetWitness 中对来自 PowerShell Empire 的流量进行的分析</p>
+<h1 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h1><ul>
+<li>attack C&amp;C does not explain</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&gt;攻击者设置了一个包含其有效负载的恶意页面。然后，攻击者可以使用网络钓鱼电子邮件诱使受害者访问该页面。用户打开页面后，将执行一个感染端点且对最终用户不可见的 PowerShell 命令：</span><br><span class="line">&gt;</span><br><span class="line">然后端点开始与攻击者的 C2 通信。从这里，攻击者可以执行诸如 tasklist、  whoami 和其他工具之类的命令：</span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line">这里开始，指挥和控制将继续以指定的时间间隔发出信标，以检查命令。这通常是分析师需要查找的内容，以确定他们的哪些端点被感染。</span><br><span class="line">使用 RSA NetWitness 网络/数据包数据的检测</span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line">由于通过 HTTP 进行的通信，观察到的活动才可能发生。如果这是 SSL，则通过数据包进行检测将更加困难。这就是为什么强烈推荐引入 SSL 解密/拦截/卸载的原因。SSL 检查设备只不过是一种精心设计的中间人攻击，它将加密分成两个独立的加密流。因此，它们仍然为最终用户提供足够级别的保护，同时允许安全分析师和设备在发生恶意或不需要的活动时正确监控和发出警报，例如此处显示的 Web Shell。总之，如果您负责保护组织的资产，则绝对应该考虑使用该技术的利弊。分析人员通过将重点放在寻找通过 HTTP 的 C2 流量开始他们的调查。然后，分析师可以通过使用服务分析元键来研究分离协议的特征。从这里他们注意到了一些有趣的元值，http with binary并且http post no get no referer directtoip：</span><br><span class="line"></span><br><span class="line">&gt;将会话数量减少到更易于管理的数量后，分析师可以查看其他元键以查看是否有任何有趣的工件。查看Filename, Directory, Client Application,和Server Application元键，并观察到通信始终来自同一用户代理的 microsft-iis/7.5 服务器，以及 PHP 文件的子集：</span><br><span class="line"></span><br><span class="line">&gt;分析人员决定将此作为枢轴点，并删除一些其他更精细的查询，以专注于与那些 PHP 文件、来自该用户代理和该 IIS 服务器版本的所有通信。分析师现在观察到额外的通信：</span><br><span class="line"></span><br><span class="line">&gt;开可视化，分析人员可以查看通信的节奏并观察到有一个信标类型的模式：</span><br><span class="line">转向事件分析视图，分析人员可以查看更多细节，看看是否有人怀疑这是恶意的。分析人员观察到有效负载的变化很小，并且每 4 分钟发生一次连接：</span><br><span class="line">分析师重构了一些会话以查看正在传输的数据类型，分析师观察到各种可疑的 GET 和 POST 以及正在传输的不同数据：</span><br><span class="line">分析师根据他们执行的分析确认此流量高度可疑，分析师随后决定使用应用程序规则跟踪活动。为此，分析人员查看与此流量关联的元数据，并找到识别此类流量的唯一元数据组合：(service = 80) &amp;&amp; (analysis.service = &#x27;http1.0 unsupported cache header&#x27;) &amp;&amp; (analysis.service = &#x27;http post missing content-type&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;重要提示： 应用程序规则对于跟踪活动非常有用。然而，它们是非常特定于环境的，因此在一个环境中使用的应用程序规则可能具有高保真度，但在另一个环境中使用时，可能会产生令人难以置信的噪音。创建或使用应用程序规则时应小心，以确保它们在您的环境中正常工作。</span><br><span class="line"></span><br><span class="line">&gt;使用 RSA NetWitness 端点跟踪数据进行检测,分析师每天都应该仔细阅读 IOC、BOC 和 EOC 元密钥以查找可疑活动。这样做后，他们观察元数据，browser runs powershell并开始调查：转向事件分析视图，分析人员可以看到 Internet Explorer 产生了 PowerShell，然后是执行的 PowerShell：</span><br><span class="line"></span><br><span class="line">&gt;分析人员决定对 base64 进行解码，以便更好地了解 PowerShell 正在执行什么。分析师观察到 PowerShell 正在设置 Web 请求，并且可以看到它将为所述请求提供的参数。从这里，分析师可以利用这些信息并开始在他们的数据包数据中寻找这方面的指标（这证明了拥有端点和数据包解决方案背后的力量）：</span><br><span class="line"></span><br><span class="line">&gt;在启动的 PowerShell 上进行透视，还可以查看执行的 whoami 和 任务列表 。这将帮助分析师描绘出攻击者在做什么：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>文中概述的流量是 PowerShell Empire 的默认配置；因此，根据谁设置 PowerShell Empire 的实例，指标可能会有所不同。话虽如此，C2 仍需要签入，C2 仍需要部署其有效负载，C2 仍将在端点上执行可疑任务。分析师只需要了解其中一项活动即可开始拉动线程并解除攻击者的活动，还需要注意的是，PowerShell Empire 网络流量解密起来很麻烦。因此，拥有一个端点解决方案（例如 NetWitness Endpoint）非常重要，它可以为您跟踪在端点上执行的活动。</p>
+<h1 id="进一步的工作"><a href="#进一步的工作" class="headerlink" title="进一步的工作"></a>进一步的工作</h1><p>编写一个脚本来抓取Censys.io数据以寻找 PowerShell Empire 的实例。附加的 Python 脚本查询 Censys.io API 以查找特定的正文请求哈希，然后收集有关 C2 的信息，包括：</p>
+<ol>
+<li>托管服务器信息</li>
+<li>PS1 脚本</li>
+<li>C2信息</li>
+</ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/authenticate/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/SDN/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

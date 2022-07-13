@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>SDN 软件定义网络 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="SDN:一种大规模网格设计、构建、运维的方法，利用了中央服务器中的软件对路由器和交换机的转发决策进行编程
+SDN 功能路由器转发分组要素：控制功能 数据功能
+
+控制功能：负责决定数据流的路由以及各条流的相对优先级
+数据功能：负责根据控制功能的决策来转发数据
+
+SDN中：中央控制器完成所有复杂的功能，">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="SDN 软件定义网络"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> SDN 软件定义网络</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>SDN:一种大规模网格设计、构建、运维的方法，利用了中央服务器中的软件对路由器和交换机的转发决策进行编程</p>
+<h1 id="SDN-功能"><a href="#SDN-功能" class="headerlink" title="SDN 功能"></a>SDN 功能</h1><p><strong>路由器转发分组要素：控制功能 数据功能</strong></p>
+<ul>
+<li>控制功能：负责决定数据流的路由以及各条流的相对优先级</li>
+<li>数据功能：负责根据控制功能的决策来转发数据</li>
+</ul>
+<p><strong>SDN中：中央控制器完成所有复杂的功能，包括路由、命名、策略声明、安全性检查</strong></p>
+<h2 id="主动因素"><a href="#主动因素" class="headerlink" title="主动因素"></a>主动因素</h2><p>服务器虚拟化：在本质上是隐藏了服务器资源，包括：物理服务器、处理器、操作系统的数量及标识，可以实现多台服务器而且每个服务器都保留相应的硬件资源，也可以实现快速迁移从而实现负载均衡、服务器故障的动态切换</p>
+<p><strong>服务器虚拟化带来的问题：</strong></p>
+<ol>
+<li>配置虚拟局域网</li>
+<li>流量模式</li>
+</ol>
+<p><strong>网络功能虚拟化的问题：</strong></p>
+<ol>
+<li>在高性能硬件上利用标准的虚拟化技术对网络功能进行虚拟化，可以适用于任意有限或无线网络中的数据平面处理和控制平面功能</li>
+</ol>
+<p><strong>SDN NFV有许多共同的特征：</strong></p>
+<ol>
+<li>将功能迁移到软件中实现</li>
+<li>适用商用硬件平台来替代专用平台</li>
+<li>适用标准化或开放的应用程序编程接口（API）</li>
+<li>支持更高效的网络功能演化、部署、位置调整</li>
+</ol>
+<ul>
+<li>SDN 将网络流量控制的数据平面分离开来，使得数据流的控制和路由变得更加灵活和高效</li>
+<li>NFV 将网络功能从特定硬件平台分离出来，从而使这些功能更加高效和灵活的实现</li>
+</ul>
+<p><strong>SDN NFV的关系：</strong></p>
+<ol>
+<li>网络的数据平面功能在虚拟机上实现</li>
+<li>控制平面的功能可以在专用的SDN平台或者SDN虚拟机上实现</li>
+<li>SDN控制器都要与运行在虚拟机上的数据平面进行交互</li>
+</ol>
+<p><strong>QoS 测度：</strong></p>
+<p>用于不同网络用户指定相应的服务和设定网络的流量管理策略</p>
+<ul>
+<li>如果采用NFV而没有适用SDN，QoS的设置由虚拟机来完成</li>
+<li>如果采用SDN，SDN控制器都将负责实施QoS参数</li>
+</ul>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/c2c/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/network_seeurity/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

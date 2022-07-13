@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>SQL 注入 ？？？？ | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="建立数据库
+123mysql&amp;gt; create database mysqltest;Query OK, 1 row affected (0.00 sec)
+
+查询所有数据库
+1234567891011mysql&amp;gt; show databases;+--------------------+">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="SQL 注入 ？？？？"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> SQL 注入 ？？？？</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>建立数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database mysqltest;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查询所有数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| mysqltest          |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用数据库 新建一个表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysqltest</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; create table admin (id int,username varchar(255),password varchar(255));</span><br><span class="line">Query OK, 0 rows affected (0.09 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看数据库，插入，与查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables;</span><br><span class="line">+---------------------+</span><br><span class="line">| Tables_in_mysqltest |</span><br><span class="line">+---------------------+</span><br><span class="line">| admin               |</span><br><span class="line">+---------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into admin (id,username,password) values (1,&quot;admin&quot;,&quot;admin&quot;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from admin;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查询 where 语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from admin where id =1;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a>information_schema</h1><p>information_schema是用于存储数据库元数据的表，保存数据库名，表名，列名等信息，从爆破表名可以直接查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables;</span><br><span class="line">+---------------------------------------+</span><br><span class="line">| Tables_in_information_schema          |</span><br><span class="line">+---------------------------------------+</span><br><span class="line">| CHARACTER_SETS                        |</span><br><span class="line">| COLLATIONS                            |</span><br><span class="line">| COLLATION_CHARACTER_SET_APPLICABILITY |</span><br><span class="line">| COLUMNS                               |</span><br><span class="line">| COLUMN_PRIVILEGES                     |</span><br><span class="line">| ENGINES                               |</span><br><span class="line">| EVENTS                                |</span><br><span class="line">| FILES                                 |</span><br><span class="line">| GLOBAL_STATUS                         |</span><br><span class="line">| GLOBAL_VARIABLES                      |</span><br><span class="line">| KEY_COLUMN_USAGE                      |</span><br><span class="line">| OPTIMIZER_TRACE                       |</span><br><span class="line">| PARAMETERS                            |</span><br><span class="line">| PARTITIONS                            |</span><br><span class="line">| PLUGINS                               |</span><br><span class="line">| PROCESSLIST                           |</span><br><span class="line">| PROFILING                             |</span><br><span class="line">| REFERENTIAL_CONSTRAINTS               |</span><br><span class="line">| ROUTINES                              |</span><br><span class="line">| SCHEMATA                              |</span><br><span class="line">| SCHEMA_PRIVILEGES                     |</span><br><span class="line">| SESSION_STATUS                        |</span><br><span class="line">| SESSION_VARIABLES                     |</span><br><span class="line">| STATISTICS                            |</span><br><span class="line">| TABLES                                |</span><br><span class="line">| TABLESPACES                           |</span><br><span class="line">| TABLE_CONSTRAINTS                     |</span><br><span class="line">| TABLE_PRIVILEGES                      |</span><br><span class="line">| TRIGGERS                              |</span><br><span class="line">| USER_PRIVILEGES                       |</span><br><span class="line">| VIEWS                                 |</span><br><span class="line">| INNODB_LOCKS                          |</span><br><span class="line">| INNODB_TRX                            |</span><br><span class="line">| INNODB_SYS_DATAFILES                  |</span><br><span class="line">| INNODB_LOCK_WAITS                     |</span><br><span class="line">| INNODB_SYS_TABLESTATS                 |</span><br><span class="line">| INNODB_CMP                            |</span><br><span class="line">| INNODB_METRICS                        |</span><br><span class="line">| INNODB_CMP_RESET                      |</span><br><span class="line">| INNODB_CMP_PER_INDEX                  |</span><br><span class="line">| INNODB_CMPMEM_RESET                   |</span><br><span class="line">| INNODB_FT_DELETED                     |</span><br><span class="line">| INNODB_BUFFER_PAGE_LRU                |</span><br><span class="line">| INNODB_SYS_FOREIGN                    |</span><br><span class="line">| INNODB_SYS_COLUMNS                    |</span><br><span class="line">| INNODB_SYS_INDEXES                    |</span><br><span class="line">| INNODB_FT_DEFAULT_STOPWORD            |</span><br><span class="line">| INNODB_SYS_FIELDS                     |</span><br><span class="line">| INNODB_CMP_PER_INDEX_RESET            |</span><br><span class="line">| INNODB_BUFFER_PAGE                    |</span><br><span class="line">| INNODB_CMPMEM                         |</span><br><span class="line">| INNODB_FT_INDEX_TABLE                 |</span><br><span class="line">| INNODB_FT_BEING_DELETED               |</span><br><span class="line">| INNODB_SYS_TABLESPACES                |</span><br><span class="line">| INNODB_FT_INDEX_CACHE                 |</span><br><span class="line">| INNODB_SYS_FOREIGN_COLS               |</span><br><span class="line">| INNODB_SYS_TABLES                     |</span><br><span class="line">| INNODB_BUFFER_POOL_STATS              |</span><br><span class="line">| INNODB_FT_CONFIG                      |</span><br><span class="line">+---------------------------------------+</span><br><span class="line">59 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>常用:</p>
+<ol>
+<li>SCHEMATA表 ： 提供了当前mysql实例中所有数据库的信息。</li>
+<li>TABLES 表 ： 提供了关于数据库中的表的信息。</li>
+<li>COLUMNS 表 ：提供了表中的列信息</li>
+</ol>
+<p>SCHEMATA:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from information_schema.schemata;</span><br><span class="line">+--------------+--------------------+----------------------------+------------------------+----------+</span><br><span class="line">| CATALOG_NAME | SCHEMA_NAME        | DEFAULT_CHARACTER_SET_NAME | DEFAULT_COLLATION_NAME | SQL_PATH |</span><br><span class="line">+--------------+--------------------+----------------------------+------------------------+----------+</span><br><span class="line">| def          | information_schema | utf8                       | utf8_general_ci        | NULL     |</span><br><span class="line">| def          | mysql              | latin1                     | latin1_swedish_ci      | NULL     |</span><br><span class="line">| def          | mysqltest          | latin1                     | latin1_swedish_ci      | NULL     |</span><br><span class="line">| def          | performance_schema | utf8                       | utf8_general_ci        | NULL     |</span><br><span class="line">+--------------+--------------------+----------------------------+------------------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>TABLES:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select table_name from information_schema.tables where table_schema=0x6D7973716C74657374;  //注意这里不用引号就要把数据库名转为16进制</span><br><span class="line">+------------+</span><br><span class="line">| table_name |</span><br><span class="line">+------------+</span><br><span class="line">| admin      |</span><br><span class="line">+------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>COLUMNS：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select column_name from information_schema.columns where table_name=0x61646D696E;  </span><br><span class="line">+-------------+</span><br><span class="line">| column_name |</span><br><span class="line">+-------------+</span><br><span class="line">| id          |</span><br><span class="line">| username    |</span><br><span class="line">| password    |</span><br><span class="line">+-------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>information_schema储存的是所有数据库的信息,If <code>mysqltest1</code> <code>mysqltest2</code> 都存在admin表的话 它都会显示出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select column_name from information_schema.columns where table_name=0x61646D696E;</span><br><span class="line">+-------------+</span><br><span class="line">| column_name |</span><br><span class="line">+-------------+</span><br><span class="line">| id          |</span><br><span class="line">| username    |</span><br><span class="line">| password    |</span><br><span class="line">| id          |</span><br><span class="line">| user        |</span><br><span class="line">| pass        |</span><br><span class="line">+-------------+</span><br><span class="line">6 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所以要指定数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select column_name from information_schema.columns where table_name=0x61646D696E and table_schema=0x6D7973716C74657374;</span><br><span class="line">+-------------+</span><br><span class="line">| column_name |</span><br><span class="line">+-------------+</span><br><span class="line">| id          |</span><br><span class="line">| username    |</span><br><span class="line">| password    |</span><br><span class="line">+-------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user,password from user;</span><br><span class="line">+------------------+-------------------------------------------+</span><br><span class="line">| user             | password                                  |</span><br><span class="line">+------------------+-------------------------------------------+</span><br><span class="line">| root             | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">| root             | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">| root             | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">| root             | *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">| debian-sys-maint | *764E40048679D21BBB07CB8DDD18465359DAB4CA |</span><br><span class="line">+------------------+-------------------------------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from admin where id = &quot;1&quot;;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>常用:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&#x27;</span><br><span class="line">&quot;&quot;</span><br><span class="line">()</span><br><span class="line">&#123;&#125;</span><br><span class="line">\</span><br><span class="line">\\</span><br><span class="line">``</span><br><span class="line">%</span><br></pre></td></tr></table></figure>
+
+<p>such as :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from `admin` where id = &quot;1&quot;;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="注释符号"><a href="#注释符号" class="headerlink" title="注释符号"></a>注释符号</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line">/**/  /*/**/这样是等效于/**/</span><br><span class="line">-- + 用这个符号注意是--空格任意字符很多人搞混了</span><br><span class="line">;%00</span><br><span class="line">`</span><br><span class="line">/*!*/ 内列注释为什么放在这里呢，因为它也可以当作一个空格 /*!/*!*/是等效于/*!*/的</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作符与逻辑操作符"><a href="#操作符与逻辑操作符" class="headerlink" title="操作符与逻辑操作符"></a>操作符与逻辑操作符</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">:=</span><br><span class="line">||, OR, XOR</span><br><span class="line">&amp;&amp;, AND</span><br><span class="line">NOT</span><br><span class="line">BETWEEN, CASE, WHEN, THEN, ELSE</span><br><span class="line">=, &lt;=&gt;, &gt;=, &gt;, &lt;=, &lt;, &lt;&gt;, !=, IS, LIKE, REGEXP, IN</span><br><span class="line">|</span><br><span class="line">&amp;</span><br><span class="line">&lt;&lt;, &gt;&gt;</span><br><span class="line">-, +</span><br><span class="line">*, /, DIV, %, MOD</span><br><span class="line">^</span><br><span class="line">- (一元减号), ~ (一元比特反转)</span><br><span class="line">!</span><br><span class="line">BINARY, COLLATE</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="注入产生"><a href="#注入产生" class="headerlink" title="注入产生"></a>注入产生</h1><ol>
+<li>程序在开发的时候没对用户的数据过滤，把用户的数据都当做可信数据</li>
+<li>过滤不严格</li>
+<li>数据库配置不当</li>
+<li>转义不当</li>
+</ol>
+<h1 id="注入类型"><a href="#注入类型" class="headerlink" title="注入类型"></a>注入类型</h1><p>数字型，字符型，搜索型,盲注等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">select * from admin where id = $id; //数字型 注入</span><br><span class="line"></span><br><span class="line">select * from admin where id = &#x27;$id&#x27;; //字符型</span><br><span class="line"></span><br><span class="line">select * from admin where id = &quot;$id&quot;;</span><br><span class="line"></span><br><span class="line">select * from admin where id = ($id);</span><br><span class="line"></span><br><span class="line">select * from admin where id = (&#x27;$id&#x27;);</span><br><span class="line"></span><br><span class="line">select * from admin where id = (&quot;$id&quot;);</span><br><span class="line"></span><br><span class="line">select * from admin where username  like &#x27;%adm%&#x27;;</span><br><span class="line"></span><br><span class="line">select * from admin where username  like (&#x27;%adm%&#x27;);</span><br><span class="line"></span><br><span class="line">select * from admin where id = $id limit 0,1;</span><br><span class="line"></span><br><span class="line">select * from admin order by $id;</span><br><span class="line"></span><br><span class="line">select * from admin order by limit 0,1 $id;</span><br><span class="line"></span><br><span class="line">select * from admin order by id limit 1,1 $id;</span><br><span class="line"></span><br><span class="line">insert注入</span><br><span class="line"></span><br><span class="line">update注入</span><br><span class="line"></span><br><span class="line">delete注入</span><br><span class="line"></span><br><span class="line">二次注入</span><br><span class="line"></span><br><span class="line">等等</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="注入注意"><a href="#注入注意" class="headerlink" title="注入注意"></a>注入注意</h1><p>黑盒测试建立在每个参数的fuzz上，当然如果你有开发经验，拿到一套程序就能敏锐的发现注入，但凡涉及到用户交换地方都将是注入的重灾区</p>
+<ol>
+<li>当网站为成熟的cms框架时不建议直接黑盒注入，可以直接审计源码，或者搜索漏洞。</li>
+<li>判断为自己开发的系统，目标不是很重要可以尝试使用AWVS 等工具。</li>
+<li>信息收集的重要性，可能它的源码就在GitHub上，或者一个备份文件。</li>
+</ol>
+<h1 id="收集与路径"><a href="#收集与路径" class="headerlink" title="收集与路径"></a>收集与路径</h1><p> <code>version()</code> <code>@@version</code> <code>/*!版本号*/</code></p>
+<p><code>/*!*/</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM admin WHERE id = 1 union select 1,version(),3;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">|    1 | 5.6.30-1 | 3        |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM admin WHERE id = 1 union select 1,@@version,3;</span><br><span class="line">+------+----------+----------+</span><br><span class="line">| id   | username | password |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">|    1 | admin    | admin    |</span><br><span class="line">|    1 | 5.6.30-1 | 3        |</span><br><span class="line">+------+----------+----------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM admin WHERE id = 1 union select 1,/*!40000 user()*/,3;</span><br><span class="line">+------+----------------+----------+</span><br><span class="line">| id   | username       | password |</span><br><span class="line">+------+----------------+----------+</span><br><span class="line">|    1 | admin          | admin    |</span><br><span class="line">|    1 | root@localhost | 3        |</span><br><span class="line">+------+----------------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>路径:<code>@@datadir</code>就可以了然后大概反猜下网站路径 操作系统 <code>@@version_compile_os</code></p>
+<h1 id="用户-链接信息"><a href="#用户-链接信息" class="headerlink" title="用户,链接信息"></a>用户,链接信息</h1><p><code>system_user() </code> &#x2F;&#x2F;系统用户名<br><code>user() </code>  &#x2F;&#x2F; 用户名<br><code>current_user()</code>  &#x2F;&#x2F;当前用户名<br><code>session_user()</code> &#x2F;&#x2F;链接数据库的用户名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from users where id =1 union select system_user(),session_user(),current_user();</span><br><span class="line">+--------------------+--------------------+----------+</span><br><span class="line">| id                 | username           | password |</span><br><span class="line">+--------------------+--------------------+----------+</span><br><span class="line">| 1                  | Dumb               | Dumb     |</span><br><span class="line">| root@192.168.1.101 | root@192.168.1.101 | root@%   |</span><br><span class="line">+--------------------+--------------------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>读取host与user</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from users where id =1 union select 1,host,user from mysql.user;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | username  | password |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | Dumb      | Dumb     |</span><br><span class="line">|  1 | %         | root     |</span><br><span class="line">|  1 | 127.0.0.1 | root     |</span><br><span class="line">|  1 | ::1       | root     |</span><br><span class="line">|  1 | localhost | root     |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/MYSQL-Bypass/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/11/kafka/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

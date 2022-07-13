@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>红队提供弹性和隐蔽性 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="为了进一步提高弹性和隐蔽性，每个后端资产（即团队服务器）都应该在其前面放置一个重定向器。目标是在我们的目标服务器和后端服务器之间始终有一个主机。以这种方式设置基础架构可以更快、更轻松地滚动新的基础架构 - 无需在后端建立新的团队服务器、迁移会话和重新连接未销毁的资产。
+SMTP
+删除以前服务器的标头">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="红队提供弹性和隐蔽性"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 红队提供弹性和隐蔽性</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>为了进一步提高弹性和隐蔽性，每个后端资产（即团队服务器）都应该在其前面放置一个重定向器。目标是在我们的目标服务器和后端服务器之间始终有一个主机。以这种方式设置基础架构可以更快、更轻松地滚动新的基础架构 - 无需在后端建立新的团队服务器、迁移会话和重新连接未销毁的资产。</p>
+<h3 id="SMTP"><a href="#SMTP" class="headerlink" title="SMTP"></a>SMTP</h3><ul>
+<li>删除以前服务器的标头</li>
+</ul>
+<blockquote>
+<p>Remove previous server headers<br>Add the following line to the end of &#x2F;etc&#x2F;mail&#x2F;sendmail.mc:<br>define(<code>confRECEIVED_HEADER&#39;,</code>by $j ($v&#x2F;$Z)$?r with $r$. id $i; $b’)dnl</p>
+</blockquote>
+<blockquote>
+<p>Add to the end of &#x2F;etc&#x2F;mail&#x2F;access<br>IP-to-Team-Server <em>TAB</em> RELAY<br>Phish-Domain <em>TAB</em> RELAY</p>
+</blockquote>
+<ul>
+<li>配置包罗万象的地址</li>
+</ul>
+<blockquote>
+<p>configure a catch all address<br>echo PHISH-DOMAIN &gt;&gt; &#x2F;etc&#x2F;mail&#x2F;local-host-names<br>FEATURE(<code>virtusertable&#39;, </code>hash -o &#x2F;etc&#x2F;mail&#x2F;virtusertable.db’)dnl<br>@phishdomain.com  external-relay-address</p>
+</blockquote>
+<ul>
+<li>后缀<br>Postfix</li>
+</ul>
+<h3 id="有效载荷"><a href="#有效载荷" class="headerlink" title="有效载荷"></a>有效载荷</h3><ul>
+<li>有效负载</li>
+<li>Web重定向</li>
+</ul>
+<h3 id="网络流量"><a href="#网络流量" class="headerlink" title="网络流量"></a>网络流量</h3><ul>
+<li>修改C2流量</li>
+</ul>
+<h3 id="C2（HTTP-S-、DNS-等）"><a href="#C2（HTTP-S-、DNS-等）" class="headerlink" title="C2（HTTP(S)、DNS 等）"></a>C2（HTTP(S)、DNS 等）</h3><p>使用C2重定向器应在您的后利用框架上配置外部侦听器，以通过重定向器域发送暂存流量</p>
+<p><strong>域名系统</strong></p>
+<ul>
+<li>DNS的socat</li>
+</ul>
+<blockquote>
+<p>socat to 53 to DNS Data package<br>socat udp4-recvfrom:53,reuseaddr,fork udp4-sendto:<IPADDRESS>; echo -ne</p>
+</blockquote>
+<ul>
+<li>DNS的iptables</li>
+</ul>
+<blockquote>
+<p>DNS redirector rule-set is below<br>iptables -I INPUT -p udp -m udp –dport 53 -j ACCEPT<br>iptables -t nat -A PREROUTING -p udp –dport 53 -j DNAT –to-destination <IP-GOES-HERE>:53<br>iptables -t nat -A POSTROUTING -j MASQUERADE<br>iptables -I FORWARD -j ACCEPT<br>iptables -P FORWARD ACCEPT<br>sysctl net.ipv4.ip_forward&#x3D;1</p>
+</blockquote>
+<p><strong>HTTP（S）</strong></p>
+<ul>
+<li>socat</li>
+</ul>
+<blockquote>
+<p>单个网络接口和多个网络接口<br>socat TCP4-LISTEN:80,fork TCP4:<REMOTE-HOST-IP-ADDRESS>:80<br>socat TCP4-LISTEN:80,bind&#x3D;10.0.0.2,fork TCP4:1.2.3.4:80</p>
+</blockquote>
+<ul>
+<li>mode_rewirte</li>
+</ul>
+<blockquote>
+</blockquote>
+<p>iptables -I INPUT -p tcp -m tcp –dport 80 -j ACCEPT<br>iptables -t nat -A PREROUTING -p tcp –dport 80 -j DNAT –to-destination <REMOTE-HOST-IP-ADDRESS>:80<br>iptables -t nat -A POSTROUTING -j MASQUERADE<br>iptables -I FORWARD -j ACCEPT<br>iptables -P FORWARD ACCEPT<br>sysctl net.ipv4.ip_forward&#x3D;1</p>
+<ul>
+<li>HTTP socat</li>
+</ul>
+<blockquote>
+</blockquote>
+<p>cd &#x2F;etc&#x2F;ssh&#x2F;sshd_config<br>vim sshd_config</p>
+<h1 id="Allow-the-SSH-client-to-specify-which-hosts-may-connect"><a href="#Allow-the-SSH-client-to-specify-which-hosts-may-connect" class="headerlink" title="Allow the SSH client to specify which hosts may connect"></a>Allow the SSH client to specify which hosts may connect</h1><p>GatewayPorts yes</p>
+<h1 id="Allow-both-local-and-remote-port-forwards"><a href="#Allow-both-local-and-remote-port-forwards" class="headerlink" title="Allow both local and remote port forwards"></a>Allow both local and remote port forwards</h1><p>AllowTcpForwarding yes</p>
+<ul>
+<li>HTTP iptables</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li>HTTP ssh</li>
+</ul>
+<p><strong>C2重定向</strong></p>
+<ul>
+<li>HTTPS C2</li>
+<li>Apache mode_rewirte</li>
+</ul>
+<h2 id="重定向器模型"><a href="#重定向器模型" class="headerlink" title="重定向器模型"></a>重定向器模型</h2><hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[domain1.com] --&gt;C&#123;Phishing &amp; Payloads&#125;</span><br><span class="line">    C --&gt;|SMTP Server| D[router]</span><br><span class="line">    C --&gt;|Apache Redirector| E[router]</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[domain2.com] --&gt;B(DNS Redirector)</span><br><span class="line">    B --&gt; C(LT DNS C2)</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[domain3.com] --&gt;B(DNS Redirector)</span><br><span class="line">    B --&gt; C(LT DNS C2)</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[domain4.com] --&gt;B(Apache Redirector)</span><br><span class="line">    B --&gt; C(ST HTTP C2)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><p>开源OSINT可以帮助对控制状态以及检查域的资源做出最佳猜测</p>
+<ul>
+<li>CatMyFish</li>
+<li>DomainHunter</li>
+<li>AIRMASTER</li>
+<li>Chameleon</li>
+<li>DNS传播检查器</li>
+</ul>
+<p>分类和黑名单检查资源</p>
+<ul>
+<li>McAfee</li>
+<li>Fortiguard</li>
+<li>Symantec + BlueCoat</li>
+<li>Checkpoint (requires free account)</li>
+<li>Palo Alto</li>
+<li>Sophos (submission only; no checking) - Click Submit a Sample -&gt; Web Address</li>
+<li>TrendMicro</li>
+<li>Brightcloud</li>
+<li>Websense (Forcepoint)</li>
+<li>Lightspeed Systems</li>
+<li>Chameleon</li>
+<li>SenderBase</li>
+<li>MultiBL</li>
+<li>MXToolBox - Blacklists</li>
+</ul>
+<h3 id="网络钓鱼"><a href="#网络钓鱼" class="headerlink" title="网络钓鱼"></a>网络钓鱼</h3><ul>
+<li>基于Web网络钓鱼</li>
+<li>鱼叉网络钓鱼<blockquote>
+<p>钓鱼框架：<br>Gophish<br>Phishing Frenzy<br>The Social-Engineer Toolkit<br>FiercePhish (formerly FirePhish)</p>
+</blockquote>
+</li>
+</ul>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/11/malware_01/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/11/distributed-security/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-11 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

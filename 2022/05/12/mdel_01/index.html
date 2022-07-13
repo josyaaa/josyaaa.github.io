@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>决策树在训练中的细节 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="决策树是基于树结构来进行决策，也恰好是人类在面临决策问题时一种很自然的处理机制，一般的一颗决策树包含一个根节点、若干个内部节点、若干个叶节点，叶节点对应于决策结果，其他每个结点则对应于一个属性测试，其中每个节点包含的样本集合根据属性测试的结果被划分到子节点中，根节点包含样本全集，从根节点到每个叶节点">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="决策树在训练中的细节"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 决策树在训练中的细节</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>决策树是基于树结构来进行决策，也恰好是人类在面临决策问题时一种很自然的处理机制，一般的一颗决策树包含一个根节点、若干个内部节点、若干个叶节点，叶节点对应于决策结果，其他每个结点则对应于一个属性测试，其中每个节点包含的样本集合根据属性测试的结果被划分到子节点中，根节点包含样本全集，从根节点到每个叶节点的路径对应一个判定测试序列。</p>
+<h2 id="决策树的目的"><a href="#决策树的目的" class="headerlink" title="决策树的目的"></a>决策树的目的</h2><p>决策树的目的时产生一颗泛化能力强可以处理未见示例能力强的决策树，基本流程遵循“分而治之“，决策树本质是”递归过程“，但是在决策树中导致递归返回的情况有三种:</p>
+<ol>
+<li>当前节点包含的样本全属于同一类别不需要划分</li>
+<li>当前属性集为空或是所有样本在所有属性上取值相同无法划分<br>3.当前节点的样本集为空不能划分,对于2我们常常是利用当前节点的“后验分布“，对3我们常常是把父节点的样本分布作为当前节点的“先验分布”</li>
+</ol>
+<h2 id="决策树划分选择"><a href="#决策树划分选择" class="headerlink" title="决策树划分选择"></a>决策树划分选择</h2><p>决策树学习的关键是如何选择最优划分属性，我们希望决策树的分支节点所包含的样本尽可能属于同一类别也就是节点的“纯度“越高</p>
+<h2 id="“纯度“的方法"><a href="#“纯度“的方法" class="headerlink" title="“纯度“的方法"></a>“纯度“的方法</h2><ul>
+<li>“信息增益“是度量样本集合纯度最常用的指标，”信息增益“越高意味着属性进行划分所获的”纯度“越高，所以用”信息增益“来进行决策树的划分属性选择，ID3就是以”信息增益“为准则划分属性，但是”信息增益“对取值数目较多的属性有所偏好，为减少偏好所带来的影响，C4.5不直接使用”信息增益“而是使用“增益率“来选择最优划分属性，然而”增益率“对样本较少的属性有所偏好，因此C4.5不是直接选择”增益率“最大的候选划分属性，而是使用启发式，先从候选划分属性中找出”信息增益“高于平均水平的属性，在从中选择”增益率“较高的属性</li>
+<li>“基尼指数“是反映data中随机抽取两个样本，其类别不一致的概率”基尼指数“越小data的纯度越高，最下属性即为最优划分属性，CART就是用”基尼指数“来选择划分属性的，同时可以应用于”分类“和”回归“任务</li>
+<li>“剪枝处理“是对于决策树”过拟合“的主要方法，因为在尽量正确分类的过程中会造成决策树分支过多，就导致train自身将一些特点当作普遍特点就会造成”过拟合“所以就需要主动去掉一些分支来降低过拟合的风险。其中”剪枝处理“的策略有”预剪枝“和”后剪枝“，”预剪枝“是指在决策树过程中对每个节点划分先进行估计，当前节点不能带来决策泛化性能提升则停止并将当前节点标记为叶节点；”后剪枝“则是在train中生成完整的决策树然后自底向上对非叶节点进行考察，如果能将对应子树替换为叶节点能够提高决策树的泛化能力就将子树替换为叶节点</li>
+</ul>
+<h2 id="如果判断决策树泛化性能的提升"><a href="#如果判断决策树泛化性能的提升" class="headerlink" title="如果判断决策树泛化性能的提升"></a>如果判断决策树泛化性能的提升</h2><h2 id="可以预留部分test以进行性能的评估"><a href="#可以预留部分test以进行性能的评估" class="headerlink" title="可以预留部分test以进行性能的评估"></a>可以预留部分test以进行性能的评估</h2><ul>
+<li>“预剪枝“是基于”信息增益“，”预剪枝“使得决策树的很多分支都没有”展开“这不仅降低了过拟合的风险还减少了决策树训练的开销和测试时间开销，但是有些分支的当前划分虽然不能提升泛化性能甚至可能导致泛化性能暂时下降但在其基础上进行后续划分可能导致性能显著提升但是由于”预剪枝“本质上”贪心“禁止分支展开会带来”欠拟合“风险</li>
+<li>“后剪枝“比”预剪枝“保留更多的分支但是”欠拟合“的风险很小泛化性能优于但是在生产完全决策树之后要对决策树自底向上进行检查，所以时间开销就很大。</li>
+</ul>
+<h2 id="决策树中连续值怎样处理"><a href="#决策树中连续值怎样处理" class="headerlink" title="决策树中连续值怎样处理"></a>决策树中连续值怎样处理</h2><p>现实学习任务常常遇到连续属性，并且连续属性的可取值数目不再有限就不能直接对连续属性的可取值来对节点进行划分就需要连续属性离散化，最常用二分类法对连续值属性进行处理，C4.5采用的也是这样机制，与离散属性节点划分不同连续属性划分该属性还可作为其后代节点划分属性。</p>
+<h2 id="决策树怎样缺失值处理"><a href="#决策树怎样缺失值处理" class="headerlink" title="决策树怎样缺失值处理"></a>决策树怎样缺失值处理</h2><p>现实中样本总会是不那么完美的就会有样本的属性缺失值问题产生，但是如果简单放弃大量缺失值使用无缺失部分来train，对data来说是非常大的浪费。如果我们要参与缺失值就需要解决两个问题：</p>
+<ul>
+<li>如何在属性缺失情况下进行划分属性选择？</li>
+</ul>
+<p>1、Data里面属性并没有缺失值问题就只需要需要判断属性的优略即可<br>2、Data里面属性中的属性子集所占比<br>3、Data里面属性中属性子集取值为属性方所占的比<br>（ 三种所占比都为1，可以给每个样本赋予一个权重去定义，通过调整权重参数去解决属性缺失值如何进行划分属性的问题 ）</p>
+<ul>
+<li>在给定划分属性上面且有缺失值如何进行样本划分？</li>
+</ul>
+<p>1、对每个样本划入与其取值对应的子节点，且样本的权值在子节点中保持为特定的参数，若每个样本划分属性上的取值未知，就需要将每个样本划分所有子节点中调整为权重*（无缺失值样本中在属性上取值属性子集的样本所占比例）<br>2、多变量决策树是使用斜的划分而不是轴划分，这样就可以实现较为复杂的多变量决策树划分，与单变量决策树不同的是多变量决策树不是为每一个非叶点寻找一个最优划分属性而是试图建立一个合适的线性分类器，OCI先贪心的寻找每个属性的最优权值，在局部优化的基础上再对分类边界进行随机扰动以试图找到更好的边界；<br>3、直接引入线性分类器的最小二乘法，还有将再决策树节点上嵌入神经网络，所以结合这两种优势就有了“感知机“、”神经网络“<br>4、“增量学习“有些决策树可以进行，”增量学习“就是接收到新样本后可对已学得的模型进行调整而不用重新学习，主要是通过调整分支路径上的划分属性次序来对树进行部分重构，ID4、ID5R、ITI等，可以有效降低每次接收到新样本后训练时间开销但多步增量学习后的模型会基于全部数据训练model会有差别。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/model_02/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/metadata/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

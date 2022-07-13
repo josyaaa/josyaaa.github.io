@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>分布式系统 V3.0 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="分布式系统区别于单机系统的特性是可以容许部分失效，这个故障也许会影响其他组件的正常操作。进程恢复涉及到的技术可以使一个或多个进程发生故障而不会严重影响到系统的其余部分。可靠多播与进程恢复相关，它确保可以成功地把信息传输到一个进程集合，要保持进程同步可靠多播通常是必需的。
+容错性概述
+what is ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="分布式系统 V3.0"/>
+  <meta property="og:site_name" content="josyaaa"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 分布式系统 V3.0</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>分布式系统区别于单机系统的特性是可以容许部分失效，这个故障也许会影响其他组件的正常操作。进程恢复涉及到的技术可以使一个或多个进程发生故障而不会严重影响到系统的其余部分。可靠多播与进程恢复相关，它确保可以成功地把信息传输到一个进程集合，要保持进程同步可靠多播通常是必需的。</p>
+<h2 id="容错性概述"><a href="#容错性概述" class="headerlink" title="容错性概述"></a>容错性概述</h2><ul>
+<li>what is dependable system ?</li>
+</ul>
+<p>可用性：高可用的系统在任何给定的时刻都能及时地工作<br>可靠性：系统可以无故障地持续运行<br>安全性：系统偶然出现故障的情况下能正确操作而不会造成任何灾难<br>可维护性：发生故障的系统被恢复的难易程度</p>
+<ul>
+<li>dependable system question ?</li>
+</ul>
+<p>防止、解决、预报故障，意味着系统即使在发生故障时还能提供服务</p>
+<ul>
+<li>what are the  fault types ?</li>
+</ul>
+<p>暂时故障(fault tolerance)<br>间歇故障(transient fault)<br>持久故障(permanent fault)</p>
+<ul>
+<li>failure model</li>
+</ul>
+<p>| 崩溃性故障 ｜ 遗漏性故障 ｜ 定时故障 ｜ 响应故障 ｜ 随意性故障 ｜<br>|———— | ———– | ——————— | ——————- | ————————— |</p>
+<h2 id="服务器停机-服务器无法响应-服务器响应不再时间间隔内-服务器响应不正确-服务器可能在随意时间产生随意的响应"><a href="#服务器停机-服务器无法响应-服务器响应不再时间间隔内-服务器响应不正确-服务器可能在随意时间产生随意的响应" class="headerlink" title="| 服务器停机 | 服务器无法响应 | 服务器响应不再时间间隔内 | 服务器响应不正确 | 服务器可能在随意时间产生随意的响应 |"></a>| 服务器停机 | 服务器无法响应 | 服务器响应不再时间间隔内 | 服务器响应不正确 | 服务器可能在随意时间产生随意的响应 |</h2><p>崩溃性故障：操作系统崩溃  <em><strong><strong>重新启动</strong>_</strong></em><br>遗漏性故障：<br>1、缓冲区溢出而服务器又没有为这样的情况做好准备时就出现故障<br>2、可能由诸如无限循环或不正确的内存管理<br>定时故障：如果数据流速度过快，而在接收方又没有足够的缓冲空间来保存所到来的数据就容易在接收方引起问题<br>响应故障：<br>1、发生数值故障的情况下，服务器为请求提供错误的响应（例如搜索引擎返回了使用的搜索项无关的web页面）<br>2、服务器对到来的请求做出意想不到的响应时就发生这种情况<br>随意性故障：<br>1、拜占庭故障，服务器可能产生它从来没有产生过的输出，但又不能检测出结果<br>2、失败停机故障，因为可能发生被其他的进程探测到<br>3、安全失败故障，服务器通过程序遗漏性故障或崩溃性故障而停机，服务器最后可能产生随机的输出，但是这个输出简单地被其他进程识别为垃圾</p>
+<ul>
+<li>冗余掩盖故障</li>
+</ul>
+<p>信息冗余：添加额外的位可以使错乱的位恢复正常，hamming码来恢复传输线路上的噪声中恢复数据<br>时间冗余：执行一个动作，如果需要就再次执行，事务处理<br>物理冗余：添加往外的装备或进程使系统作为一个整体容忍部分组件的失效或故障成为可能 <em><strong><strong>三倍模块冗余 、TMR</strong>_</strong></em></p>
+<h2 id="进程恢复"><a href="#进程恢复" class="headerlink" title="进程恢复"></a>进程恢复</h2>	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/josyaaa/2022/05/12/ip_hiding/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/design/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
