@@ -1,39 +1,118 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
-     <link rel="shortcut icon" href= /img/favicon.ico >
-    <title>
-        josyaaa
-    </title>
-    <meta name="description" content= okay!😯 hacking time >
-    <meta name="keywords" content= Blog,Hexo,Theme,刘训灼,LiuXunzhuo >
-    
-<link rel="stylesheet" href="/josyaaa/libs/highlight/styles/monokai-sublime.css">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>线性模型在训练中的细节 | josyaaa</title>
+  <meta name="author" content="josyaaa">
+  
+  <meta name="description" content="线性模型线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：    (回归&amp;#x3D;‘预测’	分类&amp;#x3D;‘标注’)
+线性模型进行回归任务
+给定数据集中使用线性回归模型以">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
-<link rel="stylesheet" href="/josyaaa/libs/font-awesome/css/font-awesome.min.css">
+  <meta property="og:title" content="线性模型在训练中的细节"/>
+  <meta property="og:site_name" content="josyaaa"/>
 
-    
-<link rel="stylesheet" href="/josyaaa/css/style.css">
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/josyaaa/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
 
 <meta name="generator" content="Hexo 6.2.0"></head>
-<body id="bodyx">
-    <div class="hd posts">
-    <a href="/index.html"><i class="fa fa-home
- replay-btn" aria-hidden="true"></i></a>
-    <div class="post-title">
-        <p>
-            线性模型在训练中的细节
-        </p>
-        <hr>
-    </div>
-    <div class="post-content">
-        <h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><p>线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：<br>    (回归&#x3D;‘预测’	分类&#x3D;‘标注’)</p>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/josyaaa/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/josyaaa/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 线性模型在训练中的细节</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><p>线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：<br>    (回归&#x3D;‘预测’	分类&#x3D;‘标注’)</p>
 <h2 id="线性模型进行回归任务"><a href="#线性模型进行回归任务" class="headerlink" title="线性模型进行回归任务"></a>线性模型进行回归任务</h2><ol>
 <li>给定数据集中使用线性回归模型以尽可能准确地预测实值输出标记，先讨论“二分类问题”，此时我们忽略属性的下标，对离散属性，若属性间存在“序“关系可通过连续化将其转化为连续值，使用“0 1“进行转化或者”0 0.5 1“属性转化。</li>
 <li>如何确定w和b，本质来说是如何衡量f(x)与y之间的差别，我们可以使用均方误差对回归进行性能度量，同时均方误差对应的具体方法是：欧几里得距离、最小二乘法等，对于多元线性回归，就需要引入矩阵思想是把数据看作矩阵，可分为正定矩阵或满秩矩阵以及逆矩阵的情况，现实中往往不会是满秩矩阵以为我们会遇到大量的变量、其数目甚至超过样本本身，从矩阵角度看就是列多于行，就会得出多个w所以这个时间就需要引入正则化项。</li>
@@ -63,68 +142,120 @@
 </ul>
 <h3 id="欠采样-｜-过采样"><a href="#欠采样-｜-过采样" class="headerlink" title="欠采样 ｜ 过采样"></a>欠采样 ｜ 过采样</h3><p>“欠采样”的时间开销远小于“过采样”，前者是丢弃很多反例，后者是增加很多正例，但是“过采样”不能随便对初始正例样本进行重复采样会导致“过拟合”的发生。<br>“过采样”的代表算法ＳＭＯＴＥ是通过对ｔｒａｉｎ中正例进行插值来产生额外的正例，“欠采样”的代表算法ＥａｓｙＥｎｓｅｍｂｌｅ则是利用集成学习机制将反例划分为若干个集合供不同学习器使用，看起来都使用了“欠采样”可从全局来看不会丢失重要信息</p>
 <h3 id="多分类学习"><a href="#多分类学习" class="headerlink" title="多分类学习"></a>多分类学习</h3><p>多分类学习中每个样本仅属于一个类别，但是如果每个样本同时预测多个类别标记则是多标记学习。<br>“再缩放”也是“代价敏感学习”的基础，“代价敏感学习研究最多的是基于类别的“误分类代价”</p>
+	  
+	</div>
 
-    </div>
+	<div>
+  	<center>
+	<div class="pagination">
 
     
-        <hr class="fhr">
-        <div id="vcomments"></div>
+    
+    <a href="/josyaaa/2022/05/12/network_seeurity/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/josyaaa/2022/05/12/mdel_01/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
     
 </div>
-    <div class="footer" id="footer">
-    <p><h4>Copyright © 2022 | Author: josyaaa | Theme by <a class="theme-author" href="https://github.com/josyaaa" style="font-size:14px; color: #969696">hacking</a></h4>
-    
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
-    
-    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
-        <input type="checkbox" name="switch" id="update_style">
-        <span class="el-switch-style"></span>
-    </label>
 
-    <!--         <script type="text/javascript">
-    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script> -->
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-05-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2022 josyaaa
+  
+      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
+     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
 </p>
-</div>
-
-<input type="hidden" id="web_style" value="black">
-<input type="hidden" id="valine_appid" value="">
-<input type="hidden" id="valine_appKey" value="">
-
-<script src="/josyaaa/libs/jquery.min.js"></script>
+ </footer>
+</div> <!-- container-narrow -->
+  
 
 
-<script src="/josyaaa/libs/highlight/highlight.pack.js"></script>
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
 
-<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
+<script src="/josyaaa/js/gallery.js"></script>
+<script src="/josyaaa/js/bootstrap.min.js"></script>
+<script src="/josyaaa/js/main.js"></script>
+<script src="/josyaaa/js/search.js"></script> 
 
-<script src="/josyaaa/js/js.js"></script>
 
-<style type="text/css">
-.v * {
-color: #698fca;
-}
-.v .vlist .vcard .vhead .vsys {
-color: #3a3e4a;
-}
-.v .vlist .vcard .vh .vmeta .vat {
-color: #638fd5;
-}
-.v .vlist .vcard .vhead .vnick {
-color: #6ba1ff;
-}
-.v a {
-color: #8696b1;
-}
-.v .vlist .vcard .vhead .vnick:hover {
-color: #669bfc;
-}
-</style>
+<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
-    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/josyaaa/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>
