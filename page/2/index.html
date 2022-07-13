@@ -1,1548 +1,290 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  
-  <title>Page 2 | josyaaa</title>
-  <meta name="author" content="josyaaa">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
+     <link rel="shortcut icon" href= /img/favicon.ico >
+    <title>
+        josyaaa
+    </title>
+    <meta name="description" content= okay!😯 hacking time >
+    <meta name="keywords" content= Blog,Hexo,Theme,刘训灼,LiuXunzhuo >
+    
+<link rel="stylesheet" href="/josyaaa/libs/highlight/styles/monokai-sublime.css">
 
-  
-  <meta property="og:site_name" content="josyaaa"/>
+    
+<link rel="stylesheet" href="/josyaaa/libs/font-awesome/css/font-awesome.min.css">
 
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/josyaaa/favicon.png" rel="icon">
-  
-  
-  <link rel="stylesheet" href="/josyaaa/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/josyaaa/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/josyaaa/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/josyaaa/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/josyaaa/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/josyaaa/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/josyaaa/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
-  
-
-
+    
+<link rel="stylesheet" href="/josyaaa/css/style.css">
 
 <meta name="generator" content="Hexo 6.2.0"></head>
-
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/josyaaa/">josyaaa</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/josyaaa/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/josyaaa/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/josyaaa/tags" title="All the tags.">
-			  <i class=""></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/josyaaa/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
-
-  <div class="container">
-  	<div class="content">
-    	 <div class="page-header logo">
-  <h1>josyaaa<span class="blink-fast">∎</span></h1>
+<body id="bodyx">
+    <div class="hd logodiv">
+    <img src="/josyaaa/img/male.png" class="logopng" alt="logo">
+    <p class="logot">
+         josyaaa 
+         <span class="logo_2"></span>
+        <h3 class="words" style="font-weight: bold;font-family: Georgia;"> 
+            okay!😯 你觉得我很菜，我无话可说 
+        </h3>
+    </p>
 </div>
 
-<div class="row page">
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="slogan">
-
-
-		<i class="fa fa-heart blink-slow"></i>
-
-		okay!😯 你觉得我很菜，我无话可说
-
-</div>    
-
-		<div id="top_search"></div>
-		<div class="mypage">
-		
-		<!-- title and entry -->
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/fault-tolerance/" >分布式系统 V3.0</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>分布式系统区别于单机系统的特性是可以容许部分失效，这个故障也许会影响其他组件的正常操作。进程恢复涉及到的技术可以使一个或多个进程发生故障而不会严重影响到系统的其余部分。可靠多播与进程恢复相关，它确保可以成功地把信息传输到一个进程集合，要保持进程同步可靠多播通常是必需的。</p>
-<h2 id="容错性概述"><a href="#容错性概述" class="headerlink" title="容错性概述"></a>容错性概述</h2><ul>
-<li>what is dependable system ?</li>
-</ul>
-<p>可用性：高可用的系统在任何给定的时刻都能及时地工作<br>可靠性：系统可以无故障地持续运行<br>安全性：系统偶然出现故障的情况下能正确操作而不会造成任何灾难<br>可维护性：发生故障的系统被恢复的难易程度</p>
-<ul>
-<li>dependable system question ?</li>
-</ul>
-<p>防止、解决、预报故障，意味着系统即使在发生故障时还能提供服务</p>
-<ul>
-<li>what are the  fault types ?</li>
-</ul>
-<p>暂时故障(fault tolerance)<br>间歇故障(transient fault)<br>持久故障(permanent fault)</p>
-<ul>
-<li>failure model</li>
-</ul>
-<p>| 崩溃性故障 ｜ 遗漏性故障 ｜ 定时故障 ｜ 响应故障 ｜ 随意性故障 ｜<br>|———— | ———– | ——————— | ——————- | ————————— |</p>
-<h2 id="服务器停机-服务器无法响应-服务器响应不再时间间隔内-服务器响应不正确-服务器可能在随意时间产生随意的响应"><a href="#服务器停机-服务器无法响应-服务器响应不再时间间隔内-服务器响应不正确-服务器可能在随意时间产生随意的响应" class="headerlink" title="| 服务器停机 | 服务器无法响应 | 服务器响应不再时间间隔内 | 服务器响应不正确 | 服务器可能在随意时间产生随意的响应 |"></a>| 服务器停机 | 服务器无法响应 | 服务器响应不再时间间隔内 | 服务器响应不正确 | 服务器可能在随意时间产生随意的响应 |</h2><p>崩溃性故障：操作系统崩溃  <em><strong><strong>重新启动</strong>_</strong></em><br>遗漏性故障：<br>1、缓冲区溢出而服务器又没有为这样的情况做好准备时就出现故障<br>2、可能由诸如无限循环或不正确的内存管理<br>定时故障：如果数据流速度过快，而在接收方又没有足够的缓冲空间来保存所到来的数据就容易在接收方引起问题<br>响应故障：<br>1、发生数值故障的情况下，服务器为请求提供错误的响应（例如搜索引擎返回了使用的搜索项无关的web页面）<br>2、服务器对到来的请求做出意想不到的响应时就发生这种情况<br>随意性故障：<br>1、拜占庭故障，服务器可能产生它从来没有产生过的输出，但又不能检测出结果<br>2、失败停机故障，因为可能发生被其他的进程探测到<br>3、安全失败故障，服务器通过程序遗漏性故障或崩溃性故障而停机，服务器最后可能产生随机的输出，但是这个输出简单地被其他进程识别为垃圾</p>
-<ul>
-<li>冗余掩盖故障</li>
-</ul>
-<p>信息冗余：添加额外的位可以使错乱的位恢复正常，hamming码来恢复传输线路上的噪声中恢复数据<br>时间冗余：执行一个动作，如果需要就再次执行，事务处理<br>物理冗余：添加往外的装备或进程使系统作为一个整体容忍部分组件的失效或故障成为可能 <em><strong><strong>三倍模块冗余 、TMR</strong>_</strong></em></p>
-<h2 id="进程恢复"><a href="#进程恢复" class="headerlink" title="进程恢复"></a>进程恢复</h2>
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/fault-tolerance/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/design/" >DolphinScheduler</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>DolphinScheduler 是一个分布式易扩展、去中心化的可视化DAG工作流任务调度系统，以DAG流式的方式将Task组装起来，可实时监控任务的运行状态，同时支持执行重试、kill等任务。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;p align=&quot;center&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;/img/architecture-1.3.0.jpg&quot; alt=&quot;系统架构图&quot;  width=&quot;70%&quot; /&gt;</span><br><span class="line">  &lt;p align=&quot;center&quot;&gt;</span><br><span class="line">        &lt;em&gt;系统架构图&lt;/em&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="MasterServer"><a href="#MasterServer" class="headerlink" title="MasterServer"></a>MasterServer</h4><p>  MasterServer采用分布式无中心设计理念，MasterServer主要负责 DAG 任务切分、任务提交监控，并同时监听其它MasterServer和WorkerServer的健康状态。<br>  MasterServer服务启动时向Zookeeper注册临时节点，通过监听Zookeeper临时节点变化来进行容错处理。<br>  MasterServer基于netty提供监听服务。</p>
-<p>  MasterServer由以下组件组成：</p>
-<ul>
-<li><strong>Distributed Quartz</strong>分布式调度组件，主要负责定时任务的启停操作，当quartz调起任务后，Master内部会有线程池具体负责处理任务的后续操作</li>
-<li><strong>MasterSchedulerService</strong>是一个扫描线程，定时扫描数据库中的 <strong>command</strong> 表，生成工作流实例，根据不同的<strong>命令类型</strong>进行不同的业务操作</li>
-<li><strong>WorkflowExecuteThread</strong>主要是负责DAG任务切分、任务提交、各种不同命令类型的逻辑处理，处理任务状态和工作流状态事件</li>
-<li><strong>EventExecuteService</strong>处理master负责的工作流实例所有的状态变化事件，使用线程池处理工作流的状态事件</li>
-<li><strong>StateWheelExecuteThread</strong>处理依赖任务和超时任务的定时状态更新</li>
-</ul>
-<h4 id="WorkerServer"><a href="#WorkerServer" class="headerlink" title="WorkerServer"></a>WorkerServer</h4><p>  WorkerServer也采用分布式无中心设计理念，支持自定义任务插件，主要负责任务的执行和提供日志服务。<br>  WorkerServer服务启动时向Zookeeper注册临时节点，并维持心跳。</p>
-<p>  WorkerServer由以下组件组成：</p>
-<ul>
-<li><strong>WorkerManagerThread</strong>主要通过netty领取master发送过来的任务，并根据不同任务类型调用<strong>TaskExecuteThread</strong>对应执行器。</li>
-<li><strong>RetryReportTaskStatusThread</strong>主要通过netty向master汇报任务状态，如果汇报失败，会一直重试汇报</li>
-<li><strong>LoggerServer</strong>是一个日志服务，提供日志分片查看、刷新和下载等功能</li>
-</ul>
-<h4 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h4><p>  注册中心，使用插件化实现，默认支持Zookeeper, 系统中的MasterServer和WorkerServer节点通过注册中心来进行集群管理和容错。另外系统还基于注册中心进行事件监听和分布式锁。</p>
-<h4 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h4><p>  提供告警相关功能，仅支持单机服务。支持自定义告警插件。</p>
-<h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><p>  API接口层，主要负责处理前端UI层的请求。该服务统一提供RESTful api向外部提供请求服务。<br>  接口包括工作流的创建、定义、查询、修改、发布、下线、手工启动、停止、暂停、恢复、从该节点开始执行等等。</p>
-<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4><p>  系统的前端页面，提供系统的各种可视化操作界面，详见<a href="../guide/homepage.md">功能介绍</a>部分。</p>
-<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p>DolphinScheduler使用分片算法将command取模，根据master的排序id分配，master将拿到的command转换成工作流实例，使用线程池处理工作流实例。</p>
-<p>DolphinScheduler对工作流的处理流程:</p>
-<ul>
-<li>通过UI或者API调用，启动工作流，持久化一条command到数据库中</li>
-<li>Master通过分片算法，扫描Command表，生成工作流实例ProcessInstance，同时删除Command数据</li>
-<li>Master使用线程池运行WorkflowExecuteThread，执行工作流实例的流程，包括构建DAG，创建任务实例TaskInstance，将TaskInstance通过netty发送给worker</li>
-<li>Worker收到任务以后，修改任务状态，并将执行信息返回Master</li>
-<li>Master收到任务信息，持久化到数据库，并且将状态变化事件存入EventExecuteService事件队列</li>
-<li>EventExecuteService根据事件队列调用WorkflowExecuteThread进行后续任务的提交和工作流状态的修改</li>
-</ul>
-  <p align="center">
-  <img src="/img/master-process-2.0-zh_cn.png" alt="Start process activity diagram"  width="70%" />
-  <p align="center">
-        <em>启动流程活动图</em>
-  </p>
-</p>
-
-
-
-
-<h2 id="容错设计"><a href="#容错设计" class="headerlink" title="容错设计"></a>容错设计</h2><p>容错分为<strong>服务宕机容错</strong>、<strong>任务重试</strong>，服务宕机容错由<strong>Master容错</strong>和<strong>Worker容错</strong>组成</p>
-<h5 id="服务宕机容错"><a href="#服务宕机容错" class="headerlink" title="服务宕机容错"></a>服务宕机容错</h5><ul>
-<li>Master容错：</li>
-</ul>
-<p align="center">
-   <img src="/img/failover-master.jpg" alt="容错流程"  width="50%" />
- </p>
-
-<p>容错范围：从host的维度来看，Master的容错范围包括：自身host+注册中心上不存在的节点host，容错的整个过程会加锁；</p>
-<p>容错内容：Master容错工作流实例和任务实例，在容错前会比较实例的开始时间和服务节点的启动时间，在服务启动时间之后的则跳过容错；</p>
-<p>容错后处理：ZooKeeper Master容错完成之后则重新由DolphinScheduler中Scheduler线程调度，遍历 DAG 找到”正在运行”和“提交成功”的任务，对”正在运行”的任务监控其任务实例的状态，对”提交成功”的任务需要判断Task Queue中是否已经存在，如果存在则同样监控任务实例的状态，如果不存在则重新提交任务实例。</p>
-<ul>
-<li>Worker容错：</li>
-</ul>
-<p align="center">
-   <img src="/img/failover-worker.jpg" alt="容错流程"  width="50%" />
- </p>
-
-<p>容错范围：从工作流实例的维度看，每个Master只负责容错自己的工作流实例；只有在<code>handleDeadServer</code>时会加锁；</p>
-<p>容错内容：当发送Worker节点的remove事件时，Master只容错任务实例，在容错前会比较实例的开始时间和服务节点的启动时间，在服务启动时间之后的则跳过容错；</p>
-<p>容错后处理：Master Scheduler线程一旦发现任务实例为” 需要容错”状态，则接管任务并进行重新提交。</p>
-<p>注意：由于” 网络抖动”可能会使得节点短时间内失去和ZooKeeper的心跳，从而发生节点的remove事件。对于这种情况，我们使用最简单的方式，那就是节点一旦和ZooKeeper发生超时连接，则直接将Master或Worker服务停掉。</p>
-<h5 id="任务重试"><a href="#任务重试" class="headerlink" title="任务重试"></a>任务重试</h5><p>DolphinScheduler 将工作流中的任务节点分为以下类型：</p>
-<ul>
-<li><p>业务节点，它对应一个实际的脚本或者处理语句，比如Shell节点，MR节点、Spark节点、依赖节点等。</p>
-</li>
-<li><p>逻辑节点，它不做实际的脚本或语句处理，只是整个流程流转的逻辑处理，比如子流程节等。</p>
-</li>
-</ul>
-<p>所有任务都可以配置失败重试的次数，当该任务节点失败，会自动重试，直到成功或者超过配置的重试次数。如果工作流中有任务失败达到最大重试次数，工作流就会失败停止，失败的工作流可以手动进行重跑操作或者流程恢复操作</p>
-<h2 id="任务优先级"><a href="#任务优先级" class="headerlink" title="任务优先级"></a>任务优先级</h2><p><strong>不同流程实例优先级</strong>&gt;<strong>同一个流程实例优先级</strong>&gt;<strong>同一流程内任务优先级</strong>&gt;<strong>同一流程内任务</strong>进行任务处理。<br>每个任务实例根据<strong>json</strong>解析优先级，将其信息保存在任务队列中。<br>任务队列获取的时候，通过字符串比较可得出需要优先执行的任务。</p>
-<ul>
-<li>流程定义优先级：HIGHEST、HIGH、MEDIUM、LOW、LOWEST。</li>
-<li>任务优先级：HIGHEST、HIGH、MEDIUM、LOW、LOWEST。</li>
-</ul>
-<h2 id="日志访问"><a href="#日志访问" class="headerlink" title="日志访问"></a>日志访问</h2><p>Web(UI) 和 worker 可能不在同一机器，查询日志采取以下方案：</p>
-<ul>
-<li>存放于Elasticsearch</li>
-<li>gRPC远程访问日志</li>
-</ul>
-<p> 我们使用自定义Logback的FileAppender和Filter功能，实现每个任务实例生成一个日志文件，同时以流程定义、流程实例、任务实例的形式生成日志过滤匹配TaskLogInfo开始的线程名称。</p>
-<p>FileAppender：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * task log appender</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskLogAppender</span> <span class="keyword">extends</span> <span class="title class_">FileAppender</span>&lt;ILoggingEvent&gt; &#123;</span><br><span class="line"></span><br><span class="line">     ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">append</span><span class="params">(ILoggingEvent event)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentlyActiveFile == <span class="literal">null</span>)&#123;</span><br><span class="line">            currentlyActiveFile = getFile();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">activeFile</span> <span class="operator">=</span> currentlyActiveFile;</span><br><span class="line">        <span class="comment">// thread name： taskThreadName-processDefineId_processInstanceId_taskInstanceId</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">threadName</span> <span class="operator">=</span> event.getThreadName();</span><br><span class="line">        String[] threadNameArr = threadName.split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">        <span class="comment">// logId = processDefineId_processInstanceId_taskInstanceId</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">logId</span> <span class="operator">=</span> threadNameArr[<span class="number">1</span>];</span><br><span class="line">        ...</span><br><span class="line">        <span class="built_in">super</span>.subAppend(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>TaskLogFilter：</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  task log filter</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskLogFilter</span> <span class="keyword">extends</span> <span class="title class_">Filter</span>&lt;ILoggingEvent&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> FilterReply <span class="title function_">decide</span><span class="params">(ILoggingEvent event)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.getThreadName().startsWith(<span class="string">&quot;TaskLogInfo-&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> FilterReply.ACCEPT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FilterReply.DENY;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/design/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/database-securty/" >数据库逻辑</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>检测、响应、事件响应</p>
-<h3 id="事件响应过程"><a href="#事件响应过程" class="headerlink" title="事件响应过程"></a>事件响应过程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[system was working properly] --&gt; B[user open suspicious email] --&gt; C[sensors do not detect anything]</span><br><span class="line">C[sensors do not detect anything] --&gt; D[a user trying to authenticate from his mobile decvice reports that he is unable to aurhanticate] --&gt; E[help desk starts troublesing the issue] --&gt; F[since there are indications of compromise a security incident is created] --&gt; G[incident response continues from here]</span><br></pre></td></tr></table></figure>
-
-<hr>
-<table>
-<thead>
-<tr>
-<th>日志</th>
-<th>攻击&#x2F;操作</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>端点保护和操作系统日志可以帮助确定 IOC</td>
-<td>网络钓鱼电子邮件</td>
-</tr>
-<tr>
-<td>端点保护和操作系统日志可以帮助确定 IOC</td>
-<td>横向移动，然后特权升级</td>
-</tr>
-<tr>
-<td>服务器日志和网络捕获可以帮助确定 IOC</td>
-<td>未经授权或恶意进程可以进取或修改数据</td>
-</tr>
-<tr>
-<td>假设云和本地资源之间有防火墙，防火墙日志和网络捕获可以帮助确定 IOC</td>
-<td>数据提取和提交指挥和控制</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>主题</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>监控系统与传感器集成，以便在单个仪表板中可视化所有事件</td>
-</tr>
-<tr>
-<td>检测和监控系统集成，帮助将执行多个恶意行为的点链接起来，以实现最终任务，数据提取和提交给指挥和控制</td>
-</tr>
-<tr>
-<td>检测和分析有时并行进行</td>
-</tr>
-</tbody></table>
-<hr>
-<ul>
-<li>现代数据库管理复杂程度与用于保护安全技术不匹配</li>
-<li>数据库成熟的交互协议，SQL语句存在弱点的基础上制定安全策略</li>
-<li>组织或机构缺少丰富知识体系的数据库安全管理人员</li>
-<li>企业环境存储多数据库平台和多操作系统的兼容性构成一个异构环境</li>
-<li>企业部分或全部数据存储到云上</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[数据库实用程序] --&gt; B[DDL处理器] --&gt; d1[(数据库表述表)]</span><br><span class="line">d2[(授权表)] --&gt; C[DBMS 事物管理器 文件管理器]</span><br><span class="line">d3[(并发访问表)] --&gt; C</span><br><span class="line">C --&gt; d4[(物理数据库)]</span><br><span class="line">d1[(数据库表述表)] --&gt; C[DBMS 事物管理器 文件管理器]</span><br><span class="line">D[DML和查询处理语言器] --&gt; C[DBMS 事物管理器 文件管理器]</span><br><span class="line">d1[(数据库表述表)] --&gt; D[DML和查询处理语言器]</span><br><span class="line">E[用户应用] --&gt; D[DML和查询处理语言器]</span><br><span class="line">F[用户查询] --&gt; D[DML和查询处理语言器]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>DDL&#x3D; 数据定义语言      DML&#x3D; 数据操作语言<br>授权表：用于确保用户具有执行数据库查询语句的权限<br>并发访问表：用于在同时执行冲突命令时避免产生冲突</p>
-</blockquote>
-<h3 id="Database-and-cloud-Managment-System-Security-mechanism"><a href="#Database-and-cloud-Managment-System-Security-mechanism" class="headerlink" title="Database and cloud Managment System Security mechanism"></a>Database and cloud Managment System Security mechanism</h3><ul>
-<li>据库系统对于海量数据提供流高效的访问，这些需求超出了一般的基于OS的安全机制或独立的安全包所具有的能力</li>
-<li>操作系统的安全机制一般控制对整个文件的读写访问，所以它可以用来控制收否允许用户读写某个文件（如人事文件）中的任何信息，但不能用来限制访问该文件中的具体记录或字段，然而DBMS却允许制定这种更精细的访问控制，它通常还能实现对更多命令施加访问控制，因此转为数据库系统设计并与其汇集成在一起的安全服务和安全机制是必须的。</li>
-</ul>
-<h3 id="SQLi"><a href="#SQLi" class="headerlink" title="SQLi"></a>SQLi</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[user] --&gt; B[internet] --&gt; d1[(route)] --&gt; d2[(firewall)] --&gt; d3[(switch)] --&gt; d4[wifi]</span><br><span class="line">d3[firewall] --&gt; f1&#123;Two way interaction link&#125;</span><br><span class="line">f1&#123;Two way interaction link&#125;  --&gt; |1| C1[web server]</span><br><span class="line">f1&#123;Two way interaction link&#125;  --&gt; |2| C2[web server]</span><br><span class="line">f1&#123;Two way interaction link&#125;  --&gt; |3| C3[web server]</span><br><span class="line">C1[web server] --&gt; D1[web application server]</span><br><span class="line">C2[web server] --&gt; D1[web application server]</span><br><span class="line">C3[web server] --&gt; D1[web application server]</span><br><span class="line">D1[web application server] --&gt; E1[Database server] --&gt; E2[Database]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>SQLi attack:<br>1.攻击者找到web的脆弱点，通过向web服务器发送命令来对数据库注入SQL。这些命令注入到被防火墙接受的网络流量中<br>2.web服务接受到恶意代码，然后发送给web应用服务器<br>3.web应用服务器接收到web服务器的恶意代码后，将其发送给数据库服务器<br>4.数据库服务器在数据库执行恶意代码，数据库从信用卡表中返回数据<br>5.web应用服务器动态地生成一个包含数据库信用卡详细信息的页面<br>6.web服务器向攻击者发送信用卡详细信息</p>
-</blockquote>
-<h3 id="SQLi-attack"><a href="#SQLi-attack" class="headerlink" title="SQLi attack"></a>SQLi attack</h3><ul>
-<li><p>用户输入<br>通过精心构造用户输入来注入SQL命令，web应用程序以多种方式读取用户输入，多数采用HTTP GET or POST 请求发送到 Web 应用程序的表单提交。</p>
-</li>
-<li><p>服务器变量<br>服务器变量包含是HTTP头部、网络协议头部、环境变量等数据变量集合。可以伪造 HTTP 和网络报头中的值，可以利用此漏洞将数据直接放入报头。</p>
-</li>
-<li><p>二阶注入<br>SQL 的预防机制不够完善，会出现二阶注入，在二阶注入中，恶意用户可以利用系统或数据库中已存在的数据来触发一个 SQL 注入攻击来自系统本身的。</p>
-</li>
-<li><p>cookie<br>cookie用来恢复用户客户端的状态信息，由于客户端可以控制 cookie 所以可更改 cookie 的内容来构建 SQL 查询时修改查询的结构和功能</p>
-</li>
-<li><p>物理用户输入<br>RFID、条形码、图像是被技术扫描等然后发送到数据库系统的纸质形式</p>
-</li>
-</ul>
-<h3 id="SQLi-attack-pulic"><a href="#SQLi-attack-pulic" class="headerlink" title="SQLi attack pulic"></a>SQLi attack pulic</h3><ul>
-<li>inferential(带内)</li>
-</ul>
-<ol>
-<li>重言式是将代码注入一个或多个永真的条件表达式</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$query = &quot; SELECT info FROM user WHERE name = &#x27;$_GET[&quot;name&quot;]&#x27; AND pwd = &#x27;$_GET[&quot;pwd&quot;]&#x27;&quot;;</span><br><span class="line">SELECT info FROM users WHERE name = &#x27; &#x27; OR 1=1 -- AND pwpd = &#x27;&#x27;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>行尾注释</p>
-</li>
-<li><p>捎带查询</p>
-</li>
-</ol>
-<ul>
-<li>out of band(推理)</li>
-</ul>
-<ol>
-<li>非法&#x2F;逻辑错误查询（利用是应用服务器返回默认错误页面通常描述许多过多的细节内容）</li>
-<li>盲SQL注入（允许攻击者推测数据库系统中的数据）</li>
-</ol>
-<ul>
-<li>inband attack(带外)</li>
-</ul>
-<p>检索数据使用不同的通信信道</p>
-<h3 id="SQLi-resoonse-measures"><a href="#SQLi-resoonse-measures" class="headerlink" title="SQLi resoonse measures"></a>SQLi resoonse measures</h3><ul>
-<li>基于签名</li>
-<li>基于异常</li>
-<li>代码分析</li>
-<li>运行阻断</li>
-</ul>
-<h3 id="attack"><a href="#attack" class="headerlink" title="attack"></a>attack</h3><p>sqlmap</p>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/database-securty/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/copy/" >分布式系统 V2.0s</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="一致性和复制"><a href="#一致性和复制" class="headerlink" title="一致性和复制"></a>一致性和复制</h1><p>对数据进行复制一般是为了增强系统的可靠性或提高性能，实现数据复制的主要难题是保持各个副本的一致性。</p>
-<h1 id="如何真正实现一致性"><a href="#如何真正实现一致性" class="headerlink" title="如何真正实现一致性"></a>如何真正实现一致性</h1><ul>
-<li>关注的是副本的管理，不仅仅考虑副本服务器的放置，同时需要考虑如何在这些服务器之间分发的</li>
-<li>如何保持多个副本的一致性，在大多数情况下，应用程序都要求数据保持很强的一致性</li>
-</ul>
-<h2 id="复制作为一种实现可扩展性的技术"><a href="#复制作为一种实现可扩展性的技术" class="headerlink" title="复制作为一种实现可扩展性的技术"></a>复制作为一种实现可扩展性的技术</h2><ul>
-<li>可靠性</li>
-<li>性能（地理区域上的扩展也可能需要进行数据复制，如果在使用数据进程附近放置一份该数据的副本，那么进程访问数据所花费的时间将减少）</li>
-</ul>
-<h4 id="复制需要付出代价"><a href="#复制需要付出代价" class="headerlink" title="复制需要付出代价"></a>复制需要付出代价</h4><ul>
-<li>进行数据复制是需要付出代价的，复制所带来的问题是多个副本可能导致一致性方面的问题，一旦某个副本被修改了，那么将不同于其他所有的副本</li>
-</ul>
-<h2 id="扩展性技术的复制"><a href="#扩展性技术的复制" class="headerlink" title="扩展性技术的复制"></a>扩展性技术的复制</h2><ul>
-<li>可能要一个付出的代价是使副本保持为最新的数据要求更多的网络带宽</li>
-<li>保持多个副本间一致性本身就可能存在严重的可扩展性问题（当多个副本总保持相同的时候，这些副本的集合是一致的）</li>
-</ul>
-<p><strong>副本可能需要使用Lamport时间戳来决定执行操作的全局顺序，或由一个协调器来分配这样的顺序，全局同步必然造成性能的下降，唯一的解决方案是“放宽在一致性上面的限制，也就是可以放松更新必须以原子操作的方式执行”，就可避免进行瞬间的全局同步</strong></p>
-<h2 id="以数据中心的一致性模型（数据存储角度）"><a href="#以数据中心的一致性模型（数据存储角度）" class="headerlink" title="以数据中心的一致性模型（数据存储角度）"></a>以数据中心的一致性模型（数据存储角度）</h2><ul>
-<li>一致性模型实质上是进程和数据存储之间的一个约定</li>
-</ul>
-<h4 id="持续一致性"><a href="#持续一致性" class="headerlink" title="持续一致性"></a>持续一致性</h4><ul>
-<li>持续一致性“副本之间的数值偏差、副本之间新旧程度的偏差、更新操作顺序的偏差”</li>
-<li>绝对值偏差或相对数值偏差，表示两个副本之间的差别不能超过多少</li>
-<li>数值偏差是已应用给定副本但还没有应用于其他副本的更新数目</li>
-</ul>
-<h4 id="一致性单元"><a href="#一致性单元" class="headerlink" title="一致性单元"></a>一致性单元</h4><ul>
-<li>需要一些协议</li>
-<li>持续程序开发人员必须为他们应用程序指出一致性需求，可以持续一致性实现为一种工具包（函数库）</li>
-</ul>
-<h4 id="一致性操作顺序"><a href="#一致性操作顺序" class="headerlink" title="一致性操作顺序"></a>一致性操作顺序</h4><p>“顺序一致性、因果一致性”是在读写操作层面上定义的（最初模型是为了共享内存的多处理器系统开发，在硬件层上真正实现的）</p>
-<p><strong>顺序一致性</strong></p>
-<p>任何执行结果都是相同的，就好像所有进程对数据存储的读、写操作是按某种序列顺序执行的，并且每个进程的操作按照程序所制定的顺序出现在这个序列中（也就是说当进程在多台可能不同机器上并发运行时，任何读、写操作的有效交叉是可以接收的行为，但是所有进程都看到相同的操作交叉），如果出现其中任何一种结果，进程都必须正常地运行。</p>
-<p><strong>因果一致性</strong></p>
-<p> 表示一种弱化的顺序一致性模型，因为因果一致性将具有潜在因果关系的事件和没有因果关系的事件区分开来（无因果关系的操作称为并发），“如果数据库属于因果一致，必须符合所有进程必须以相同的顺序看到具有潜在因果关系的写操作，不同机器上可以以不同的顺序看到并发写的操作”</p>
-<p>实现因果一致性要求跟踪那些进程看到那些写操作，这意味着必须构建和维护一张记录那些操作与其他操作有关的关系图 <em><strong>向量时间戳 和 向量时间戳捕获因果关系</strong></em></p>
-<p><strong>分组操作</strong></p>
-<p>共享数据的程序之间的并发性往往是通过互斥和事物的同步化机制来控制（ENTRT_CS的进程确保在它的本地存储中的数据是最新的，LEVEL_CS封装起来）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在进程对被保护的共享数据的所有更新操作执行完之前，不允许另一个进程执行对同步化变量的获取访问</span><br><span class="line">（当一个进程获得拥有权后，这种拥有权直到所有被保护的数据均被更新）</span><br><span class="line">如果一个进程对某个同步化变量正在进行互斥模式访问，那么其他进程就不能拥有该同步化变量</span><br><span class="line">（在更新数据项之前，进程必须以互斥模式进入临界区，以确保不会有其他进程视图同时更新该共享数据）</span><br><span class="line">某个进程对某个同步化变量的互斥模式访问完成后，除非该变量的拥有者执行完操作，否则任何其他进程对该变量的下一个非互斥模式访问也不允许</span><br><span class="line">（如果一个进程要以非互斥模式进入临界区，必须首先与该同步化变量的拥有者进行协商，确保临界区获得被保护共享数据的最新副本）</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">入口一致性编程问题：</span><br><span class="line">1. 正确地把数据与同步化变量相关联（显示地告诉中间件将要访问的数据位置/隐式地把唯一同步化变量与每个已声明的对象相关联，有效地串行对该对象的所有调用）</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>一致性与相干性</strong></p>
-<ul>
-<li>一致性模式描述是多个进程并发地作用于数据地数据集，并且数据一致性关注的数据项集</li>
-<li>相干性模型关注的只是单个数据项</li>
-</ul>
-<h2 id="以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）"><a href="#以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）" class="headerlink" title="以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）"></a>以客户为中心的一致性模型（不会出现同时发生的更新操作或当出现同时发生的更新操作）</h2><p><strong>最终一致性模型（引入特殊的以客户为中心的一致性模型）</strong></p>
-<ol>
-<li>满足最终一致性的数据存储具有以下属性</li>
-<li>没有更新操作时，所有副本逐渐成为相互完全相同的副本</li>
-</ol>
-<ul>
-<li>Bayou本质上区分4种不同类型的一致性模型</li>
-</ul>
-<p><strong>单调读</strong></p>
-<p>如果一个进程读取数据项x的值，那么该进程x执行的任何后续读操作将总是得到第一次读取的那个值或更新的值</p>
-<p><strong>单调写</strong></p>
-<p>一个进程对数据项x执行的写操作必须在该进程对x执行任何后续写操作之前完成</p>
-<ul>
-<li>单调写一致性与数据中心的FIFO一致性相似，FIFO本质是同一进程执行的写操作必须在任何地方以正确的顺序执行</li>
-</ul>
-<p><strong>读写一致性</strong></p>
-<p>一个进程对数据项x执行一次写操作的结构总是会被该进程对x执行的后续读操作看见，也就是说一个写操作总是在同一进程执行的后续读操作之前完成，而不管这个后续读操作发生在什么位置</p>
-<p><strong>写读一致性</strong></p>
-<p>同一进程对数据项x所执行的任何后续写操作都会在x的副本上执行，而该副本是用该进程最近读取的值更新的</p>
-<h1 id="复制管理"><a href="#复制管理" class="headerlink" title="复制管理"></a>复制管理</h1><p>对任何支持复制的分布式系统来说，关键问题是“决定何处、何时、由谁来防止副本以及用何种机制来保持副本的一致性”</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">副本放置：</span><br><span class="line">副本服务器放置问题(找到放置托管部分数据存储的服务器的最佳位置)</span><br><span class="line">内容放置问题(找到放置内容的最佳服务器)</span><br></pre></td></tr></table></figure>
-
-<p><strong>副本服务器放置</strong></p>
-<ul>
-<li>计算副本服务器的最佳位置的方法归根到底属于优化问题，本质是计算复杂性，只能通过探索式求解。</li>
-<li>忽略客户位置，采用自治系统形成的网络拓扑</li>
-<li>瞬时拥塞这种情况下，快速地确定副本服务器的位置很重要，然后就可以为内容放置选择一个特定服务器（Szymamiak:选择最能满足需要的区域，即具有最多结点，然后让该区域中的某个结点作为副本服务器）</li>
-</ul>
-<p><strong>内容复制与放置</strong></p>
-<ul>
-<li>永久副本</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Web站点为例：</span><br><span class="line">1. 单个位置的有限数量的服务器上复制构成站点的文件（循环提示器策略来进行转发）</span><br><span class="line">2. Web站点被复制到有限数量的服务器上称为镜像站点（相似方式也出现在分布式数据库中，这些服务器一起形成服务器群称为无共享体系结构）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>服务器启动副本</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">服务器启动副本是为提高性能而存在的数据存储副本，决定创建或删除副本的确切位置和时间</span><br><span class="line">1. 复制可能是为了减轻单台服务器的负载而进行的</span><br><span class="line">2. 单台服务器上的指定文件可能被转移或复制到对这些文件提出很多请求的客户附近的服务器</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每台服务器跟踪每个文件的访问计数以及提出这些访问请求的位置</span><br><span class="line">1. 复制可能是为来减轻单台服务器的负载而进行的</span><br><span class="line">2. 单台服务器上的指定文件可能被转移或复制到对这些文件提出很多请求的客户附近的服务器（设置阈值“删除阈值”“复制阈值”）</span><br></pre></td></tr></table></figure>
-
-<p>服务器启动的复制正在逐渐地流行起来，特别是在Web托管服务的环境下，只要可以保证每个数据项至少由一台服务器托管，那么只使用服务器启动的复制而不使用任何永久副本就足够了。but 永久副本用作备份工具或用作允许被修改以保证一致性的唯一副本但是服务器启动的副本则被用于客户附近放置只读副本。</p>
-<ul>
-<li>客户端启动副本</li>
-</ul>
-<p>在客户初始化时创建的副本，普遍将客户启动的副本称为客户高速缓存（高速缓存是一种本地存储工具，客户使用它暂时存储刚刚请求的数据副本）</p>
-<ol>
-<li>改善客户高速缓存只用于改善数据的访问时间（读取数据时客户在附近的高速缓存中存储所请求的数据可以提高性能）</li>
-<li>当被请求的数据可以从本地副本获得时，称其为高速缓存命中（提高高速缓存命中数量，可以让客户共享高速缓存）</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public one：客户高速缓存放置在客户所在的机器上，或者将其放置在客户所在的局域网上由各个客户共享的机器上。</span><br><span class="line">public two：在广域网的几个特定点放置高速缓存服务器，让客户查找距离最近的服务器</span><br></pre></td></tr></table></figure>
-
-<p><strong>内容分发</strong></p>
-<ul>
-<li>状态与操作</li>
-</ul>
-<ol>
-<li>只传播更新的通知</li>
-<li>把数据从一个副本传送到另一个副本</li>
-<li>把更新操作传播到其他副本</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">无效化协议:</span><br><span class="line"></span><br><span class="line">1、只传播一个通知而不传播别的消息，需要先根据数据存储支持的特定的一致性模型更新那个副本</span><br><span class="line">（几乎不占用网络带宽）</span><br><span class="line"></span><br><span class="line">2、多副本间传送被修改的数据（更新是通过将多个修改压缩到一个消息中的方式被组合传送，从而减少通信开销）</span><br><span class="line"></span><br><span class="line">3、不传送任何数据修改，告诉每个副本应该执行的更新操作，称为主动复制</span><br></pre></td></tr></table></figure>
-<ul>
-<li>拉协议与推协议</li>
-</ul>
-<p>基于推式方法称为基于服务器的协议（永久副本与服务器启动的副本之间使用），并应用于多个副本常常需要维持相对较高程度的一致性的时候<br>基于拉式方法称为基于客户的协议（客户告诉缓存）</p>
-<table>
-<thead>
-<tr>
-<th>服务器的状态</th>
-<th>客户副本和高速缓存列表</th>
-<th>无</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>发送的消息(基于推式 )</td>
-<td>更新</td>
-<td>轮询和更新</td>
-</tr>
-<tr>
-<td>客户响应时间(基于拉式)</td>
-<td>立即</td>
-<td>获取更新的时间</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>通信方式</th>
-<th>客户响应时间</th>
-<th>无</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>服务器向每个客户发送更新</td>
-<td>推入客户时，客户响应时间为0，其余与拉式相同</td>
-<td></td>
-</tr>
-<tr>
-<td>客户必须轮询服务器并必要时获取被修改的数据</td>
-<td>由客户从服务器获取被修改的数据的时间决定</td>
-<td></td>
-</tr>
-</tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">基于租用的更新传播</span><br><span class="line"></span><br><span class="line">1、租用是服务器所作的承诺，将指定的时间内把更新推给客户，租用到期时根据客户被迫轮询服务器以实现更新</span><br><span class="line">2、在前一个租用到期时，客户请求一个新的租用以实现更新的推入</span><br><span class="line"></span><br><span class="line">a/: 基于数据项“年龄”</span><br><span class="line">b/: 基于特定客户请求更新高速缓存副本的频率相同</span><br><span class="line">c/: 基于服务器的状态空间开销的租用</span><br></pre></td></tr></table></figure>
-<ul>
-<li>单播与多播</li>
-</ul>
-<p>推（多播）与拉（单一客户或服务器请求更新其副本）的更新相关问题，需要决定选型单播还是多播 ？</p>
-<ol>
-<li>单播通信当作为数据存储的一部分的服务器向其他N台服务器发送更新，通过发送N个单独的消息实现</li>
-<li>多播通信，底层网络负责向多个接收者高效地发送一个消息</li>
-</ol>
-<h1 id="一致性协议"><a href="#一致性协议" class="headerlink" title="一致性协议"></a>一致性协议</h1><p>一致性性协议描述特定一致性模型的实现</p>
-<h2 id="持续一致性-1"><a href="#持续一致性-1" class="headerlink" title="持续一致性"></a>持续一致性</h2><p><strong>限定复制的数字偏差</strong></p>
-<p><a target="_blank" rel="noopener" href="https://cseweb.ucsd.edu/~vahdat/">Yu and Vahdat</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把数值偏差限定在一定范围内的解决方法</span><br></pre></td></tr></table></figure>
-
-<p><strong>限定复制的新旧程度偏差</strong></p>
-<p><strong>限定顺序偏差</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">副本服务器会暂时性地应用已提交给它地更新</span><br></pre></td></tr></table></figure>
-
-<h2 id="基于主备协议"><a href="#基于主备协议" class="headerlink" title="基于主备协议"></a>基于主备协议</h2><p>处理操作地一直顺序地模型，顺序一致性是其操作可以通过加锁、事务来分组地模型</p>
-<p><strong>远程写协议</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">性能问题：启动更新进程在被允许继续执行前，需等待较长时间</span><br><span class="line"></span><br><span class="line">1. 阻塞操作：更新</span><br><span class="line">2. 非阻塞操作：</span><br></pre></td></tr></table></figure>
-
-<p><strong>本地写协议</strong></p>
-<h2 id="复制的写协议"><a href="#复制的写协议" class="headerlink" title="复制的写协议"></a>复制的写协议</h2><p><strong>主动复制</strong><br><strong>基于多数表决的协议</strong></p>
-<h2 id="高速缓存相关协议"><a href="#高速缓存相关协议" class="headerlink" title="高速缓存相关协议"></a>高速缓存相关协议</h2><h2 id="实现以客户为中心的一致性"><a href="#实现以客户为中心的一致性" class="headerlink" title="实现以客户为中心的一致性"></a>实现以客户为中心的一致性</h2><p>未来待续….. (意思就是说：懒得写了)</p>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/copy/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/authenticate/" >身份认证特征底层逻辑</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="user-authenticate"><a href="#user-authenticate" class="headerlink" title="user authenticate"></a>user authenticate</h1><p><strong>身份识别就是用户向系统声称其身份的方法；用户认证则是建立该声称的有效做法</strong></p>
-<ul>
-<li>用户通过呈现一个凭证（例如用户）来识别自身以登录系统</li>
-<li>系统通过交换认证信息来核实用户身份</li>
-</ul>
-<h2 id="data-user-authenticate-pulic"><a href="#data-user-authenticate-pulic" class="headerlink" title="data user authenticate pulic"></a>data user authenticate pulic</h2><hr>
-<table>
-<thead>
-<tr>
-<th>基本安全需求</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1. 识别信息系统用户，以用户的名义执行的进程，或设备</td>
-</tr>
-<tr>
-<td>2. 认证这些用户、进程或设备的身份，作为允许访问组织信息系统的先决条件</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>派生的安全需求</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>3. 使用多因素身份验证进行本地和网络的特权账户访问，以及非特权账户的网络访问</td>
-</tr>
-<tr>
-<td>4. 对特权和非特权账户的网络当问采用防重放认证机制</td>
-</tr>
-<tr>
-<td>5. 防止在定义的时间段内重用标识符</td>
-</tr>
-<tr>
-<td>6. 在创建新口令时强制最小口令复杂度并更改字符</td>
-</tr>
-<tr>
-<td>7. 禁止在规定的代（generation）数内重用口令</td>
-</tr>
-<tr>
-<td>8. 允许临时口令用于系统登录，但需立即更改为永久口令</td>
-</tr>
-<tr>
-<td>9. 允许临时口令用于系统登录，但需立即更改为永久口令</td>
-</tr>
-<tr>
-<td>10. 仅存储和传输密码保护的口令</td>
-</tr>
-<tr>
-<td>11. 认证信息的模糊化反馈</td>
-</tr>
-</tbody></table>
-<hr>
-<p><em><strong>用户认证的风险评估</strong></em></p>
-<table>
-<thead>
-<tr>
-<th>置信等级</th>
-<th>潜在影响</th>
-<th>风险范围</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>等级1：几乎或完全不信任待证实身份的合法性</td>
-<td>FIPS 199（联邦信息和信息系统安全分类标准）</td>
-<td>参考各置信等级下的最大的潜在影响</td>
-</tr>
-<tr>
-<td>等级2：部分提供待证实身份的合法性</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>等级3：高度信任待证实身份的合法性</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>等级4：极其高度地信任待证实身份的合法性</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="password-based-authentication"><a href="#password-based-authentication" class="headerlink" title="password based authentication"></a>password based authentication</h2><p>基于口令认证系统中，都会维护着一个以用户ID作为索引的口令文件</p>
-<hr>
-<table>
-<thead>
-<tr>
-<th>口令攻击策略</th>
-<th>口令攻击对策</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>离线字典攻击（获取系统口令文件将其中的口令散列值与通常所用口令的散列值进行比较）</td>
-<td>防止非授权访问口令文件；使用入侵检测技术对危及安全的行为进行识别；对口令文件中的不安全口令进行重新设置等</td>
-</tr>
-<tr>
-<td>特定账户攻击（不断对特定账户猜测口令，知道发现口令）</td>
-<td>设置不超过5次</td>
-</tr>
-<tr>
-<td>常用口令攻击（用一个常用口令对大量的用户ID进行尝试）</td>
-<td>禁止用户选择常用口令、对认证请求者的IP地址和用户提交模式的cookie进行扫描</td>
-</tr>
-<tr>
-<td>单用户口令猜测（攻击者试图获得账户拥有者信息和系统口令保护策略）</td>
-<td>训练并加强口令比阿虎策略以及使用户口令难于猜测</td>
-</tr>
-<tr>
-<td>工作站劫持</td>
-<td>工作站处于动态时采用自动注销机制&#x2F;也可同时使用入侵检测方案对用户行为变化进行检测</td>
-</tr>
-<tr>
-<td>利用用户疏漏（如果是由系统分配口令，那么用户通常会把分配的口令记录下来）</td>
-<td>包括用户培训、入侵检测、使用口令与其他认证机制的组合认证等</td>
-</tr>
-<tr>
-<td>口令重复利用</td>
-<td>禁止特定的网络设备相同或相近的口令</td>
-</tr>
-<tr>
-<td>电子监视</td>
-<td>简单加密不足以解决电子监视问题，本质上依旧是口令</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="use-hash-function"><a href="#use-hash-function" class="headerlink" title="use hash function"></a>use hash function</h3><p>“hash function” and “sale value”</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sale value ：</span><br><span class="line">1、防止复制的口令在口令文件中可见</span><br><span class="line">2、增加离线口令字典攻击的难度</span><br><span class="line">3、攻击者几乎不可能发现一个用户是否在两个或更多的系统中使用了相同的口令</span><br></pre></td></tr></table></figure>
-
-<hr>
-<table>
-<thead>
-<tr>
-<th>UNIX 操作系统</th>
-<th>威胁存在</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>口令破解器</td>
-<td>（在某台机器上用户可以通过guest账户或其他方法获得系统的访问权，然后运行口令猜测程序）</td>
-</tr>
-<tr>
-<td>口令拷贝文件</td>
-<td>如果攻击者能够得到一份口令额外你家爱你的拷贝，这个攻击者也可能会在另一台计算机上运行口令破解程序</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>UNIX( crypt(3) )</th>
-<th>特点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>DES</td>
-<td>（64位全0数据块）软件实现慢于硬件实现</td>
-</tr>
-<tr>
-<td>MD5</td>
-<td>（类似于SHA-1，但性能慢）</td>
-</tr>
-<tr>
-<td>openBSD</td>
-<td>基于Blowfish对称分组密码的散列函数（Bcrypt）</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>破解口令</th>
-<th>方法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>口令猜测</td>
-<td>开发一个庞大的口令字典并使用其中的每个口令文件进行尝试</td>
-</tr>
-<tr>
-<td>预计潜在的散列值（以预计算潜在的散列值，以空间代价来换取）</td>
-<td>对于口令字典中的每个口令，攻击者都要根据“sale value”进行散列运算，产生巨大的散列表为‘raindow table’</td>
-</tr>
-<tr>
-<td>硬件和算法</td>
-<td>马尔可夫模型显著减少口令空间的大小[TIMM10&#x2F;WETR09–&gt; KELL12&#x2F;ZHAN10]</td>
-</tr>
-</tbody></table>
-<hr>
-<p>口令文件访问策略：一种阻止口令攻击的方法是拒绝对手访问口令文件</p>
-<ul>
-<li>散列后的口令保存在与用户ID分离的单独文件，影子口令文件（shadow password file）</li>
-</ul>
-<hr>
-<p>口令选择策略：</p>
-<ol>
-<li>用户教育</li>
-<li>计算机生成口令</li>
-<li>后验口令检查（FIPS 181）</li>
-<li>先验口令检查（Jack the Ripper）</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">先验口令检查的方法：</span><br><span class="line"></span><br><span class="line">1、构造一个实施规则的简单系统（—NISP SP 800—63-3</span><br><span class="line">2、口令检查器（空间和时间复杂度较高）【pam_passwdqcc】</span><br><span class="line">3、bloom 过滤器（不在口令字典中的口令被拒绝的概率是很小的，在采用概率技术进行算法设计时，求解时间较少或求解过程比较简单）</span><br></pre></td></tr></table></figure>
-
-<h3 id="Token-based-authentication"><a href="#Token-based-authentication" class="headerlink" title="Token based authentication"></a>Token based authentication</h3><p><em><strong>NIST SP 800-12（计算机安全入门：NIST手册，1995-10）</strong></em></p>
-<table>
-<thead>
-<tr>
-<th>卡的类型</th>
-<th>定义的特征</th>
-<th>实例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>凹凸卡</td>
-<td>卡的正面凸印的字符</td>
-<td>老式信用卡</td>
-</tr>
-<tr>
-<td>磁条卡</td>
-<td>卡的背面有磁条，正面有字符</td>
-<td>银行卡</td>
-</tr>
-<tr>
-<td>存储卡</td>
-<td>卡的内部有电子存储单元</td>
-<td>预付电话卡</td>
-</tr>
-<tr>
-<td>智能卡</td>
-<td>卡内有电子存储单元和处理器</td>
-<td>生物特征ID卡</td>
-</tr>
-<tr>
-<td>接触式</td>
-<td>表面有电子触点</td>
-<td>生物特征ID卡</td>
-</tr>
-<tr>
-<td>非接触式</td>
-<td>内部嵌有无线电通信装置</td>
-<td>生物特征ID卡</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>存储卡</th>
-<th>智能卡</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>需要特殊的读卡器（读卡器需要软件和硬件来支持安全性）</td>
-<td>物理特征（嵌入式微处理器）</td>
-</tr>
-<tr>
-<td>令牌丢失（获取PIN就可以执行非授权的访问）</td>
-<td>用户接口（人机接口包括键盘区和显示设备）</td>
-</tr>
-<tr>
-<td>用户不满意（运用在计算机系统中，肯定不方便）</td>
-<td>电子接口（智能卡或其他令牌通常需要配电子接口，用于读取或写入装置通信[接触式 and 非接触式]）</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>静态协议</th>
-<th>动态口令生成器</th>
-<th>挑战-应答协议</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>首先完成自己对令牌的认证，之后令牌完成计算机对用户的认证</td>
-<td>自动生成口令</td>
-<td>计算机系统产生一个挑战信号，基于挑战信号的应答信号</td>
-</tr>
-</tbody></table>
-<hr>
-<p><em><strong>智能卡：完整的微处理器（处理器、内存、输入&#x2F;输出端口组成）</strong></em><br><em><strong>智能卡包含存储器：只读存储器（ROM）存储的数据在整个智能卡的生命周期都不会变化、电子可擦写可编程存储器（EEPROM）存储应用程序和数据、随机存取存储器（RAM）则保存应用程序执行时的临时数据</strong></em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">   ATR --&gt; PTS交涉协议 --&gt; PTS交涉应答 --&gt; 命令APDU --&gt; 响应APDU</span><br></pre></td></tr></table></figure>
-
-<p><em><strong>APDU（应用协议数据单元）、 ATR（对复位信号的应答） 、PTS（协议类型选择）</strong></em></p>
-<h3 id="Electronic-ID-card"><a href="#Electronic-ID-card" class="headerlink" title="Electronic ID card"></a>Electronic ID card</h3><p>电子身份证应用的德国电子身份证（neuer Personalausweis）:</p>
-<ul>
-<li>个人信息</li>
-<li>文档编号</li>
-<li>卡片接入很好</li>
-<li>机器读卡区</li>
-</ul>
-<p>电子身份证的功能：</p>
-<ol>
-<li>ePass是存储标识持有者身份的数字信息（必须在智能卡嗓门实现）</li>
-<li>eID是政府和商业的各种应用中通用</li>
-<li>eSign是存储私钥和用于验证私钥的证书，用于生成持有人的数字签名</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>功能</th>
-<th>目的</th>
-<th>PACE（口令认证连接设施）命令</th>
-<th>数据</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ePass（强制）</td>
-<td>授权的离线检测系统读取数据</td>
-<td>CAN（卡片接入号） or MRZ（机器读卡区）</td>
-<td>面部特征;两个指纹图像；MRZ数据</td>
-<td>用于专为政府部门保留的离线生物特征进行身份验证</td>
-</tr>
-<tr>
-<td>eID（可选激活）</td>
-<td>在线应用读取数据或访问授权功能 &#x2F; 离线检测系统读取数据并更新住址和社区ID</td>
-<td>eID PIN &#x2F; eID PIN</td>
-<td>姓名、艺名等</td>
-<td>身份证明、年龄验证、社区ID验证、受限的身份证明等</td>
-</tr>
-<tr>
-<td>eSign（可选证书）</td>
-<td>认证在线安装签名证书 &#x2F; 公民利用eSign的PIN生成数字签名</td>
-<td>eID PIN &#x2F; CAN</td>
-<td>数字签名密钥，X.509证书</td>
-<td>数字签名生成</td>
-</tr>
-</tbody></table>
-<hr>
-<p><strong>用户认证 eID 在线应用例子：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line"></span><br><span class="line">user -&gt;&gt; user: 1.用户请求</span><br><span class="line">user -&gt;&gt; system server: 2.服务请求</span><br><span class="line">system server -&gt;&gt; user: 3.重定向到eID消息</span><br><span class="line">user -&gt;&gt; eID server: 4.认证请求</span><br><span class="line">eID server -&gt;&gt; user: 5.PIN请求</span><br><span class="line">user --&gt; user: 6.用户输入PIN</span><br><span class="line">user --&gt; eID server: 7.认证协议交互</span><br><span class="line">eID server -&gt;&gt; user: 8.用于重定向的认证结果</span><br><span class="line">user -&gt;&gt; system server: 9.转发认证结果</span><br><span class="line">system server -&gt;&gt; user: 10.服务授权</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>生物特征认证系统：</strong></p>
-<p><em><strong>1.注册</strong></em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em><strong>2.验证</strong></em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; D[特征匹配器] --&gt; true/false</span><br><span class="line">     C --&gt; |一个模版| d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
-<hr>
-<p><em><strong>3.识别</strong></em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A[用户接口RIN] --&gt; B[生物特征传感器]</span><br><span class="line">     B --&gt; C[特征提取器]</span><br><span class="line">     C --&gt; D[特征匹配器] --&gt; 用户身份/未识别用户</span><br><span class="line">     C --&gt; |N个模版| d1[(生物特征数据库)]</span><br><span class="line">     d1 --&gt; A</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="remote-user-authentication"><a href="#remote-user-authentication" class="headerlink" title="remote user authentication"></a>remote user authentication</h3><ul>
-<li>口令协议：随机数作为函数可以抵御重放攻击</li>
-<li>令牌协议、静态生物特征认证协议、动态生物特征认证协议</li>
-</ul>
-<hr>
-<table>
-<thead>
-<tr>
-<th>攻击</th>
-<th>认证手段</th>
-<th>实例</th>
-<th>典型防范措施</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>客户端攻击</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>口令猜解，穷举搜索&#x2F;穷举搜索&#x2F;虚假匹配</td>
-<td>提高熵、限制尝试次数</td>
-</tr>
-<tr>
-<td>主机攻击</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>窃取明文，字典，穷举搜索&#x2F;窃取验证码&#x2F;窃取模版</td>
-<td>采取散列函数、提高熵、保护口令数据库&#x2F;使用一次性验证码&#x2F;挑战-应答协议</td>
-</tr>
-<tr>
-<td>窃听、盗窃和复制</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>肩窥&#x2F;盗窃，伪造硬件&#x2F;复制生物特征</td>
-<td>多因素认证&#x2F;使用防止篡改的令牌&#x2F;管理员及时更换易破解的口令&#x2F;提高用户保密意识</td>
-</tr>
-<tr>
-<td>重放</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>重访窃取的口令响应信息&#x2F;重访被窃取的认证码响应信息&#x2F;重访被窃取的生物特征模板响应信息</td>
-<td>挑战-应答协议&#x2F;一次性验证码</td>
-</tr>
-<tr>
-<td>特洛伊木马</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>安装窃听软件或信息截获设备</td>
-<td>客户端认证或采取安全可信的采集装备</td>
-</tr>
-<tr>
-<td>拒绝服务</td>
-<td>口令&#x2F;令牌&#x2F;生物特征</td>
-<td>通过多次失败的认证将用户锁定</td>
-<td>带令牌的多因素认证</td>
-</tr>
-</tbody></table>
-<p><strong>生物特征认证案例：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">     A0[虹膜认证工作站0] --&gt; B[局域网交换机]</span><br><span class="line">     A1[虹膜认证工作站1] --&gt; B[局域网交换机]</span><br><span class="line">     A2[虹膜认证工作站2] --&gt; B[局域网交换机]</span><br><span class="line">     E0[虹膜认证引擎0] --&gt; B</span><br><span class="line">     E1[虹膜认证引擎1] --&gt; B</span><br><span class="line">     C[虹膜数据库] --&gt; B</span><br><span class="line">     D[网络交换机] --&gt; C</span><br><span class="line">     F[虹膜合并远程操作] --&gt; D</span><br></pre></td></tr></table></figure>
-
-<p><strong>ATM系统的安全案例：</strong></p>
-<ul>
-<li>持卡人：拥有借记卡的个人</li>
-<li>发卡机构：发行借记卡给持卡人的机构</li>
-<li>处理商：为发卡机构提供核心数据处理、电子转账以及其他服务的组织机构</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[Internet] --&gt; B[发卡机构]</span><br><span class="line">    B --&gt; D[处理商] --&gt; E[EFT交换]</span><br><span class="line">    C[发卡机构拥有ATM] --&gt; D</span><br><span class="line">    E --&gt; D</span><br><span class="line">    D --&gt; F[发卡机构的内部网络]</span><br><span class="line">    F --&gt; A</span><br><span class="line">    F --&gt; C</span><br></pre></td></tr></table></figure>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/authenticate/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/c2c/" >端点被感染后的C&amp;C流量</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="C-amp-C（命令和控制）"><a href="#C-amp-C（命令和控制）" class="headerlink" title="C&amp;C（命令和控制）"></a>C&amp;C（命令和控制）</h1><p>作为防御者站出来深入了解 C&amp;C（命令和控制）流量的外观，以及如何将其与正常用户行为区分开来</p>
-<h1 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h1><p>假设一个端点被感染，以及随后在 RSA NetWitness 中对来自 PowerShell Empire 的流量进行的分析</p>
-<h1 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h1><ul>
-<li>attack C&amp;C does not explain</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&gt;攻击者设置了一个包含其有效负载的恶意页面。然后，攻击者可以使用网络钓鱼电子邮件诱使受害者访问该页面。用户打开页面后，将执行一个感染端点且对最终用户不可见的 PowerShell 命令：</span><br><span class="line">&gt;</span><br><span class="line">然后端点开始与攻击者的 C2 通信。从这里，攻击者可以执行诸如 tasklist、  whoami 和其他工具之类的命令：</span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line">这里开始，指挥和控制将继续以指定的时间间隔发出信标，以检查命令。这通常是分析师需要查找的内容，以确定他们的哪些端点被感染。</span><br><span class="line">使用 RSA NetWitness 网络/数据包数据的检测</span><br><span class="line"></span><br><span class="line">&gt;</span><br><span class="line">由于通过 HTTP 进行的通信，观察到的活动才可能发生。如果这是 SSL，则通过数据包进行检测将更加困难。这就是为什么强烈推荐引入 SSL 解密/拦截/卸载的原因。SSL 检查设备只不过是一种精心设计的中间人攻击，它将加密分成两个独立的加密流。因此，它们仍然为最终用户提供足够级别的保护，同时允许安全分析师和设备在发生恶意或不需要的活动时正确监控和发出警报，例如此处显示的 Web Shell。总之，如果您负责保护组织的资产，则绝对应该考虑使用该技术的利弊。分析人员通过将重点放在寻找通过 HTTP 的 C2 流量开始他们的调查。然后，分析师可以通过使用服务分析元键来研究分离协议的特征。从这里他们注意到了一些有趣的元值，http with binary并且http post no get no referer directtoip：</span><br><span class="line"></span><br><span class="line">&gt;将会话数量减少到更易于管理的数量后，分析师可以查看其他元键以查看是否有任何有趣的工件。查看Filename, Directory, Client Application,和Server Application元键，并观察到通信始终来自同一用户代理的 microsft-iis/7.5 服务器，以及 PHP 文件的子集：</span><br><span class="line"></span><br><span class="line">&gt;分析人员决定将此作为枢轴点，并删除一些其他更精细的查询，以专注于与那些 PHP 文件、来自该用户代理和该 IIS 服务器版本的所有通信。分析师现在观察到额外的通信：</span><br><span class="line"></span><br><span class="line">&gt;开可视化，分析人员可以查看通信的节奏并观察到有一个信标类型的模式：</span><br><span class="line">转向事件分析视图，分析人员可以查看更多细节，看看是否有人怀疑这是恶意的。分析人员观察到有效负载的变化很小，并且每 4 分钟发生一次连接：</span><br><span class="line">分析师重构了一些会话以查看正在传输的数据类型，分析师观察到各种可疑的 GET 和 POST 以及正在传输的不同数据：</span><br><span class="line">分析师根据他们执行的分析确认此流量高度可疑，分析师随后决定使用应用程序规则跟踪活动。为此，分析人员查看与此流量关联的元数据，并找到识别此类流量的唯一元数据组合：(service = 80) &amp;&amp; (analysis.service = &#x27;http1.0 unsupported cache header&#x27;) &amp;&amp; (analysis.service = &#x27;http post missing content-type&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;重要提示： 应用程序规则对于跟踪活动非常有用。然而，它们是非常特定于环境的，因此在一个环境中使用的应用程序规则可能具有高保真度，但在另一个环境中使用时，可能会产生令人难以置信的噪音。创建或使用应用程序规则时应小心，以确保它们在您的环境中正常工作。</span><br><span class="line"></span><br><span class="line">&gt;使用 RSA NetWitness 端点跟踪数据进行检测,分析师每天都应该仔细阅读 IOC、BOC 和 EOC 元密钥以查找可疑活动。这样做后，他们观察元数据，browser runs powershell并开始调查：转向事件分析视图，分析人员可以看到 Internet Explorer 产生了 PowerShell，然后是执行的 PowerShell：</span><br><span class="line"></span><br><span class="line">&gt;分析人员决定对 base64 进行解码，以便更好地了解 PowerShell 正在执行什么。分析师观察到 PowerShell 正在设置 Web 请求，并且可以看到它将为所述请求提供的参数。从这里，分析师可以利用这些信息并开始在他们的数据包数据中寻找这方面的指标（这证明了拥有端点和数据包解决方案背后的力量）：</span><br><span class="line"></span><br><span class="line">&gt;在启动的 PowerShell 上进行透视，还可以查看执行的 whoami 和 任务列表 。这将帮助分析师描绘出攻击者在做什么：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>文中概述的流量是 PowerShell Empire 的默认配置；因此，根据谁设置 PowerShell Empire 的实例，指标可能会有所不同。话虽如此，C2 仍需要签入，C2 仍需要部署其有效负载，C2 仍将在端点上执行可疑任务。分析师只需要了解其中一项活动即可开始拉动线程并解除攻击者的活动，还需要注意的是，PowerShell Empire 网络流量解密起来很麻烦。因此，拥有一个端点解决方案（例如 NetWitness Endpoint）非常重要，它可以为您跟踪在端点上执行的活动。</p>
-<h1 id="进一步的工作"><a href="#进一步的工作" class="headerlink" title="进一步的工作"></a>进一步的工作</h1><p>编写一个脚本来抓取Censys.io数据以寻找 PowerShell Empire 的实例。附加的 Python 脚本查询 Censys.io API 以查找特定的正文请求哈希，然后收集有关 C2 的信息，包括：</p>
-<ol>
-<li>托管服务器信息</li>
-<li>PS1 脚本</li>
-<li>C2信息</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/c2c/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/SDN/" >SDN 软件定义网络</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>SDN:一种大规模网格设计、构建、运维的方法，利用了中央服务器中的软件对路由器和交换机的转发决策进行编程</p>
-<h1 id="SDN-功能"><a href="#SDN-功能" class="headerlink" title="SDN 功能"></a>SDN 功能</h1><p><strong>路由器转发分组要素：控制功能 数据功能</strong></p>
-<ul>
-<li>控制功能：负责决定数据流的路由以及各条流的相对优先级</li>
-<li>数据功能：负责根据控制功能的决策来转发数据</li>
-</ul>
-<p><strong>SDN中：中央控制器完成所有复杂的功能，包括路由、命名、策略声明、安全性检查</strong></p>
-<h2 id="主动因素"><a href="#主动因素" class="headerlink" title="主动因素"></a>主动因素</h2><p>服务器虚拟化：在本质上是隐藏了服务器资源，包括：物理服务器、处理器、操作系统的数量及标识，可以实现多台服务器而且每个服务器都保留相应的硬件资源，也可以实现快速迁移从而实现负载均衡、服务器故障的动态切换</p>
-<p><strong>服务器虚拟化带来的问题：</strong></p>
-<ol>
-<li>配置虚拟局域网</li>
-<li>流量模式</li>
-</ol>
-<p><strong>网络功能虚拟化的问题：</strong></p>
-<ol>
-<li>在高性能硬件上利用标准的虚拟化技术对网络功能进行虚拟化，可以适用于任意有限或无线网络中的数据平面处理和控制平面功能</li>
-</ol>
-<p><strong>SDN NFV有许多共同的特征：</strong></p>
-<ol>
-<li>将功能迁移到软件中实现</li>
-<li>适用商用硬件平台来替代专用平台</li>
-<li>适用标准化或开放的应用程序编程接口（API）</li>
-<li>支持更高效的网络功能演化、部署、位置调整</li>
-</ol>
-<ul>
-<li>SDN 将网络流量控制的数据平面分离开来，使得数据流的控制和路由变得更加灵活和高效</li>
-<li>NFV 将网络功能从特定硬件平台分离出来，从而使这些功能更加高效和灵活的实现</li>
-</ul>
-<p><strong>SDN NFV的关系：</strong></p>
-<ol>
-<li>网络的数据平面功能在虚拟机上实现</li>
-<li>控制平面的功能可以在专用的SDN平台或者SDN虚拟机上实现</li>
-<li>SDN控制器都要与运行在虚拟机上的数据平面进行交互</li>
-</ol>
-<p><strong>QoS 测度：</strong></p>
-<p>用于不同网络用户指定相应的服务和设定网络的流量管理策略</p>
-<ul>
-<li>如果采用NFV而没有适用SDN，QoS的设置由虚拟机来完成</li>
-<li>如果采用SDN，SDN控制器都将负责实施QoS参数</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/SDN/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/network_seeurity/" >实验目录</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<hr>
-<table>
-<thead>
-<tr>
-<th>漏洞与攻击实验（基于Liunx系统）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>漏洞区溢出漏洞</td>
-</tr>
-<tr>
-<td>返回库函数攻击</td>
-</tr>
-<tr>
-<td>格式化字符串漏洞</td>
-</tr>
-<tr>
-<td>静态条件漏洞</td>
-</tr>
-<tr>
-<td>Set-UID 设置程序漏洞</td>
-</tr>
-<tr>
-<td>改变根目录沙盒漏洞</td>
-</tr>
-<tr>
-<td>伪造跨站请求攻击</td>
-</tr>
-<tr>
-<td>跨站脚本攻击</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>漏洞与攻击实验（基于Liunx系统）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SQL 注入攻击</td>
-</tr>
-<tr>
-<td>点击劫持攻击</td>
-</tr>
-<tr>
-<td>TCP&#x2F;IP 攻击</td>
-</tr>
-<tr>
-<td>DNS 嫁接攻击</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>探究实验（基于Liunx系统）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>包嗅探和欺骗</td>
-</tr>
-<tr>
-<td>可插入身份验证模块</td>
-</tr>
-<tr>
-<td>web 访问控制</td>
-</tr>
-<tr>
-<td>SYN Cookie</td>
-</tr>
-<tr>
-<td>Linux 基于容量的（Capability）访问控制</td>
-</tr>
-<tr>
-<td>密钥加密</td>
-</tr>
-<tr>
-<td>单向散列函数</td>
-</tr>
-<tr>
-<td>公钥基础设施</td>
-</tr>
-<tr>
-<td>Liunx防火墙探测</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>设计与实现（基于Liunx系统）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>虚拟专用网（Liunx）</td>
-</tr>
-<tr>
-<td>IPSec（Minix）</td>
-</tr>
-<tr>
-<td>防火墙（Liunx）</td>
-</tr>
-<tr>
-<td>基于角色控制器（Minix）</td>
-</tr>
-<tr>
-<td>基于容量的（Capability-based）连接控制（Minix）</td>
-</tr>
-<tr>
-<td>加密文件系统（Minix）</td>
-</tr>
-<tr>
-<td>地址空间随即化（Minix）</td>
-</tr>
-<tr>
-<td>集随机 UID 沙盒（Minix）</td>
-</tr>
-</tbody></table>
-<hr>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/network_seeurity/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/model_02/" >线性模型在训练中的细节</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><p>线性模型优点是形式简单，易于建模。同时有形式更为强大的非线性模型通过在线性模型的基础上引入层级结构或高维映射得出，其中w表达属性在预测中的重要性，具有很高可解释性数据集可分为：<br>    (回归&#x3D;‘预测’	分类&#x3D;‘标注’)</p>
-<h2 id="线性模型进行回归任务"><a href="#线性模型进行回归任务" class="headerlink" title="线性模型进行回归任务"></a>线性模型进行回归任务</h2><ol>
-<li>给定数据集中使用线性回归模型以尽可能准确地预测实值输出标记，先讨论“二分类问题”，此时我们忽略属性的下标，对离散属性，若属性间存在“序“关系可通过连续化将其转化为连续值，使用“0 1“进行转化或者”0 0.5 1“属性转化。</li>
-<li>如何确定w和b，本质来说是如何衡量f(x)与y之间的差别，我们可以使用均方误差对回归进行性能度量，同时均方误差对应的具体方法是：欧几里得距离、最小二乘法等，对于多元线性回归，就需要引入矩阵思想是把数据看作矩阵，可分为正定矩阵或满秩矩阵以及逆矩阵的情况，现实中往往不会是满秩矩阵以为我们会遇到大量的变量、其数目甚至超过样本本身，从矩阵角度看就是列多于行，就会得出多个w所以这个时间就需要引入正则化项。</li>
-<li>当我们把线性模型预测值逼近于真实标记y时，就要把对数作为线性模型逼近的目标其实就是对数线性模型，求取输入空间到输出空间的非线性函数映射，其中对数函数是起到预测值与真实标记联系的作用</li>
-<li>广义线性模型的参数估计是通过加权最小二乘法或极大似然法进行，其中对数线性模型是广义线性模型的特例</li>
-</ol>
-<h2 id="线性模型进行分类任务"><a href="#线性模型进行分类任务" class="headerlink" title="线性模型进行分类任务"></a>线性模型进行分类任务</h2><ol>
-<li>对于二分类任务将数据集转化为“0 1”，“0 0.5 1”的值，理想状态是“单位阶跃函数“，预测值大于0是正例，小于0是反例，预测值为0可以任意判断，因为单位阶跃函数不连续所以不能直接用作式中，可以使用对数几率函数进行替代同时对数几率函数其实是‘Sigmoid函数’，其实是将正例与反例的比值反映x作为正例的可能性，对几率对数则取得到”对数几率“，所以实际是在用线性回归模型的预测结果去逼近真实标记的对数几率&#x3D;”对数几率回归模型-Logit regression“，尽管是回归的name，其实是分类学习方法</li>
-<li>”对数几率回归模型-Logit regression“的优点是无需事先假设数据分布，可以预测出“类别”还可以得到近似概率预测</li>
-<li>”对数几率回归模型-Logit regression“的模型优化（对率回归求解的目标函数是任意阶可凸函数），可以通过极大似然法来对数据集进行对率回归模型最大化“对数似然，同时经典的数值优化算法如：梯度下降法、牛顿法等都可以求得其最优解</li>
-<li>“线性判别分析-Linear Discriminant Analysis”，LDA与Fisher模型的不同在于LDA假设各类样本的协方差矩阵相同且满秩，LDA就是在train data上面设法将样例投影到一条直线上使得同类样例的投影点尽可能接近、异类样例尽量远离，在对新样本进行分类将其投影到同样的直线上面，以此进行不断迭代。</li>
-<li>若希望LDA上面的投影点尽可能接近，可以使协方差可能下相反若使异类样例的投影点远离可让类中心之间的距离近可能最大，考虑异类、同类可得到与最大化的目标为“类内散度矩阵”和“类间散度矩阵”，将两者进行比值为LDA欲最大化目标，即“广义瑞利商”&#x3D;w</li>
-<li>如何确定w，因为分子、分母都是关于w的二次项因此与w的长度无关，只与其方向有关，不失一般性引入拉格朗日乘子法，实际中考虑数值解的稳定性是对Sw进行奇异值分解。LDA也可以从贝叶斯决策的角度阐述并证明，当两分类data同先验、满足高斯分布且协方差相等时，LDA可达最优</li>
-<li>LDA推广到多分类任务中，假定存在N类，且第i类示例数为Mi，定义为“全局散度矩阵”，同时多分类的LDA有多种角度实现方法使用Sb，Sw,St三者中任何两种即可，常见的一种实现是采用优化目标</li>
-<li>若将W视为投影矩阵，则多分类LDA可以通过投影来减少样本点的维数，且投影过程中使用了类别信息，因此LDA也常是监督降温技术</li>
-</ol>
-<h2 id="线性模型进行多分类任务"><a href="#线性模型进行多分类任务" class="headerlink" title="线性模型进行多分类任务"></a>线性模型进行多分类任务</h2><ul>
-<li>多分类学习的思路是“拆解法”也就将每个二分类任务训练为若干个二分类任务求解，在测试时对这些分类器的预测结果进行集成以获得最终的多分类结果。<br>拆分策略分为“O VS O”“O VS R”“M VS M”,</li>
-<li>“O VS O”就是将N个类别进行两两配对产生N&#x2F;(N-1)&#x2F;2个分类结果，最终结果可通过投票产生即把被预测得最多的类别作为最终分类结果；“O VS R”是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练Ｎ个分类器，在测试时若仅有一个分类预测为正类则对应的类别标记作为最终分类结果但是如果有多个分类器预测为正类，则通常考虑各分类器的预测置信度，选择置信度最大类别标记作为分类结果。</li>
-<li>“M VS M”是将每个若干个类作为正类，若干个类其他类作为反类，最常用的“M VS M”J技术“纠错输出码”即是ＥＣＯＣ，ＥＣＯＣ工作过程分为编码、解码两部分，其中编码是对Ｎ个类做Ｍ次划分，每次产生正类和反类，形成二分类训练集，共产生Ｍ个训练集训练出Ｍ个分类器，解码是对Ｍ个分类器进行预测，将这个编码与每个类别进行各自编码比较，返回其中距离最小的类别为预测最终结果。类别划分“编码矩阵”指定，“编码矩阵”有多种形式主要有二元码（正、反类）、三元码（正、反、停用类）。</li>
-</ul>
-<h3 id="为什么要叫做“纠错输出码”"><a href="#为什么要叫做“纠错输出码”" class="headerlink" title="为什么要叫做“纠错输出码”"></a>为什么要叫做“纠错输出码”</h3><p>因为测试阶段，ＥＣＯＣ编码对分类器的错误很有容忍度和修正能力，ＥＣＯＣ编码越长，纠错能力越强，然而编码越长意味着所需训练的分类器越多，计算、存储开销都会越大，但是对于同等长度的编码上来说，任意两个类别之间的编码距离越远，则纠错能力越强，因此在码长较小时可根据这个原则计算出理论最优编码。<br>类别不平衡问题：在分类任务中不同类别的训练样例数目差别很大的情况。<br>“训练集是真实样本总体的无偏采样“这个假设往往不成立，因为真实训练集未必有效基于训练集观测几率来进行推断所以目前技术有三类做法：“欠采样”、“过采样”、“阈值移动”</p>
-<ul>
-<li>“欠采样”是直接对训练集中反例进行训练就是去除一些反例使得正、反数目接近再进行学习</li>
-<li>“过采样”是直接对训练集中正例进行训练就是增加一些正例、反例数目接近然后在进行学习</li>
-<li>“阈值移动”是对原始训练集进行训练，但在用训练好的分类器进行预测时将“再缩放”嵌入到其决策过程中</li>
-</ul>
-<h3 id="欠采样-｜-过采样"><a href="#欠采样-｜-过采样" class="headerlink" title="欠采样 ｜ 过采样"></a>欠采样 ｜ 过采样</h3><p>“欠采样”的时间开销远小于“过采样”，前者是丢弃很多反例，后者是增加很多正例，但是“过采样”不能随便对初始正例样本进行重复采样会导致“过拟合”的发生。<br>“过采样”的代表算法ＳＭＯＴＥ是通过对ｔｒａｉｎ中正例进行插值来产生额外的正例，“欠采样”的代表算法ＥａｓｙＥｎｓｅｍｂｌｅ则是利用集成学习机制将反例划分为若干个集合供不同学习器使用，看起来都使用了“欠采样”可从全局来看不会丢失重要信息</p>
-<h3 id="多分类学习"><a href="#多分类学习" class="headerlink" title="多分类学习"></a>多分类学习</h3><p>多分类学习中每个样本仅属于一个类别，但是如果每个样本同时预测多个类别标记则是多标记学习。<br>“再缩放”也是“代价敏感学习”的基础，“代价敏感学习研究最多的是基于类别的“误分类代价”</p>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/model_02/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/josyaaa/2022/05/12/mdel_01/" >决策树在训练中的细节</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2022-05-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>决策树是基于树结构来进行决策，也恰好是人类在面临决策问题时一种很自然的处理机制，一般的一颗决策树包含一个根节点、若干个内部节点、若干个叶节点，叶节点对应于决策结果，其他每个结点则对应于一个属性测试，其中每个节点包含的样本集合根据属性测试的结果被划分到子节点中，根节点包含样本全集，从根节点到每个叶节点的路径对应一个判定测试序列。</p>
-<h2 id="决策树的目的"><a href="#决策树的目的" class="headerlink" title="决策树的目的"></a>决策树的目的</h2><p>决策树的目的时产生一颗泛化能力强可以处理未见示例能力强的决策树，基本流程遵循“分而治之“，决策树本质是”递归过程“，但是在决策树中导致递归返回的情况有三种:</p>
-<ol>
-<li>当前节点包含的样本全属于同一类别不需要划分</li>
-<li>当前属性集为空或是所有样本在所有属性上取值相同无法划分<br>3.当前节点的样本集为空不能划分,对于2我们常常是利用当前节点的“后验分布“，对3我们常常是把父节点的样本分布作为当前节点的“先验分布”</li>
-</ol>
-<h2 id="决策树划分选择"><a href="#决策树划分选择" class="headerlink" title="决策树划分选择"></a>决策树划分选择</h2><p>决策树学习的关键是如何选择最优划分属性，我们希望决策树的分支节点所包含的样本尽可能属于同一类别也就是节点的“纯度“越高</p>
-<h2 id="“纯度“的方法"><a href="#“纯度“的方法" class="headerlink" title="“纯度“的方法"></a>“纯度“的方法</h2><ul>
-<li>“信息增益“是度量样本集合纯度最常用的指标，”信息增益“越高意味着属性进行划分所获的”纯度“越高，所以用”信息增益“来进行决策树的划分属性选择，ID3就是以”信息增益“为准则划分属性，但是”信息增益“对取值数目较多的属性有所偏好，为减少偏好所带来的影响，C4.5不直接使用”信息增益“而是使用“增益率“来选择最优划分属性，然而”增益率“对样本较少的属性有所偏好，因此C4.5不是直接选择”增益率“最大的候选划分属性，而是使用启发式，先从候选划分属性中找出”信息增益“高于平均水平的属性，在从中选择”增益率“较高的属性</li>
-<li>“基尼指数“是反映data中随机抽取两个样本，其类别不一致的概率”基尼指数“越小data的纯度越高，最下属性即为最优划分属性，CART就是用”基尼指数“来选择划分属性的，同时可以应用于”分类“和”回归“任务</li>
-<li>“剪枝处理“是对于决策树”过拟合“的主要方法，因为在尽量正确分类的过程中会造成决策树分支过多，就导致train自身将一些特点当作普遍特点就会造成”过拟合“所以就需要主动去掉一些分支来降低过拟合的风险。其中”剪枝处理“的策略有”预剪枝“和”后剪枝“，”预剪枝“是指在决策树过程中对每个节点划分先进行估计，当前节点不能带来决策泛化性能提升则停止并将当前节点标记为叶节点；”后剪枝“则是在train中生成完整的决策树然后自底向上对非叶节点进行考察，如果能将对应子树替换为叶节点能够提高决策树的泛化能力就将子树替换为叶节点</li>
-</ul>
-<h2 id="如果判断决策树泛化性能的提升"><a href="#如果判断决策树泛化性能的提升" class="headerlink" title="如果判断决策树泛化性能的提升"></a>如果判断决策树泛化性能的提升</h2><h2 id="可以预留部分test以进行性能的评估"><a href="#可以预留部分test以进行性能的评估" class="headerlink" title="可以预留部分test以进行性能的评估"></a>可以预留部分test以进行性能的评估</h2><ul>
-<li>“预剪枝“是基于”信息增益“，”预剪枝“使得决策树的很多分支都没有”展开“这不仅降低了过拟合的风险还减少了决策树训练的开销和测试时间开销，但是有些分支的当前划分虽然不能提升泛化性能甚至可能导致泛化性能暂时下降但在其基础上进行后续划分可能导致性能显著提升但是由于”预剪枝“本质上”贪心“禁止分支展开会带来”欠拟合“风险</li>
-<li>“后剪枝“比”预剪枝“保留更多的分支但是”欠拟合“的风险很小泛化性能优于但是在生产完全决策树之后要对决策树自底向上进行检查，所以时间开销就很大。</li>
-</ul>
-<h2 id="决策树中连续值怎样处理"><a href="#决策树中连续值怎样处理" class="headerlink" title="决策树中连续值怎样处理"></a>决策树中连续值怎样处理</h2><p>现实学习任务常常遇到连续属性，并且连续属性的可取值数目不再有限就不能直接对连续属性的可取值来对节点进行划分就需要连续属性离散化，最常用二分类法对连续值属性进行处理，C4.5采用的也是这样机制，与离散属性节点划分不同连续属性划分该属性还可作为其后代节点划分属性。</p>
-<h2 id="决策树怎样缺失值处理"><a href="#决策树怎样缺失值处理" class="headerlink" title="决策树怎样缺失值处理"></a>决策树怎样缺失值处理</h2><p>现实中样本总会是不那么完美的就会有样本的属性缺失值问题产生，但是如果简单放弃大量缺失值使用无缺失部分来train，对data来说是非常大的浪费。如果我们要参与缺失值就需要解决两个问题：</p>
-<ul>
-<li>如何在属性缺失情况下进行划分属性选择？</li>
-</ul>
-<p>1、Data里面属性并没有缺失值问题就只需要需要判断属性的优略即可<br>2、Data里面属性中的属性子集所占比<br>3、Data里面属性中属性子集取值为属性方所占的比<br>（ 三种所占比都为1，可以给每个样本赋予一个权重去定义，通过调整权重参数去解决属性缺失值如何进行划分属性的问题 ）</p>
-<ul>
-<li>在给定划分属性上面且有缺失值如何进行样本划分？</li>
-</ul>
-<p>1、对每个样本划入与其取值对应的子节点，且样本的权值在子节点中保持为特定的参数，若每个样本划分属性上的取值未知，就需要将每个样本划分所有子节点中调整为权重*（无缺失值样本中在属性上取值属性子集的样本所占比例）<br>2、多变量决策树是使用斜的划分而不是轴划分，这样就可以实现较为复杂的多变量决策树划分，与单变量决策树不同的是多变量决策树不是为每一个非叶点寻找一个最优划分属性而是试图建立一个合适的线性分类器，OCI先贪心的寻找每个属性的最优权值，在局部优化的基础上再对分类边界进行随机扰动以试图找到更好的边界；<br>3、直接引入线性分类器的最小二乘法，还有将再决策树节点上嵌入神经网络，所以结合这两种优势就有了“感知机“、”神经网络“<br>4、“增量学习“有些决策树可以进行，”增量学习“就是接收到新样本后可对已学得的模型进行调整而不用重新学习，主要是通过调整分支路径上的划分属性次序来对树进行部分重构，ID4、ID5R、ITI等，可以有效降低每次接收到新样本后训练时间开销但多步增量学习后的模型会基于全部数据训练model会有差别。</p>
-
-	
-	</div>
-  <a type="button" href="/josyaaa/2022/05/12/mdel_01/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-
-		</div>
-
-		<!-- pagination -->
-		<div>
-  		<center>
-		<div class="pagination">
-
-   
-    
-     <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
-      
-
-        <a href="/josyaaa/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
- 
-       <a href="/josyaaa/page/3/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
+<div class="hd">
+    <ol class="breadcrumb">
+        
+            <li><a class="ba" href="/josyaaa/about">关于我👀</a></li>
+        
+            <li><a class="ba" target="_blank" rel="noopener" href="https://www.linkedin.com/in/%E9%91%AB-%E7%AC%A6-05429722b/">Linkedin🎉</a></li>
+        
+            <li><a class="ba" href="https://github.com/josyaaa">GitHub🐒</a></li>
         
 
-  
+            
+<script src="/josyaaa/libs/jquery.min.js"></script>
+
+            
+<script src="/josyaaa/js/search.js"></script>
+
+            
+                <form class="site-search-form">
+                    <i class="fa fa-search" id="search-logo"><input type="text" id="local-search-input" class="st-search-input" /></i>
+                </form>
+                <div id="local-search-result" class="local-search-result-cls"></div>
+            
+            <script type="text/javascript" id="local.search.active">
+                var inputArea       = document.querySelector("#local-search-input");
+                var getSearchFile = function(){
+                    var path = "/search.xml";
+                    searchFunc(path, 'local-search-input', 'local-search-result');
+                }
+                inputArea.onfocus = function(){ getSearchFile() }
+
+                var $resetButton = $("#search-form .fa-times");
+                var $resultArea = $("#local-search-result");
+
+                inputArea.oninput = function(){ $resetButton.show(); }
+                resetSearch = function(){
+                    $resultArea.html("");
+                    document.querySelector("#search-form").reset();
+                    $resetButton.hide();
+                    $(".no-result").hide();
+                }
+                inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+                //No search result
+                $resultArea.bind("DOMNodeRemoved DOMNodeInserted", function(e) {
+                    if (!$(e.target).text()) {
+                        $(".no-result").show(100);
+                    } else {
+                        $(".no-result").hide();
+                    }
+                })
+            </script>
+
+    </ol>
+    <hr>
+</div>
+<div class="hd">
+    
+    
+        
+        
+            <div class="titlex">
+                <p><span class="jing"></span><span style="color: #6d9ee7;"> 公元</span> 
+                 2022年 🕛
+                </p>
+            </div>
+            
+        
+        <a class="flink" href="/josyaaa/2022/05/12/fault-tolerance/">
+            <div class="list">
+                <div class="postname">
+                    分布式系统 V3.0
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/design/">
+            <div class="list">
+                <div class="postname">
+                    DolphinScheduler
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/database-securty/">
+            <div class="list">
+                <div class="postname">
+                    数据库逻辑
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/copy/">
+            <div class="list">
+                <div class="postname">
+                    分布式系统 V2.0s
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/authenticate/">
+            <div class="list">
+                <div class="postname">
+                    身份认证特征底层逻辑
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/c2c/">
+            <div class="list">
+                <div class="postname">
+                    端点被感染后的C&amp;C流量
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/SDN/">
+            <div class="list">
+                <div class="postname">
+                    SDN 软件定义网络
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/network_seeurity/">
+            <div class="list">
+                <div class="postname">
+                    实验目录
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/model_02/">
+            <div class="list">
+                <div class="postname">
+                    线性模型在训练中的细节
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
+        
+        
+        <a class="flink" href="/josyaaa/2022/05/12/mdel_01/">
+            <div class="list">
+                <div class="postname">
+                    决策树在训练中的细节
+                </div>
+                <div class="posttime">
+                    五月 12日
+                </div>
+            </div>
+        </a>
+    
 </div>
 
-  		</center>
-		</div>
-
-		
-		
-	</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
-
-
-		
-			
-		
-			
-
-		
-			
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
+    <div class="footer" id="footer">
+    <p><h4>Copyright © 2022 | Author: josyaaa | Theme by <a class="theme-author" href="https://github.com/josyaaa" style="font-size:14px; color: #969696">hacking</a></h4>
     
-      <li>
-        <a href="/josyaaa/2022/05/30/ids/" ><i class="fa fa-file-o"></i>IDS 逻辑和规则</a>
-      </li>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
     
-      <li>
-        <a href="/josyaaa/2022/05/29/cloud attack/" ><i class="fa fa-file-o"></i>云基础设施攻击方式逻辑</a>
-      </li>
-    
-      <li>
-        <a href="/josyaaa/2022/05/22/eternalbule/" ><i class="fa fa-file-o"></i>forget a msfconsole using</a>
-      </li>
-    
-      <li>
-        <a href="/josyaaa/2022/05/22/how to data set/" ><i class="fa fa-file-o"></i>trade and attack tree</a>
-      </li>
-    
-      <li>
-        <a href="/josyaaa/2022/05/15/assign/" ><i class="fa fa-file-o"></i>大型软件架构逻辑框架</a>
-      </li>
-    
-  </ul>
-</div>
+    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
+        <input type="checkbox" name="switch" id="update_style">
+        <span class="el-switch-style"></span>
+    </label>
 
-		
-			
-
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-	
-</div> <!-- row-fluid -->
-	</div>
-  </div>
-  <div class="container-narrow">
-  <footer> <p>
-  &copy; 2022 josyaaa
-  
-      when meets RED to BLUE ...<a href="https://josyaaa.github.io/" target="_blank">josyaaa's blog</a>,<a href="https://github.com/josyaaa?tab=repositories">josyaaa's github</a><a href="http://getbootstrap.com/" target="_blank"></a><a href="http://getbootstrap.com/" target="_blank"></a>.
-     <br> SCDAD/BIG DATA/MALWARE <a href="http://github.com/wzpan/hexo-theme-freemind/"></a> most good at leading tech
+    <!--         <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script> -->
 </p>
- </footer>
-</div> <!-- container-narrow -->
-  
+</div>
+
+<input type="hidden" id="web_style" value="black">
+<input type="hidden" id="valine_appid" value="">
+<input type="hidden" id="valine_appKey" value="">
+
+<script src="/josyaaa/libs/jquery.min.js"></script>
 
 
-  
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
+<script src="/josyaaa/libs/highlight/highlight.pack.js"></script>
 
-<script src="/josyaaa/js/jquery.imagesloaded.min.js"></script>
-<script src="/josyaaa/js/gallery.js"></script>
-<script src="/josyaaa/js/bootstrap.min.js"></script>
-<script src="/josyaaa/js/main.js"></script>
-<script src="/josyaaa/js/search.js"></script> 
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
 
+<script src="/josyaaa/js/js.js"></script>
 
-<link rel="stylesheet" href="/josyaaa/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/josyaaa/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+<style type="text/css">
+.v * {
+color: #698fca;
+}
+.v .vlist .vcard .vhead .vsys {
+color: #3a3e4a;
+}
+.v .vlist .vcard .vh .vmeta .vat {
+color: #638fd5;
+}
+.v .vlist .vcard .vhead .vnick {
+color: #6ba1ff;
+}
+.v a {
+color: #8696b1;
+}
+.v .vlist .vcard .vhead .vnick:hover {
+color: #669bfc;
+}
+</style>
 
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/josyaaa/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
-
+    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 </body>
-   </html>
+</html>
